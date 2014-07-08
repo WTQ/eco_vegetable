@@ -1,0 +1,10 @@
+.settings
+.settings/
+.buildpath
+.project
+application/config/database.php
+application/logs/
+www/static/newuser/*
+www/goods_img/*
+www/uploads/goods_img
+.DS_Store

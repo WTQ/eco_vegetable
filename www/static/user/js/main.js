@@ -1,0 +1,125 @@
+/**
+ * 主要的JS文件，主要是基础函数的封装
+ *
+ * @author 风格独特
+ * @version 1.0 2014-05-18
+ */
+
+
+/**
+ * 请求数据端的URL
+ */
+var site_url = '';
+
+/**
+ * 商品分页数
+ */
+var goods_page = 10;
+
+/**
+ * 生成URL函数
+ */
+function url(uri) {
+	return site_url + uri;
+}
+
+/**
+ * panel跳转函数
+ */
+function redirect(panel, newtab, goback) {
+	newtab = arguments[1] || false;
+	goback = arguments[2] || false;
+
+	$.ui.loadContent(panel, newtab, goback, 'none');
+}
+
+/**
+ * 提取URI中的参数值
+ * 参数的格式是  #main/name1/value1/name2/value2
+ */
+function get_param(name) {
+	var reg = new RegExp("#(.+)\/" + name + "\/(.+?)(\/|$)");
+	var url = "" + window.location;
+	var r = url.match(reg);
+	if (r != null) {
+		return r[2];
+	} else {
+		return null;
+	}
+}
+
+/**
+ * 绑定a的点击操作，使相通panel切换，当参数不同时panel能够刷新
+ */
+$.ui.ready(function() {
+	$('nav a').click(function() {
+		var reg = new RegExp("(#.+?)(\/|$)");
+		target = $(this).attr('href');
+		if (target == null) {
+			return;
+		}
+		r = target.match(reg);
+		if (r == null) {
+			return;
+		}
+
+		what = $.query(r[1]).get(0);
+
+		if (what === $.ui.activeDiv) {
+			var old_target = "" + window.location;
+			old_target = old_target.substr(old_target.indexOf('#'));
+			if (old_target !== target) {
+				window.location = target;
+				sort_change();
+			}
+		}
+	});
+});
+
+/**
+ * 默认初始化的操作
+ */
+$.ui.ready(function() {
+	// 设置sidemenu的宽度
+	$.ui.setLeftSideMenuWidth("180px");
+	// 设置sidemenu在tablet上默认关闭
+	$.ui.disableSplitView();
+	// 去掉header的滑动效果
+	$.ui.animateHeaders = false;
+	// 修改默认的data-transition效果
+	$.ui.availableTransitions["default"] = $.ui.noTransition;
+	// 关闭OStheme
+	$.ui.useOSThemes = false;
+
+	load_entry();
+});
+
+/**
+ * 加载入口页面时的跳转
+ */
+function load_entry() {
+	// 判断初始化panel的加载
+	var shop_id = window.localStorage['shop_id'];
+	if (shop_id > 0) {
+		redirect('#index');
+	} else {
+		redirect('#position');
+	}
+}
+
+/**
+ * 显示Mask层
+ */
+function load_mask() {
+	//$(id).append('<div class="load_mask"></div>');
+	//$.ui.blockUI(.1);
+	$.ui.showMask("Loading...");
+}
+
+/**
+ * 隐藏Mask层
+ */
+function hide_mask() {
+	//$.ui.unblockUI();
+	$.ui.hideMask();
+}

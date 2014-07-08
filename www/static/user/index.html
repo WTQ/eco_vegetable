@@ -1,0 +1,840 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<title>手机小卖部</title>
+
+<!-- 样式文件 -->
+<link rel="stylesheet" type="text/css" href="css/af.ui.css" />
+<link rel="stylesheet" type="text/css" href="css/icons.css" />
+<link rel="stylesheet" type="text/css" href="css/user.css" />
+
+<!-- 模板解析的JS -->
+<script type="text/javascript" charset="utf-8" src="js/template.js"></script>
+
+<!-- appframework的核心库 -->
+<script type="text/javascript" charset="utf-8" src="js/appframework.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/appframework.ui.min.js"></script>
+
+<!-- appframework的插件 -->
+<script type="text/javascript" charset="utf-8" src="js/af.plugins.min.js"></script>
+
+<!-- 开发的JS -->
+<script type="text/javascript" charset="utf-8" src="js/main.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/cart.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/goods.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/vito.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/position_search.js"></script>
+
+</head>
+
+<body>
+<div id="afui">
+	<div id="content">
+		<!-- 默认加载页 -->
+		<div data-ignore-slide id="entry" title="" data-load="load_entry" class="panel" selected="true" data-footer="none" data-header="none" style="overflow:hidden"></div>
+
+    	<!--首页-->
+    	<div data-ignore-slide id="index" title="" class="panel" data-load="shop_info" data-footer="common_footer" data-header="none" data-tab="tab_index" style="overflow:hidden">
+        	<div class="header_index">
+            	<div class="top_bar">
+                	<div class="search"><a href="#search_index" class="bu_search">搜索</a></div>
+                </div>
+                <div class="shop_statu">
+                	<span class="shop" id="shop_name">
+                	<!-- 小区- 商铺名称 -->
+                	</span>
+                    <div class="open" id="shop_open">
+					<!-- 营业状态 -->
+					</div>
+                    <span class="time" id="shop_time">
+					<!-- 营业时间 -->
+					</span>
+                    <div class="cl"></div>
+                </div>
+            </div>
+            <div id="shop_scrolling">
+            	<div id="body1_image"></div>
+            </div>
+        </div>
+
+        <!--搜索页面-->
+        <div data-ignore-slide id="search_index" title="" class="panel" data-header="none" data-footer="none" data-load="goods_search" style="overflow:hidden">
+        	<div class="h_header header_search">
+            	<div>
+                	<form id="search_form"><input autocomplete="off" id="search_input" type="search" placeholder="搜索" class="search2"></form>
+                </div>
+                <div><a onclick="input_cancel('search_input')" class="cancel_search">取消</a></div>
+            </div>
+            <div id="search_content">
+                <div class="hist_list" id="search_history">
+                	<!-- 显示搜索历史 -->
+                    <ul class="list" id="search_history_list">
+                    </ul>
+                </div>
+                <div id="search_wrap">
+                	<div class="search_goods" id="search_results"></div>
+                </div>
+            </div>
+        </div>
+        <!-- 搜索历史记录模板 -->
+        <script id="tmp_search_hist" type="text/html">
+        	<% for(var i = 0; i < kws.length; ++i) { %>
+        		<li><%= kws[i] %></li>
+        	<% } %>
+        </script>
+
+
+        <!--分类页面-->
+        <div id="sort" title="" class="panel" data-header="none" data-load="goods_info" data-footer="common_footer" data-tab="tab_sort" style="overflow:hidden">
+        	<!--分类页面的header-->
+            <div class="h_header">
+            	<div class="search_sort">
+                	<div class="menuButton" onclick="$.ui.toggleLeftSideMenu()" style="display:block; float:left;"></div>
+                    <div><a href="#search_index" class="search1">搜索</a></div>
+                    <div class="cl"></div>
+                </div>
+            </div>
+            <div class="amount">
+            	<div class="total">总金额</div>
+                <div class="total_price"><!--显示总额--></div>
+            </div>
+            <div class="text_sort" id="low_price"></div>
+            <!-- 商品列表 -->
+            <div id="goods_wrap">
+	            <div id="goods_all">
+					<div id="goods_scrolling"></div>
+	            </div>
+            </div>
+
+        </div>
+
+<!-- 商品列表html模版 -->
+<script id="goods_tab" type="text/html">
+<% for (var i = 0; i < goods.length; i++) { %>
+<a href="#goods_index/goods_id/<%= goods[i]['goods_id'] %>">
+    <div class="goods">
+        <div class="goods_image"><img src="/goods_img/<%= goods[i]['goods_id'] %>/0.90.jpg"></div>
+        <div class="goods_detail">
+            <div class="goods_title"><%= goods[i]['name'] %></div>
+            <div class="goods_price">
+                <div class="price">
+                    <div class="unit_price">单价</div>
+	<% if (goods[i]['stock'] == 1) { %>
+                    <div class="cost"><%= goods[i]['price'] %>&nbsp;&nbsp;<span>元</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="add" goods_id="<%= goods[i]['goods_id'] %>" price="<%= goods[i]['price'] %>" name="<%= goods[i]['name'] %>"></div><% } else { %>
+					<div class="cost cost1"><%= goods[i]['price'] %>&nbsp;&nbsp;<span>元</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="sold_out"></div><% } %>
+    </div>
+</a>
+<% } %>
+</script>
+
+		<!--购物车商品列表页面-->
+        <div data-ignore-slide id="account_cart" title="" class="panel" data-header="none" data-load="load_cart" data-footer="common_footer" data-tab="tab_cart" style="overflow:hidden">
+         	<div class="h_header1"><div id="settle_goods">结算商品</div></div>
+            <div class="amount">
+            	<div class="total">总金额</div>
+                <div class="total_price"><!--显示总额--></div>
+            </div>
+            <div id="cart_goods_scrolling"><!-- 显示购物车中商品 --></div>
+        </div>
+
+<!-- 购物车商品列表html模版 -->
+<script id="tmp_my_cart" type="text/html">
+<% for (var i = 0; i < cart.length; i++) { %>
+<a href="#goods">
+	<div class="cart_goods" goods_id="<%= cart[i]['goods_id']%>" price="<%= cart[i]['price']%>" name="<%= cart[i]['name']%>">
+		<div class="goods_image">
+            <img src="/goods_img/<%= cart[i]['goods_id'] %>/0.90.jpg" />
+            <% if (cart[i]['settle'] == 0) { %>
+                <div class="shortage2">下次<br />购买</div>
+            <% } %>
+        </div>
+		<div class="goods_detail">
+			<div class="goods_title"><%= cart[i]['name']%></div>
+			<div class="goods_price">
+ 				<div class="price1">
+					<div class="unit_price">单价</div>
+					<div class="cost"><%= cart[i]['price'] %>&nbsp;&nbsp;<span>元</span></div>
+				</div>
+				<div class="goods_num">
+					<div class="quantity">数量</div>
+					<div class="num">
+						<div class="number"><%= cart[i]['qty'] %></div>
+						<div class="increase" goods_id="<%= cart[i]['goods_id']%>"><!--加1按钮--></div>
+						<div class="decrease" goods_id="<%= cart[i]['goods_id']%>"><!--减1按钮--></div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="swipe_left" style="display:none">
+            <div class="swipe_left1" goods_id="<%= cart[i]['goods_id'] %>">下次<br />购买</div>
+            <div class="swipe_left2" goods_id="<%= cart[i]['goods_id'] %>">删除</div>
+        </div>
+	</div>
+</a>
+<% } %>
+</script>
+
+        <!--购物车确认订单页面-->
+        <div data-ignore-slide id="cart" title="" class="panel" data-header="none" data-load="cart_confirm" data-footer="account_footer" style="overflow:hidden">
+            <div class="h_header">
+                <a class="backButton" href="#account_cart"></a>
+                <div>提交订单</div>
+            </div>
+            <footer id="account_footer">
+                <div class="total_amount">
+                    <div id="total_type" class="total">距离起送金额还差</div>
+                    <div class="total_price">15&nbsp;元</div>
+                </div>
+                <!--不加order_shortage是满起送价，加了是不满-->
+                <!--<div id="confirm_type" class="account_goods order_shortage">-->
+                <div id="confirm_type" class="account_goods">
+                    <div class="confirm_order">确认订单</div>
+                </div>
+
+                <div class="order_info">
+                    <div class="order_info1">
+                        <table width="100%" border="0">
+                          <tr>
+                            <td>配送地址</td>
+                          </tr>
+                          <tr>
+                            <td>联系电话</td>
+                          </tr>
+                          <tr>
+                            <td>付款方式</td>
+                          </tr>
+                          <tr>
+                            <td>优惠信息</td>
+                          </tr>
+                        </table>
+                    </div>
+                    <div class="order_info2">
+                        <table width="100%" border="0">
+                          <tr>
+                            <td id="user_address"><!--配送地址--></td>
+                          </tr>
+                          <tr>
+                            <td id="user_phone"><!--联系电话--></td>
+                          </tr>
+                          <tr>
+                            <td>现金<!--付款方式--></td>
+                          </tr>
+                          <tr>
+                            <td class="fav"><!--优惠信息-->
+                            <select id="shop_cuopons" class="fav_select">
+                                <!-- 套用优惠信息HTML模版 -->
+                            </select>
+                            </td>
+                          </tr>
+                        </table>
+                    </div>
+                </div>
+            </footer>
+            <div id="cart_goods_scrolling_2">
+                <!--套用购物车商品列表HTML模板-->
+            </div>
+        </div>
+
+<!-- 订单确认中可用的优惠信息HTML模版 -->
+<script id="available_coupons" type="text/html">
+    <option value="0">查看可用优惠</option>
+    <% for (var i = 0; i < coupon.length; i++) {
+        if (total_price >= coupon[i]['content']['full']) { %>
+            <option value="<%= coupon[i]['coupon_id'] %>"><%= coupon[i]['content']['info'] %></option>
+        <% } %>
+    <% } %>
+</script>
+
+        <!--订单提交成功页面-->
+        <div data-ignore-slide id="verify" title="" class="panel" data-footer="none" data-load="load_verify" data-header="none" style="overflow:hidden">
+        	<div class="verify_index">
+                <div class="total_amount1">
+                    <div class="total">总金额</div>
+                    <div class="total_price"><!-- 显示总金额 --></div>
+                </div>
+                <div class="order_text">
+                    <p>订单已发送 等待商家处理</p>
+                    <div>
+                    	超出营业时间的订单<br />
+                    	预计于次日8:30送到
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--单品详情页面-->
+        <div data-ignore-slide id="goods_index" title="" data-header="none" class="panel" data-footer="footer_goods" data-load="load_goods_detail" style="overflow:hidden">
+         	<div class="h_header">
+            	<a class="backButton" onClick="$.ui.goBack()"></a>
+                <div>商品信息</div>
+            </div>
+            <div id="wrap_goods_info">
+            	<div id="goods_info_scrolling"><!-- 填充商品详情html模版 --></div>
+            </div>
+			<footer id="footer_goods">
+				<div id="goods_add_wrap">
+					<a><div class="add_cart">加入购物车</div></a>
+                	<div class="shortage_cart" style="display:none">正在补货...</div>
+                </div>
+			</footer>
+		</div>
+
+<!-- 单品详情html模版 -->
+<script id="tmp_goods_index" type="text/html">
+	<div class="bigimage" id="goods_detail_pic">
+		<img src="/goods_img/<%= goods['goods_id'] %>/0.300.jpg">
+	</div>
+	<div class="goods_text">
+		<div class="goods_title1" id="goods_detail_name"><%= goods['name'] %> <%= goods['unit'] %></div>
+				<div class="price_goods">
+				<div class="price2">
+				<div class="unit_price">单价</div>
+   				<div class="cost<% if (goods['stock'] == 0) { %> cost1<% } %>" id="goods_detail_price">
+                    <%= goods['price'] %> <span>元</span></div>
+				</div>
+				<div class="goods_intr" id="goods_detail_intro"><%= goods['intro'] %></div>
+			</div>
+	</div>
+</script>
+
+        <!--“更多”页面-->
+        <div data-ignore-slide id="more" title="" class="panel" data-header="none" data-footer="common_footer" data-tab="tab_more" style="overflow:hidden">
+        	<div class="h_header">
+            	<div>更多</div>
+            </div>
+            <div>
+                <ul class="more_list">
+                    <li>
+                    	<a href="#myaccount">
+                        	<div class="list_text">我的账户</div>
+                        </a>
+                    </li>
+                    <li>
+                    	<a href="#myorder">
+                        	<div class="list_text">我的订单</div>
+                        </a>
+                    </li>
+                    <li>
+                    	<a href="#mycoupon">
+                        	<div class="list_text">我的优惠券</div>
+                        </a>
+                    </li>
+                    <li>
+                    	<a href="#mysuggestion">
+                        	<div class="list_text">问题反馈</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#invite">
+                        	<div class="list_text">邀请朋友</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!--我的订单-->
+        <div data-ignore-slide id="myorder" title="" class="panel" data-header="none" data-footer="common_footer" data-tab="tab_more" data-load="load_myorder" style="overflow:hidden;background-color:#3D454D;">
+        	<div class="h_header">
+                <a class="backButton" onClick="$.ui.goBack()"></a>
+                <div>我的订单</div>
+            </div>
+            <div class="order">
+            	<div class="order_item">近一个月订单</div>
+                <div>一个月前订单</div>
+            </div>
+            <div id="scrolling_order">
+	            <div class="order_list">
+	            	<!--近一个月订单-->
+	                <div>
+	                </div>
+	                <!--一个月前订单-->
+	                <div class="hide" style="display:none">
+	                </div>
+	            </div>
+	        </div>
+        </div>
+
+<!-- 用户订单列表HTML模版 -->
+<script id="my_order_list" type="text/html">
+<% for (var i = 0; i < orders.length; i++) { %>
+	<a href="#detail/order_id/<%= orders[i]['order_id'] %>">
+	    <div class="ordered">
+	        <div class="order_detail">
+	            <div class="order_number">
+	                <table class="order_table" width="100%" border="0">
+	                  <tr class="list_order">
+	                    <td class="order_list1">订单号</td>
+	                    <td class="order_list2"><%= orders[i]['order_id'] %></td>
+	                  </tr>
+	                  <tr class="list_order">
+	                    <td class="order_list1">下单时间</td>
+	                    <td class="order_list2"><%= orders[i]['add_time_str']%></td>
+	                  </tr>
+	                  <tr class="list_order">
+	                    <td class="order_list1">订单金额</td>
+	                    <td class="order_list3"><%= orders[i]['total_prices'] %>元</td>
+	                  </tr>
+	                  <tr class="list_order">
+	                    <td class="order_list1">优惠信息</td>
+	                    <td class="order_list3"><%= orders[i]['coupon']%></td>
+	                  </tr>
+	                </table>
+	            </div>
+	            <div class="order_status">
+	                <div class="order_status1"><%= orders[i]['stage_name'] %></div>
+	                <div class="order_status2" order_id="<%= orders[i]['order_id']%>">
+						<% if (orders[i]['stage'] == 1) { %>
+						取消
+						<% } else if (orders[i]['stage'] == 2) { %>
+						完成
+						<% } else {} %>
+					</div>
+	            </div>
+	        </div>
+	        <div class="order_image1">
+	            <div class="image_list">
+	            	<% for (var k=0; k < orders[i]['items'].length; k ++ ) { %>
+	                    <div><img src="/goods_img/<%= orders[i]['items'][k]['goods_id']%>/0.90.jpg"></div>
+	                <% } %>
+	            </div>
+	        </div>
+	    </div>
+	</a>
+<% } %>
+</script>
+
+        <!--订单详情-->
+        <div data-ignore-slide id="detail" title="" class="panel" data-header="none" data-footer="common_footer" data-tab="tab_more" data-load ="load_detail" style="overflow:hidden;">
+		 	<div class="h_header">
+		        <a class="backButton" onClick="$.ui.goBack()"></a>
+		        <div>订单详情</div>
+		    </div>
+		    <div id="wrap_ordered"><!-- <div id="scrolling_ordered"> --></div>
+        </div>
+
+<!-- 订单详情HTML模板  -->
+<script id="order_detail" type="text/html">
+	<div class="ordered">
+		<div class="order_detail">
+			<div class="order_number">
+   				<table class="order_table" width="100%" border="0">
+		    		<tr class="list_order">
+						<td class="order_list1">订单号</td>
+					    <td class="order_list2"><%= order['order_id'] %></td>
+					</tr>
+					<tr class="list_order">
+						<td class="order_list1">下单时间</td>
+						<td class="order_list2"><%= order['add_time'] %></td>
+					</tr>
+					<tr class="list_order">
+						<td class="order_list1">订单金额</td>
+						<td class="order_list3"><%= order['total_prices'] %>元</td>
+					</tr>
+					<tr class="list_order">
+						<td class="order_list1">优惠信息</td>
+						<td class="order_list3"><%= order['coupon'] %></td>
+					</tr>
+				</table>
+			</div>
+			<div class="order_status">
+				<div class="order_status1"><%= order['stage_name'] %></div>
+				<div class="order_status2">取消</div>
+			</div>
+		</div>
+	</div>
+	<div class="order1">
+	<% for (var i = 0; i < order['items'].length; i ++ ) { %>
+			<div class="order_image2">
+				<div class="image1"><img src="/goods_img/<%= order['items'][i]['goods_id']%>/0.90.jpg" style="vertical-align:middle;"></div>
+			    <div class="detail">
+			    	<div class="order_title"><%= order['items'][i]['name'] %></div>
+			        <div class="order_price">
+			            <div class="price_left"><span><%= order['items'][i]['price']%></span>元</div>
+			            <div class="price_num">×<span><%= order['items'][i]['quantity']%></span></div>
+			         </div>
+			    </div>
+			</div>
+	<% } %>
+	</div>
+</script>
+
+
+        <!--定位-->
+        <div data-ignore-slide id="position" title="" class="panel" data-header="none" data-footer="position_footer" style="overflow:hidden;">
+            <footer id="position_footer">
+                <a href="#" onclick="redirect('#sign')"><div class="position_sign">已有账号？立即登录</div></a>
+            </footer>
+            <div class="position_content">
+            	<a class="back3" onClick="$.ui.goBack()"></a>
+            	<a href="#position_search" data-transition="none"><div class="zone_name">请输入小区名称关键字</div></a>
+                <div class="name_example">如，北苑家园-茉莉园，可输入“茉莉园”</div>
+            </div>
+        </div>
+
+
+        <!--定位搜索-->
+        <div data-ignore-slide id="position_search" title="" class="panel" data-header="none" data-footer="none" style="overflow:hidden;" data-load="load_positon_search">
+        	<div class="position_content">
+            	<a class="back3" onClick="$.ui.goBack()"></a>
+            	<div class="zone_name">
+                	<form onsubmit="position_search(); return false;">
+                    	<input autocomplete="off" id="zone_input" type="search" placeholder="搜索" class="zone_search" oninput="position_search()" >
+                        <!--oninput监听输入框值变化-->
+                    </form>
+                </div>
+                <div id="search_tips" class="search_list"><!--实时显示匹配结果--></div>
+            </div>
+        </div>
+
+<!-- 小区搜索提示HTML模版 -->
+<script id="tmp_search_tips" type="text/html">
+    <div>
+    <% for (var i = 0; i < result.length; i++) { %>
+        <!--点击该链接跳转到该小区下的商家首页-->
+    	<a href="#index/community_id/<%= result[i]['community_id'] %>/shop_id/<%= result[i]['shop_id'] %>">
+            <%= result[i]['name'] %><!--显示小区名称-->
+        </a>
+    <% } %>
+    </div>
+</script>
+
+		<!--输入配送地址-->
+        <div data-ignore-slide id="position_input" data-load="load_community" title="" class="panel" data-header="none" data-footer="address_verify" style="overflow:hidden;">
+        	<footer id="address_verify">
+            	<div class="verify_address1">确认地址</div>
+            </footer>
+        	<div class="input_content">
+            	<div class="zone_title">
+                    <a class="back1" onClick="$.ui.goBack()"></a>
+                    <span id="zone_title"><!--填充当前选择商铺地址--></span>
+                </div>
+                <div class="address_text2">
+                	<textarea id="address_input" placeholder="请输入详细配送地址..." class="address_input"></textarea>
+                </div>
+                <div class="name_example">如，"A区8号楼5单元302室”</div>
+            </div>
+        </div>
+
+		<!--我的账户-->
+        <div data-ignore-slide id="myaccount" title="" class="panel" data-load="my_account" data-header="none" data-footer="common_footer" data-tab="tab_more" style="overflow:hidden;">
+        	<div class="h_header">
+                <a class="backButton" onClick="$.ui.goBack()"></a>
+                <div>我的账户</div>
+            </div>
+            <div id="wrap_address">
+				<div id="scroller_address" class="accountall"></div>
+            </div>
+        </div>
+
+<!-- 我的账户html模版 -->
+<script id="tmp_myaccount" type="text/html">
+<% if(login == 0) { %>
+   <div class="distribution">手机号</div>
+   <div class="telephone_num">
+   		<a href="#register">
+   			<div class="phone1">当前账户未验证手机号</div>
+   			<div class="phone2">请验证</div>
+   		</a>
+	</div>
+<% } else { %>
+	<div class="distribution">手机号</div>
+    <div class="telephone_num"><%= phone %></div>
+<% } %>
+<div class="distribution">配送地址</div>
+<% if(login == 1) { %>
+	<% for (var i = 0; i < address.length; i++) { %>
+		<% if(address[i]['default'] == 1) { %>
+		<div class="address2 address_verify">
+		<% } else { %>
+		<div class="address2">
+		<% } %>
+    	<a href="#address/address_id/<%= address[i]['address_id'] %>"><%= address[i]['community_name'] %><br /><%= address[i]['name'] %></a>
+    	</div>
+	<% } %>
+<% } else { %>
+<div class="address2 address_verify">
+	<div class="address_text"><%= community_name %><br /><%= address %></div>
+</div>
+<% } %>
+<div class="address5">
+    <a href="#position">配送到其他地址</a>
+</div>
+</script>
+
+        <!--登录页面-->
+    	<div data-ignore-slide id="sign" title="" class="panel" data-header="none" data-footer="sign_footer" style="overflow:hidden">
+        	<footer id="sign_footer">
+            	<div class="signin">登录</div>
+            </footer>
+            <div class="sign_content">
+            	<div class="sign_image">
+                	<div class="back2" onClick="$.ui.goBack()"></div>
+                </div>
+                <div class="sign_text">
+                	<div id="login_error" style="text-align:center; line-height:28px; color: #F00;"><!-- 登录失败提示 --></div>
+                	<div class="telephone">
+                    	<input autocomplete="off" type="text" placeholder="请输入注册时的手机号" name="phone" id="phone">
+                    </div>
+                    <div class="passward_input">
+                    	 <input autocomplete="off" type="password" placeholder="请输入密码" name="password" id="pwd">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--注册页面-->
+        <div data-ignore-slide id="register" title="" class="panel" data-header="none" data-footer="register_footer" style="overflow:hidden">
+        	<div class="h_header">
+                <div class="backButton" onClick="$.ui.goBack()"></div>
+                <div>验证手机</div>
+            </div>
+            <footer id="register_footer">
+            	<div class="explain_text">手机号码仅用于商家与您联系和找回密码</div>
+                <a href="#" onclick="redirect('#sign')"><div class="position_sign">已有账号？立即登录</div></a>
+            </footer>
+            <div class="register_content">
+            	<div class="register_text">还需要一步商品就能送到家！</div>
+            	<div id="phone_error" style="text-align:center;line-height:28px; color: #F00;"></div>
+                <div class="phone_input">
+                	<div >
+                    	<input autocomplete="off" placeholder="请输入手机号" class="phone_left" maxlength=11>
+                    </div>
+                    <div class="send_verifycode">发送验证码</div>
+                </div>
+                <div class="code">
+                	<div >
+                    	<input autocomplete="off" placeholder="请输入验证码" class="verifycode_input" maxlength=6>
+                    </div>
+                	<div class="verify1" id="verify1">验证</div>
+                    <div class="verify2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!--验证手机-->
+        <div data-ignore-slide id="verifyphone" title="" class="panel" data-load="load_verifyphone" data-header="none" data-footer="none" style="overflow:hidden">
+        	<div class="h_header">
+                <a class="backButton" onClick="$.ui.goBack()"></a>
+                <div>验证手机</div>
+            </div>
+        	<div class="register_text">还需要一步商品就能送到家！</div>
+        	<div class="phone_input">
+                <div class="phonenumber">
+                	<!-- 显示手机号 -->
+                </div>
+                <div class="verify_succes">验证成功</div>
+            </div>
+        	<div class="secretcode">
+             	<div >
+             		<input autocomplete="off" id="pwd_1" placeholder="请输入密码" class="secretcode_input" type="password">
+             	</div>
+            </div>
+            <div class="secretcode">
+             	<div >
+             	  <input autocomplete="off" id="pwd_2" placeholder="请再次输入密码" class="secretcode_input" type="password">
+             	</div>
+             	<div class="confirm_code">确认</div>
+            </div>
+            <div id="pwd_error" style="text-align:center;line-height:28px; color: #F00;"><!-- 密码错误提示 --></div>
+        </div>
+
+
+		<!--验证成功页面-->
+        <div data-ignore-slide id="verify_suc" data-load="login_success" title="" class="panel" data-footer="none" data-header="none" style="overflow:hidden">
+        	<div class="verify_index">
+                <div class="verify_suc1">
+                    手机号码仅用于商家与您联系和找回密码
+                </div>
+                <div class="order_text">
+                    <p>账号验证成功</p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--地址变更页面-->
+        <div data-ignore-slide id="address" title="" class="panel" data-header="none" data-footer="address_footer" data-tab="tab_more" style="overflow:hidden">
+        	<div class="h_header">
+                <a class="backButton" onClick="$.ui.goBack()"></a>
+                <div>地址变更</div>
+            </div>
+            <footer id="address_footer">
+                	<div id="address_confirm_change" class="confirm_change">确认变更</div>
+            </footer>
+            <div class="address1">
+                <div class="address_change">变更配送地址店铺也会换哦<br />同时购物车将被清空</div>
+            </div>
+        </div>
+
+        <!--我的优惠券页面-->
+        <div id="mycoupon" title="" class="panel" data-load="coupon_list" data-header="none" data-footer="common_footer" data-tab="tab_more" style="overflow:hidden;">
+        	<div class="h_header">
+                <a class="backButton" onClick="$.ui.goBack()"></a>
+                <div>我的优惠券</div>
+            </div>
+            <div>
+            	<div id="all_coupons" class="coupon">
+                    <div class="list_coupon">
+                    	<div class="coupon_click">
+                            <div class="coupon1">满100送10</div>
+                            <div class="coupon2">2013-10-1至2013-10-20</div>
+                        </div>
+                        <div class="coupon_hide">单笔订单满100元送10元代金券<br />首次下单送325ml可口可乐<br />世界杯期间订单附送啤酒</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- 我的优惠券html模版 -->
+<script id="my_coupon_list" type="text/html">
+<% for (var i = 0; i < coupon.length; i++) { %>
+	<div class="list_coupon">
+		<div class="coupon_click">
+			<!-- 显示订单内容 -->
+        	<div class="coupon1"><%= coupon[i]['content']['info'] %></div>
+        	<!--<div class="coupon2">2013-10-1至2013-10-20</div>-->
+    	</div>
+    	<div class="coupon_hide">单笔订单<%= coupon[i]['content']['info'] %></div>
+	</div>
+<% } %>
+</script>
+
+        <!--问题反馈-->
+        <div data-ignore-slide id="mysuggestion" title="" class="panel" data-header="none" data-footer="suggestion_footer" data-tab="tab_more" style="overflow:hidden;">
+            <div class="h_header">
+                <a class="backButton" onClick="$.ui.goBack()"></a>
+                <div>问题反馈</div>
+            </div>
+            <footer id="suggestion_footer">
+                	<div class="send_suggestion">发送反馈</div>
+            </footer>
+            <div class="suggestion">
+            	<div class="question">
+                	<div class="question_sort">问题类别：</div>
+                    <select id="suggestion_type" class="sort_selected">
+                    	<option value="1">建议投诉和忠告</option>
+                        <option value="2">售后服务</option>
+                        <option value="3">诚聘英才</option>
+                    </select>
+                    <div class="selected_image"></div>
+                </div>
+                <!--<div class="selected_list">
+                	<ul>
+                    	<li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                    </ul>
+                </div>-->
+                <div class="question_detail">
+                	<textarea placeholder="问题描述：" class="suggestion_text"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!--反馈提交-->
+        <div data-ignore-slide id="submit_sug" title="" class="panel" data-footer="none" data-load="load_sug" data-header="none" style="overflow:hidden">
+        	<div class="sug">
+            	<div class="sug_verify">
+                	<p>感谢您的帮助</p>
+                    <div class="sug_text">
+                    	我们已经收到了您的反馈<br />相关问题会在第一时间得到处理
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 邀请朋友 -->
+        <div id="invite" title="" class="panel" data-header="none" data-footer="common_footer" data-tab="tab_more" style="overflow:hidden;">
+        	<div class="h_header">
+                <a class="backButton" onClick="$.ui.goBack()"></a>
+                <div>邀请朋友</div>
+            </div>
+            <div class="invitation_fri">
+                <div class="invitation_code">邀请朋友扫描我的邀请码</div>
+                <div class="invitation_list">
+                    <ul class="invitation">
+                        <li>
+                            <a href="#">
+                            <div class="text_list1">邀请qq好友</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                            <div class="text_list2">邀请微信好友</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                            <div class="text_list3">分享到微信朋友圈</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                            <div class="text_list4">分享到新浪微博</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- end #content -->
+</div><!-- end #afui -->
+
+<!-- 商品的分类导航  -->
+<nav id="goods_list">
+    <ul class="item_list">
+        <a href="#sort/class_id/0"><li>全部商品</li></a>
+        <a href="#sort/class_id/1"><li class="candy">零食素食</li></a>
+        <a href="#sort/class_id/2"><li class="smoke">烟酒饮料</li></a>
+        <a href="#sort/class_id/3"><li class="kid">粮油调料</li></a>
+        <a href="#sort/class_id/4"><li class="drink">日化清洁</li></a>
+        <a href="#sort/class_id/5"><li class="kni">百货杂物</li></a>
+        <a href="#sort/class_id/6"><li class="vege">生鲜蔬菜</li></a>
+        <a href="#sort/class_id/7"><li class="gift">其他扩展</li></a>
+    </ul>
+</nav>
+
+<!-- 公共的footer -->
+<footer data-ignore-slide id="common_footer">
+    <a href="#index" id="tab_index">
+        <div class="index_image"></div>
+        <div class="footer_text">首页</div>
+    </a>
+    <a href="#sort/class_id/0" id="tab_sort">
+        <div class="sort_image"></div>
+        <div class="footer_text">分类</div>
+    </a>
+    <a href="#account_cart" id="tab_cart">
+        <span id="total_items" class="af-badge"></span>
+        <div class="cart_image"></div>
+        <div class="footer_text">购物车</div>
+    </a>
+    <a href="#more" id="tab_more">
+        <div class="more_image"></div>
+        <div class="footer_text">更多</div>
+    </a>
+</footer>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+    app.initialize();
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+@charset "utf-8";
+/* CSS Document */
+.top_bar {
+	height:77px;
+	background:url('../image/top_bar1.png') repeat-x left center;
+}
+.search {
+	padding-top:24px;
+}
+.h_header1 {
+	padding-top:20px;
+	background:url('../image/list.png') no-repeat 94% 70%;
+}
+.header_search {
+	height: 68px;
+}
+.search2,
+.header_search a {
+	margin-top: 6px;
+}
+#afui .backButton::before {
+	top: 33px;
+}
+#scrolling_order {
+	top:112px;
+}
+.zone_title {
+	padding-top:40px;
+	height:84px;
+}
+.back3 {
+	margin-top:40px;
+}
+.zone_name {
+	margin-top:84px;
+}
+#goods_all {
+	top:104px;
+}
+#body1_image {
+	top:104px;
+    text-align: center;
+}
+
+#goods_info_scrolling,
+#search_content,
+#scrolling_ordered,
+#cartgoods_all,
+#cartgoods_all_2,
+.coupon,
+.suggestion,
+.invitation_fri,
+.accountall,
+.address1,
+.more_list {
+	top:68px;
+}
+
+.sug,
+.sign_content,
+.verify_index,
+.item_list,
+.h_header {
+	padding-top:20px;
+}
