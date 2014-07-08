@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿### 项目的部署注意
 
 1. 使用apache服务器是需要开启rewrite模块。
@@ -5,3 +6,6 @@
 3. PHP最好使用5.3或以上版本。
 4. 数据库配置文件存放在database目录中，需要拷贝一份至application/config目录中。
 5. 需要自动加载database类库，可以在config/autoload.php中配置
+=======
+#eco_vegetable
+>>>>>>> 40ba2fb526e82633bbc54b2ef13724a39e8617b1
