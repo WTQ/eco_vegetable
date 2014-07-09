@@ -101,7 +101,7 @@ function load_entry() {
 	// 判断初始化panel的加载
 	var shop_id = window.localStorage['shop_id'];
 	if (shop_id > 0) {
-		redirect('#sort');
+		redirect('#index');
 	} else {
 		redirect('#position');
 	}
