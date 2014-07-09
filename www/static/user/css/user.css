@@ -73,6 +73,7 @@ img {
 	background:#FFF;
 }
 /* 首页 */
+/*
 #index {
 	width:100%;
 }
@@ -80,9 +81,9 @@ img {
 	width:100%;
 }
 .top_bar {
-	/*height:77px;
-	margin-top:-17px;
-	background:url('../image/top_bar1.png') repeat-x left center;*/
+	//height:77px;
+	//margin-top:-17px;
+	//background:url('../image/top_bar1.png') repeat-x left center;
 	height:60px;
 	background:url('../image/top_bar.png') repeat-x left center;
 }
@@ -152,6 +153,7 @@ img {
 	bottom:0;
 	padding-bottom: 10px;
 }
+*/
 /* 分类 */
 .header_sort {
 }
@@ -212,33 +214,10 @@ img {
 .item_list a:hover {
 	background-color: #323232;
 }
-.candy {
-	height:44px;
-	background:url('../image/candy.png') no-repeat 10% center;
-}
-.smoke {
-	height:44px;
-	background:url('../image/smoke.png') no-repeat 10% center;
-}
-.kid {
-	height:44px;
-	background:url('../image/kid.png') no-repeat 10% center;
-}
-.drink {
-	height:44px;
-	background:url('../image/drink.png') no-repeat 10% center;
-}
-.kni {
-	height:44px;
-	background:url('../image/kni.png') no-repeat 10% center;
-}
-.vege {
+
+.vege  {
 	height:44px;
 	background:url('../image/vege.png') no-repeat 10% center;
-}
-.gift {
-	height:44px;
-	background:url('../image/gift.png') no-repeat 10% center;
 }
 
 .search1 {

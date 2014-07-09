@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-<title>手机小卖部</title>
+<title>生态蔬菜卖场</title>
 
 <!-- 样式文件 -->
 <link rel="stylesheet" type="text/css" href="css/af.ui.css" />
@@ -39,30 +39,6 @@
 	<div id="content">
 		<!-- 默认加载页 -->
 		<div data-ignore-slide id="entry" title="" data-load="load_entry" class="panel" selected="true" data-footer="none" data-header="none" style="overflow:hidden"></div>
-
-    	<!--首页-->
-    	<div data-ignore-slide id="index" title="" class="panel" data-load="shop_info" data-footer="common_footer" data-header="none" data-tab="tab_index" style="overflow:hidden">
-        	<div class="header_index">
-            	<div class="top_bar">
-                	<div class="search"><a href="#search_index" class="bu_search">搜索</a></div>
-                </div>
-                <div class="shop_statu">
-                	<span class="shop" id="shop_name">
-                	<!-- 小区- 商铺名称 -->
-                	</span>
-                    <div class="open" id="shop_open">
-					<!-- 营业状态 -->
-					</div>
-                    <span class="time" id="shop_time">
-					<!-- 营业时间 -->
-					</span>
-                    <div class="cl"></div>
-                </div>
-            </div>
-            <div id="shop_scrolling">
-            	<div id="body1_image"></div>
-            </div>
-        </div>
 
         <!--搜索页面-->
         <div data-ignore-slide id="search_index" title="" class="panel" data-header="none" data-footer="none" data-load="goods_search" style="overflow:hidden">
@@ -800,26 +776,27 @@
 <!-- 商品的分类导航  -->
 <nav id="goods_list">
     <ul class="item_list">
-        <a href="#sort/class_id/0"><li>全部商品</li></a>
-        <a href="#sort/class_id/1"><li class="candy">零食素食</li></a>
-        <a href="#sort/class_id/2"><li class="smoke">烟酒饮料</li></a>
-        <a href="#sort/class_id/3"><li class="kid">粮油调料</li></a>
-        <a href="#sort/class_id/4"><li class="drink">日化清洁</li></a>
-        <a href="#sort/class_id/5"><li class="kni">百货杂物</li></a>
-        <a href="#sort/class_id/6"><li class="vege">生鲜蔬菜</li></a>
-        <a href="#sort/class_id/7"><li class="gift">其他扩展</li></a>
+        <a href="#sort/class_id/0"><li>全部蔬菜</li></a>
+        <a href="#sort/class_id/1"><li class="vege">特价蔬菜</li></a>
+        <a href="#sort/class_id/2"><li class="vege">时令蔬菜</li></a>
+        <a href="#sort/class_id/3"><li class="vege">有机蔬菜</li></a>
+        <a href="#sort/class_id/4"><li class="vege">土特产品</li></a>
+        <a href="#sort/class_id/5"><li class="vege">加工产品</li></a>
+        <a href="#sort/class_id/6"><li class="vege">进口蔬菜</li></a>
+        <a href="#sort/class_id/7"><li class="vege">其他扩展</li></a>
     </ul>
 </nav>
 
 <!-- 公共的footer -->
 <footer data-ignore-slide id="common_footer">
-    <a href="#index" id="tab_index">
+<!--<a href="#index" id="tab_index">
         <div class="index_image"></div>
         <div class="footer_text">首页</div>
     </a>
+-->
     <a href="#sort/class_id/0" id="tab_sort">
         <div class="sort_image"></div>
-        <div class="footer_text">分类</div>
+        <div class="footer_text">首页</div>
     </a>
     <a href="#account_cart" id="tab_cart">
         <span id="total_items" class="af-badge"></span>
