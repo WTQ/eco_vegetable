@@ -214,9 +214,35 @@ img {
 	background-color: #323232;
 }
 
-.vege  {
+.tomato {
 	height:44px;
-	background:url('../image/vege.png') no-repeat 10% center;
+	background:url('../image/tomato.png') no-repeat 10% center;
+}
+.flower {
+	height:44px;
+	background:url('../image/flower.png') no-repeat 10% center;
+}
+.carrot {
+	height:44px;
+	background:url('../image/carrot.png') no-repeat 10% center;
+}
+.carrot2 {
+	height:44px;
+	background:url('../image/carrot2.png') no-repeat 10% center;
+}
+.eggplant {
+	height:44px;
+	background:url('../image/eggplant.png') no-repeat 10% center;
+}
+
+.orange {
+	height:44px;
+	background:url('../image/orange.png') no-repeat 10% center;
+}
+ 
+.watermelon {
+	height:44px;
+	background:url('../image/watermelon.png') no-repeat 10% center;
 }
 
 .search1 {
