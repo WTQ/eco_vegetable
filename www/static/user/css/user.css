@@ -31,7 +31,6 @@ img {
     line-height:48px;
     min-height:48px;
     height:auto;
-    background-color:#F17935;
     border-bottom:none;
 }
 #afui {
@@ -51,7 +50,7 @@ img {
 	line-height:48px;
 	min-height:48px;
 	height:auto;
-    background-color:#F17935;
+    background-color:#6AAB37;
 }
 #afui .backButton {
 	height:48px;
@@ -174,7 +173,7 @@ img {
 }
 .search_sort {
 	height:48px;
-	background-color:#F17935;
+	background-color:#6AAB37;
 }
 /*分栏*/
 #afui > #aside_menu,
@@ -311,7 +310,7 @@ img {
 	line-height:10px;
 }
 .cost {
-	color:#F27935;
+	color:#6AAB37;
 	font-size:28px;
 	font-weight:bold;
 	line-height:30px;
@@ -325,7 +324,7 @@ img {
 
 }
 .cost span {
-	color:#F27935;
+	color:#6AAB37;
 	font-size:10px;
 	line-height:30px;
 }
@@ -380,7 +379,7 @@ img {
 	min-height:48px;
 	height:auto;
 
-    background-color:#F17935!important;
+    background-color:#6AAB37!important;
 	background:url('../image/list.png') no-repeat 94% center;
 }
 .h_header1 a {
@@ -495,7 +494,7 @@ img {
 	line-height:14px;
 }
 .price1 span {
-	color:#F27935;
+	color:#6AAB37;
 	font-size:10px;
 	line-height:30px;
 }
@@ -777,7 +776,7 @@ img {
 	float:left;
 	width:37.58%;
 	padding-left:5%;
-	color:#f27935;
+	color:#6AAB37;
 	font-size:16px;
 	background:url('../image/account.png') no-repeat 80% center;
 }
@@ -1589,7 +1588,7 @@ img {
 
 /* footer 相关 */
 #afui .footer {
-	background:#F27935;
+	background:#6AAB37;
 	border:none !important;
 	height:auto !important;
 	padding: 0;
@@ -1637,7 +1636,7 @@ img {
 }
 #afui footer>a.pressed:not(.button) {
 	border-radius: 0;
-	background: #E74C3C;
+	background: #00661A;
 }
 #account_footer {
 
@@ -1785,7 +1784,7 @@ img {
 	background:url('../image/confirm.png') no-repeat 94% center;
 	text-align:left;
 	line-height:50px;
-	background-color:#E1172B!important;
+	background-color:#1A6600!important;
 	color:#FFF;
 	font-size:19px;
 }
@@ -1823,7 +1822,7 @@ img {
 	font-size:19px;
 }
 #suggestion_footer {
-	background-color:#e74c3c;
+	background-color:#00661A;
 	height:50px!important;
 }
 .send_suggestion{
@@ -1847,7 +1846,7 @@ img {
 	line-height:50px;
 	color:#FFFFFF;
 	font-size:19px;
-	background-color:#e74c3c;
+	background-color:#00661A;
 }
 #address_verify {
 	height:50px;
