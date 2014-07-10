@@ -19,8 +19,8 @@ var start = 0;
 
 function shop_info() {
 	cart_badge();
-	var community_id = get_param('community_id');
-	var shop_id      = get_param('shop_id');
+	var community_id = 1;
+	var shop_id      = 1;
 	if (shop_id === null) {
 		community_id = localStorage['community_id'];
 		shop_id      = localStorage['shop_id'];
@@ -84,6 +84,8 @@ function shop_info() {
  * 商品列表相关函数
  */
 function goods_info() {
+	shop_info();
+	
 	if (firstLoadGoods != true) {
 		return;
 	}
@@ -918,7 +920,7 @@ function login_success() {
 		// 如果是从小区选择页面跳转进来
 		// 跳转回商家首页
 		setTimeout(function() {
-			$.ui.loadContent('#index', false, false, 'fade');
+			$.ui.loadContent('#sort', false, false, 'fade');
 		}, 3000);
 	}
 

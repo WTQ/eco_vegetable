@@ -1,6 +1,6 @@
 	<div class="leftmenu">
     	<div class="xiaomaibu">
-        	<div class="word1">小卖部</div>
+        	<div class="word1">大卖场</div>
             <div class="word2">Manager</div>
         </div>
         <div class="menu">
@@ -22,6 +22,11 @@
             <div class="menu1"><a href="<?php echo base_url('admin/goods');?>">
             	<div id="image2"></div>
                 <div class="word">商品管理</div>
+                <div class="cl"></div></a>
+            </div>
+            <div class="menu1"><a href="<?php echo base_url('admin/order');?>">
+            	<div id="image3"></div>
+                <div class="word">订单管理</div>
                 <div class="cl"></div></a>
             </div>
             <!-- <div class="menu1"><a href="<?php echo base_url('admin/user');?>">
