@@ -469,7 +469,7 @@ img {
 	float:left;
 	width:50%;
 	height:90px;
-	background-color:#e74c3c;
+	background-color:#de0808;
 	color:#fff;
 	text-align:center;
 	font-size:18px;
@@ -641,7 +641,7 @@ img {
 	position:absolute;
 	top:48px;
 	bottom:0;
-	background-color:#fff6e5;
+	background-color:#f0f6ee;
 }
 #search_wrap {
 	height: 100%;
@@ -662,7 +662,7 @@ img {
 	padding-top:6px;
 	padding-left:20px;
 	padding-right:10px;
-	background:#F27935;
+	background:#6AAB37;
 }
 .search2 {
     color:#444 !important;
@@ -1655,7 +1655,7 @@ img {
 }
 #afui .af-badge {
 	background-color:#FFF;
-	color:#F27935;
+	color:#40b31c;
 	right:10px !important;
 	line-height: 20px;
 	height: auto;
