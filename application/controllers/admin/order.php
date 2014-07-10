@@ -1,8 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * 订单管理的控制类
- * 
- * @author 风格独特
+ * Admin端订单管理控制器
+ *
+ * @package		eco_vegetable
+ * @author 		lp1900
+ * @copyright	Copyright (c) 2014. 云帆工作室.
+ * @version		Version 1.0
+ * @since		2014.7.10
  */
 
 class Order extends CI_Controller 
@@ -10,24 +14,17 @@ class Order extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('admin_user_m');
-		if($this->admin_user_m->check_login() === FALSE) {
-			redirect('/admin/index');
-		}
-		$this->load->model('shops_m');
-		$this->load->library('excel');
-		$this->load->model('order_m');
-		$this->load->helper('form');
+		load_model( array('admin_user_m', 'shops_m', 'order_m') );
+		load_helper('page');
+		load_library('excel');
+		load_helper('form');
 	}
 	
 	public function index() 
 	{
 		$per_page = 20;
-		$p = (int) $this->input->get('p');
-		if($p < 1) {
-			$p = 1;
-		}
-		
+		$p = (int) page_cur();
+
 		$shop_id = $this->input->get('shop_id', TRUE);
 		$stage = $this->input->get('stage', TRUE);
 
@@ -44,10 +41,8 @@ class Order extends CI_Controller
 		}
 		$data['shop_id'] = $shop_id;
 		$data['stage'] = $stage;
-		$this->load->view('admin/header.php', array('username' => $this->admin_user_m->user->username));
-		$this->load->view('admin/left_navi.php');
-		$this->load->view('admin/order.php', $data);
-		$this->load->view('admin/footer.php');
+		
+		load_view('admin/order', $data);
 	}
 	
 	public function gen_excel()

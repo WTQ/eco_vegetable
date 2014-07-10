@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>O2O后台管理</title>
+<title>eco后台管理</title>
 <link rel="stylesheet" href="<?php echo base_url('/static/admin/css/manager.css'); ?>">
 <link rel=stylesheet href="<?php echo base_url('/static/ueditor/themes/default/ueditor.css'); ?>" />
 <script src="<?php echo base_url('/static/admin/js/jquery.js'); ?>"></script>

@@ -398,5 +398,44 @@ class Order_m extends MY_Model
 	{
 		return (isset($this->order_config[$stage])) ? $this->order_config[$stage] : '';
 	}
+	/**
+	 * 订单管理模块
+	 */
+	public function to_excel($shop_char ='', $stage = 0, $num=0, $offset=0)
+	{
+		$return = array();
+		if($shop_char) {
+			$this->db->where('school', $shop_char);
+		}
+		if($stage) {
+			$this->db->where('stage', $stage);
+		}
+		$this->db->order_by("order_id", "desc");
+		if(!$num) {
+			$query = $this->db->get('order');
+		} else {
+			$query = $this->db->get('order', $num, $offset);
+		}
+	
+	
+		$i = 0;
+		foreach ($query->result_array() as $row) {
+			$return[$i] = $row;
+			$return[$i]['items'] = $this->order_item_m->get_items($row['order_id']);
+			$i++;
+		}
+		return $return;
+	}
+	
+	public function num2excel($shop_char='', $stage = 0)
+	{
+		if($shop_char) {
+			$this->db->where('school', $shop_char);
+		}
+		if($stage) {
+			$this->db->where('stage', $stage);
+		}
+		return $this->db->count_all_results('order');
+	}
 
 }
