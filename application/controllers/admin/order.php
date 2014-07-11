@@ -9,15 +9,16 @@
  * @since		2014.7.10
  */
 
-class Order extends CI_Controller 
+class Order extends A_Controller
 {
 	public function __construct()
 	{
 		parent::__construct();
-		load_model( array('admin_user_m', 'shops_m', 'order_m') );
+		load_model( array('admin_user_m', 'shops_m', 'order_m', 'user_m') );
 		load_helper('page');
 		load_library('excel');
 		load_helper('form');
+		load_helper('order_stage_helper');
 	}
 	
 	public function index() 
@@ -25,12 +26,16 @@ class Order extends CI_Controller
 		$per_page = 20;
 		$p = (int) page_cur();
 
-		$shop_id = $this->input->get('shop_id', TRUE);
+		$shop_id = 1;
 		$stage = $this->input->get('stage', TRUE);
 
-		$school = $this->shops_m->shop_id2char($shop_id);
-		$data['orders'] = $this->order_m->to_excel($school, $stage, $per_page, ($p-1)*$per_page);
-		$total_row = $this->order_m->num2excel($school, $stage);
+		$data['orders'] = $this->order_m->to_excel($stage, $per_page, ($p-1)*$per_page);
+		$i = 0;
+		foreach ($data['orders'] as $key) {
+			$data['orders'][$i]['username'] = $this->user_m->get_byid($key['user_id']);
+			$i++;
+		}
+		$total_row = $this->order_m->num2excel($stage);
 		$data['page_html'] =  $this->_page_init($per_page, $total_row, $shop_id, $stage);
 		$data['shops'] = $this->shops_m->get_all();
 		if($shop_id !== FALSE) {
@@ -69,11 +74,9 @@ class Order extends CI_Controller
 		$Order_id = $this->input->get('order_id', TRUE);
 		$data['Order'] = $this->order_m->get($Order_id);
 		$data['form_url'] = '/admin/order/edit/?id='. $Order_id;
-		
-		$this->load->view('admin/header.php', array('username' => $this->admin_user_m->user->username));
-		$this->load->view('admin/left_navi.php');
-		$this->load->view('admin/order_edit.php', $data);
-		$this->load->view('admin/footer.php');
+		$data['Order']->username = $this->user_m->get_byid($data['Order']->user_id);
+
+		load_view('admin/order_edit', $data);
 	}
 	
 	public function edit()
@@ -82,13 +85,11 @@ class Order extends CI_Controller
 		
 		$stage = $this->input->post('stage', TRUE);
 		$this->order_m->set_stage($Order_id, $stage);
-		$data['Order'] = $this->order_m->get($Order_id);
-		$data['form_url'] = '/admin/order/edit/?id='. $Order_id;
-	
-		$this->load->view('admin/header.php', array('username' => $this->admin_user_m->user->username));
-		$this->load->view('admin/left_navi.php');
-		$this->load->view('admin/order_edit.php', $data);
-		$this->load->view('admin/footer.php');
+// 		$data['Order'] = $this->order_m->get($Order_id);
+// 		$data['form_url'] = '/admin/order/edit/?id='. $Order_id;
+// 		$data['Order']->username = $this->user_m->get_byid($data['Order']->user_id);
+// 		load_view('admin/order_edit', $data);		
+		redirect('admin/order');
 	}
 	
 	private function _page_init($per_page, $total_row, $shop_id, $stage)

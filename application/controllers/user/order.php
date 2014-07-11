@@ -90,13 +90,13 @@ class Order extends U_Controller
 
 		// 购物车无物品时执行操作，直接跳转至首页
 		if($this->cart->total_items() < 1) {
-			$data = array(
-				'status' => 2,
-				'msg'    => '购物车为空'
-			);
+ 			$data = array(
+ 				'status' => 2,
+ 				'msg'    => '购物车为空'
+ 			);
 
-			$this->json_out($data);
-		}
+ 			$this->json_out($data);
+ 		}
 
 		$shop_id   = (int) cookie('shop_id');
 		$phone     = $this->get_phone();						// 获取手机号

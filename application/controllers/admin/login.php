@@ -12,7 +12,6 @@ class login extends A_Controller
 	{
 		MY_Controller::__construct();
 		load_model('admin_user_m');
-		
 		// 先验证登录
 		$uid = $this->admin_user_m->check_login();
 		

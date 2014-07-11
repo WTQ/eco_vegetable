@@ -9,20 +9,8 @@
 				<form action="<?php echo base_url('admin/order/'); ?>" method="get">
 					<table width="100%">
 						<tr>
-							<td width="10%">店铺：</td>
-							<td>
-								<select name="shop_id">
-									<option value="">请选择</option>
-									<?php foreach($shops as $shop):?>
-									<option value="<?php echo $shop['shop_id']?>" <?php if($shop['shop_id'] === $shop_id) echo 'selected'?>><?php echo $shop['shop_name']?></option>
-									<?php endforeach;?>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>订单状态：</td>
-							<td>
-								<select name="stage">
+							<td width="90%">订单状态：
+								<select name="stage" style="width:90%">
 									<option value="0">请选择</option>
 									<option value="1" <?php if($stage == 1) echo 'selected'?> >已提交</option>
 									<option value="2" <?php if($stage == 2) echo 'selected'?> >已发货</option>
@@ -31,10 +19,9 @@
 									<option value="5" <?php if($stage == 5) echo 'selected'?> >已确认</option>
 								</select>
 							</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" /></td>
+							<td>
+								<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
+							</td>
 						</tr>
 					</table>
 				</form>
@@ -61,7 +48,7 @@
 	        						<?php echo $item['name']?> <font color="red">单价：<?php echo '￥' . $item['price']; ?></font> x <?php echo $item['quantity']?><br />
 	        						<?php endforeach; ?>
 	        					</td>
-								<td><?php echo $order['user_name'];?></td>
+								<td><?php echo $order['username'];?></td>
 						<td><?php echo $order['phone']; ?></td>
 						<td><?php echo $order['address'];?></td>
 						<td><?php echo '￥' . $order['total_prices'];?></td>

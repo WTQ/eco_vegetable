@@ -23,7 +23,7 @@ class Order_m extends MY_Model
 	{
 		parent::__construct();
 		// 加载order_items_m类，goods_m类
-		$this->load->model(array('order_items_m', 'goods_m'));
+		$this->load->model(array('order_items_m', 'goods_m', 'order_item_m'));
 
 		// 加载order的配置文件
 		$this->load->config('order_stage', TRUE);
@@ -401,12 +401,9 @@ class Order_m extends MY_Model
 	/**
 	 * 订单管理模块
 	 */
-	public function to_excel($shop_char ='', $stage = 0, $num=0, $offset=0)
+	public function to_excel($stage = 0, $num=0, $offset=0)
 	{
 		$return = array();
-		if($shop_char) {
-			$this->db->where('school', $shop_char);
-		}
 		if($stage) {
 			$this->db->where('stage', $stage);
 		}
@@ -417,7 +414,6 @@ class Order_m extends MY_Model
 			$query = $this->db->get('order', $num, $offset);
 		}
 	
-	
 		$i = 0;
 		foreach ($query->result_array() as $row) {
 			$return[$i] = $row;
@@ -427,15 +423,21 @@ class Order_m extends MY_Model
 		return $return;
 	}
 	
-	public function num2excel($shop_char='', $stage = 0)
+	public function num2excel($stage = 0)
 	{
-		if($shop_char) {
-			$this->db->where('school', $shop_char);
-		}
 		if($stage) {
 			$this->db->where('stage', $stage);
 		}
 		return $this->db->count_all_results('order');
 	}
-
+	
+	public function set_stage($order_id, $stage)
+	{
+		$data = array('stage'=>$stage);
+		$this->db->where('order_id', $order_id);
+		if($this->db->update('order', $data) === FALSE) {
+			return FALSE;
+		}
+		return TRUE;
+	}
 }

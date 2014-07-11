@@ -2,10 +2,11 @@
 /**
  * 用户模型层
  * 
- * @package		o2o_supermarket
- * @author		莫迟
+ * @package		eco_vegetable
+ * @author 		lp1900
  * @copyright	Copyright (c) 2014. 云帆工作室.
- * @since		Version 1.0
+ * @version		Version 1.0
+ * @since		2014.7.10
  */
 
 class User_m extends MY_Model 
@@ -133,6 +134,15 @@ class User_m extends MY_Model
 	}
 	
 	/**
+	 * 按照用户ID获取用户名
+	 */
+	public function get_byid($id) {
+		$user = $this->get_by('user_id', $id);
+		return $user->username;
+	}
+	
+	
+	/**
 	 * 数据库密码生成函数
 	 *
 	 * @param string $password
@@ -155,4 +165,5 @@ class User_m extends MY_Model
 		$max = pow(10, $len) - 1;
 		return mt_rand($min, $max) . '';
 	}
+
 }

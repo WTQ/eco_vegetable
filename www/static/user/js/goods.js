@@ -72,7 +72,7 @@ function shop_info() {
 			$('#body1_image').html(data.shop['shop_ad']);
 
 			// 调用是刷新代码
-			shop_scrolling();
+//			shop_scrolling();
 		} else {
 			redirect('#position');
 		}
@@ -143,7 +143,7 @@ function sort_change() {
 /**
  * 下拉刷新函数
  */
-function shop_scrolling() {
+/*function shop_scrolling() {
 	var trigger = false;			// 作为判断是否请求服务器数据的标志
 	var myScroller;
 	bind_scrolling();
@@ -227,7 +227,7 @@ function shop_scrolling() {
     function refresh_finish() {
         console.log("refresh-finish");
     }
-}
+}*/
 
 /**
  * 上拉刷新函数
@@ -620,12 +620,12 @@ function cart_confirm() {
 		'shop_id'	  : localStorage['shop_id'],
 		'total_price' : localStorage['total_price']
 	};
-
+	
 	load_mask();
 	$.getJSON(url('/user/cart?callback=?'), get, function(data) {
 		// 清除同步服务器之前的购物车本地存储
-		cart_destroy();
-		localStorage.removeItem('coupon');
+		// cart_destroy();
+		//localStorage.removeItem('coupon');
 		// 将同步后的cart信息重新本地存储
 		var cart = cart_update_all(data.items);
 
@@ -882,7 +882,7 @@ $.ui.ready(function() {
 			'final_price' : $('.total_price').text(),
 			'coupon_id'	  : $('#shop_cuopons').val()
 		};
-
+	
 		// （选择优惠后）最终总额
 		localStorage['total_price'] = get.final_price;
 		$.getJSON(url('/user/order/submit?callback=?'), get, function(data) {
