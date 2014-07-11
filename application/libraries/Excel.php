@@ -61,11 +61,11 @@ class Excel extends PHPExcel {
     // Set document properties
     public function set_doc_property()
     {
-    	$this->getProperties()->setCreator("WuJiaDian")
-    	->setLastModifiedBy("WuJiaDian")
-    	->setTitle("WuJiaDian Order")
+    	$this->getProperties()->setCreator("eco")
+    	->setLastModifiedBy("eco")
+    	->setTitle("eco Order")
     	->setSubject("Order")
-    	->setDescription("WuJiaDian Order.")
+    	->setDescription("eco Order.")
     	->setKeywords("Order")
     	->setCategory("Order");
     }
@@ -134,7 +134,7 @@ class Excel extends PHPExcel {
     	$this->getActiveSheet()->mergeCells('A1:M1');
     	    	
     	$this->setActiveSheetIndex(0)
-    	->setCellValue('A1', '吾家店'. $shop['shop_name']. date("Y-m-d"). '团购清单')
+    	->setCellValue('A1', '生态蔬菜'. date("Y-m-d"). '购买清单')
     	->setCellValue('A2', "系统单号")
     	->setCellValue('B2', '姓名')
     	->setCellValue('C2', '电话')
@@ -163,12 +163,12 @@ class Excel extends PHPExcel {
     	for($i=0; $i < count($Orders); $i++ ){
     		$merge_start = $row;
     		$this->getActiveSheet(0)->setCellValue('A'.($row), $Orders[$i]['order_id']);
-    		$this->getActiveSheet(0)->setCellValue('B'.($row), $Orders[$i]['user_name']);
+     		$this->getActiveSheet(0)->setCellValue('B'.($row), $Orders[$i]['username']);
     		$this->getActiveSheet(0)->setCellValue('C'.($row), $Orders[$i]['phone']);
 //    		$this->getActiveSheet(0)->setCellValue('J'.($row), $Orders[$i]['total_prices']);
     		$this->getActiveSheet(0)->setCellValue('K'.($row), $Orders[$i]['address']);
     		$this->getActiveSheet(0)->setCellValue('L'.($row), $Orders[$i]['remarks']);
-    		$this->getActiveSheet(0)->setCellValue('M'.($row), $Orders[$i]['home_delivery'] == 1? '是':'否');
+//     		$this->getActiveSheet(0)->setCellValue('M'.($row), $Orders[$i]['home_delivery'] == 1? '是':'否');
     		
     		foreach($Orders[$i]['items'] as $item) {
     			$this->getActiveSheet()->getRowDimension($row)->setRowHeight(20);
@@ -205,7 +205,7 @@ class Excel extends PHPExcel {
     
     public function write($shop)
     {
-    	$filename = '吾家店'.$shop['shop_name']. date("Y-m-d"). '团购清单'.'.xlsx'; //save our workbook as this file name
+    	$filename = '生态蔬菜'. date("Y-m-d"). '购买清单'.'.xlsx'; //save our workbook as this file name
     	$filename = iconv("UTF-8","GB2312//IGNORE",$filename);
     	header('Content-Type: application/vnd.ms-excel'); //mime type
     	header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name

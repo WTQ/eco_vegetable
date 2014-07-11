@@ -55,11 +55,16 @@ class Order extends A_Controller
 		$shop_id = $this->input->get('shop_id');
 		$stage = $this->input->get('stage');
 		$this->load->library('excel');
-		$Orders = $this->order_m->to_excel($this->shops_m->shop_id2char($shop_id), $stage);
+		$Orders = $this->order_m->to_excel($stage);//$this->shops_m->shop_id2char($shop_id)
 		if($shop_id == FALSE) {
 			$shop['shop_name'] = '全部店铺';
 		} else {
 			$shop = $this->shops_m->get($shop_id);
+		}
+		$i = 0;
+		foreach ($Orders as $key) {
+			$Orders[$i]['username'] = $this->user_m->get_byid($key['user_id']);
+			$i++;
 		}
 		$this->excel->index($Orders, $shop);
 		if ( $stage == 1) {
