@@ -79,7 +79,13 @@ class Admin_user_m extends MY_Model
 		
 		return FALSE;
 	}
-	
+	/**
+	 * 获取用户名函数
+	 */
+	public function get_username()
+	{	
+		return $this->session->userdata('username');
+	}	
 	/**
 	 * 数据库密码生成函数
 	 *

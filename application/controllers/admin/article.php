@@ -14,7 +14,7 @@ class Article extends A_Controller
 	public function __construct() 
 	{
 		parent::__construct();
-		$this->load->model(array('article_m', 'article_type_m'));
+		$this->load->model(array('article_m', 'article_type_m', 'admin_user_m'));
 		$this->load->helper('page_helper');
 	}
 	
@@ -33,7 +33,8 @@ class Article extends A_Controller
 			$title = $this->input->post('title', TRUE);
 			$type = (int) $this->input->post('type');
 			$content = $this->input->post('ue_content');
-			$this->article_m->add($title, $type, $content, 'Kung');
+			$username = $this->admin_user_m->get_username();
+			$this->article_m->add($title, $type, $content, $username);
 			redirect('/admin/article');			
 		} else {
 			$article_type = $this->article_m->article_type_m;

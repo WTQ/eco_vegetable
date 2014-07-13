@@ -9,7 +9,7 @@
                 <div class="word">系统首页</div>
                 <div class="cl"></div></a>
             </div>
-            <div class="menu1"><a href="<?php echo base_url('admin/zone');?>">
+            <!-- <div class="menu1"><a href="<?php echo base_url('admin/zone');?>">
             	<div id="image3"></div>
                 <div class="word">小区管理</div>
                 <div class="cl"></div></a>
@@ -18,7 +18,7 @@
             	<div id="image3"></div>
                 <div class="word">店铺管理</div>
                 <div class="cl"></div></a>
-            </div>
+            </div> -->
             <div class="menu1"><a href="<?php echo base_url('admin/goods');?>">
             	<div id="image2"></div>
                 <div class="word">商品管理</div>

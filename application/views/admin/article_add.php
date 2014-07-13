@@ -2,7 +2,7 @@
 
         <div class="content">
         	<div class="content1">
-        	<a href="http://o2o/admin/article">返回</a>
+        	<a href="/admin/article">返回</a>
         	</div>
             <div class="content2">
 	            <?php echo form_open_multipart($form_url); ?>
