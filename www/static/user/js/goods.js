@@ -949,7 +949,7 @@ $.ui.ready(function() {
 		if (curcnt < 1 ) {
 			clearInterval(timeobj); // 停止计时器
 			$(".send_verifycode").text('重新获取');
-			$(".send_verifycode").css('background-color','#de0808');
+			$(".send_verifycode").css('background-color','#6AAB37');
 			bind_send_verify();
 		}
 	}
@@ -1006,7 +1006,7 @@ $.ui.ready(function() {
 	});
 
 	$(".verifycode_input").focus(function(){
-		$(".verify1").css('background-color','#de0808');
+		$(".verify1").css('background-color','#6AAB37');
 		$(".verify2").show();
 	});
 
