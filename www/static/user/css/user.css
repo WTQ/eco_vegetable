@@ -1782,6 +1782,10 @@ img {
 	height:100%;
 	width:100%;
 }
+.verify_back {
+	background:#00661A;
+	width:100%;
+}
 .order_text {
 	position:absolute;
 	width:100%;
