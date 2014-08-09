@@ -15,6 +15,6 @@ class Index extends MY_Controller
 	
 	public function Index() 
 	{
-		redirect('static/user');
+		redirect('admin');
 	}
 }

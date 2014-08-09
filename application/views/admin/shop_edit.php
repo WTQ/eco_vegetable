@@ -8,9 +8,9 @@
         <div class="content2">
         <?php echo form_open_multipart($shop['form_url']); ?>
         	<table width="100%" border="1" height="400">
-				<tr>
+				<!--<tr>
 					<td class="name">选择社区</td>
-					<!-- TODO  联动下拉列表 -->
+					 TODO  联动下拉列表 
 					<td class="detail">
 						<select name="district" class="list_select">
 						<?php foreach ($district as $row): ?>
@@ -31,7 +31,7 @@
 						<?php endforeach;?>
 						</select>
 					</td>
-				</tr>
+				</tr>-->
 				<tr>
 					<td class="name">商铺名称</td>
 					<td class="detail"><input name="shop_name" type="text" class="list_select" value="<?php echo $shop['name'];?>" size="80" /></td>
@@ -60,10 +60,10 @@
 					<td class="name">商家介绍</td>
 					<td class="detail" width="91%"><textarea class="list_select" name="discript" rows="4" cols="70"><?php echo $shop['discript'];?></textarea></td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td class="name">商铺图片</td>
 					<td class="detail"><input name="shop_pic" type="file" class="list_select" value="" size="80" /></td>
-				</tr>
+				</tr> -->
             </table>
             <div class="button"><button type="submit" class="submit">提交</button></div>
         </div>
