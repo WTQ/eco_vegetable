@@ -2,6 +2,7 @@
 <?php load_view('admin/common/header'); ?>	
 	<div id="right">
 		<div id="content">
+			<div class="content1"></div>
 			<div class="content2">
 				<div>
 					<?php echo form_open($form_url);?>
