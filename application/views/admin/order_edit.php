@@ -26,8 +26,8 @@
 								<td><?php echo $Order->phone;?></td>
 							</tr>
 							<tr>
-								<td>买家备注</td>
-								<td><?php echo $Order->remarks;?></td>
+								<td>配送地址</td>
+								<td><?php echo $Order->address;?></td>
 							</tr>
 							<tr>
 								<td>订单状态</td>
