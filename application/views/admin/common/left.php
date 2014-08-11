@@ -1,6 +1,6 @@
 	<div class="leftmenu">
     	<div class="xiaomaibu">
-        	<div class="word1">大卖场</div>
+        	<div class="word1">生态蔬菜</div>
             <div class="word2">Manager</div>
         </div>
         <div class="menu">
@@ -13,12 +13,12 @@
             	<div id="image3"></div>
                 <div class="word">小区管理</div>
                 <div class="cl"></div></a>
-            </div>
+            </div> -->
             <div class="menu1"><a href="<?php echo base_url('admin/shop');?>">
             	<div id="image3"></div>
                 <div class="word">店铺管理</div>
                 <div class="cl"></div></a>
-            </div> -->
+            </div>
             <div class="menu1"><a href="<?php echo base_url('admin/goods');?>">
             	<div id="image2"></div>
                 <div class="word">商品管理</div>
@@ -48,11 +48,11 @@
             	<div id="image7"></div>
                 <div class="word">系统管理</div>
                 <div class="cl"></div></a>
-            </div> -->
+            </div> 
             <div class="menu1"><a href="<?php echo base_url('admin/article');?>">
             	<div id="image3"></div>
                 <div class="word">文章帮助</div>
                 <div class="cl"></div></a>
-            </div>
+            </div>-->
         </div>
     </div>

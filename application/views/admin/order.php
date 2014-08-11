@@ -10,7 +10,7 @@
 					<table width="100%">
 						<tr>
 							<td width="90%">订单状态：
-								<select name="stage" style="width:90%">
+								<select name="stage">
 									<option value="0">请选择</option>
 									<option value="1" <?php if($stage == 1) echo 'selected'?> >已提交</option>
 									<option value="2" <?php if($stage == 2) echo 'selected'?> >已发货</option>
@@ -18,8 +18,6 @@
 									<option value="4" <?php if($stage == 4) echo 'selected'?> >已取消</option>
 									<option value="5" <?php if($stage == 5) echo 'selected'?> >已确认</option>
 								</select>
-							</td>
-							<td>
 								<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
 							</td>
 						</tr>

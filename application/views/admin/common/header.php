@@ -29,7 +29,7 @@
                     <div class="cl"></div>
                 </div>
             </div>
-        	<div class="item1">
+        	<!-- <div class="item1">
             	About Us
             </div>
         	<div class="item">
@@ -66,6 +66,6 @@
 
             			</div>
        			    </div>
-            </div>
+            </div> -->
        	    <div class="cl"></div>
     	</div>

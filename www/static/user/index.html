@@ -96,7 +96,7 @@
 <% for (var i = 0; i < goods.length; i++) { %>
 <a href="#goods_index/goods_id/<%= goods[i]['goods_id'] %>">
     <div class="goods">
-        <div class="goods_image"><img src="/goods_img/<%= goods[i]['goods_id'] %>/0.90.jpg"></div>
+        <div class="goods_image"><img src="http://eco.te168.cn/goods_img/<%= goods[i]['goods_id'] %>/0.90.jpg"></div>
         <div class="goods_detail">
             <div class="goods_title"><%= goods[i]['name'] %></div>
             <div class="goods_price">
@@ -134,7 +134,7 @@
 <a href="#goods">
 	<div class="cart_goods" goods_id="<%= cart[i]['goods_id']%>" price="<%= cart[i]['price']%>" name="<%= cart[i]['name']%>">
 		<div class="goods_image">
-            <img src="/goods_img/<%= cart[i]['goods_id'] %>/0.90.jpg" />
+            <img src="http://eco.te168.cn/goods_img/<%= cart[i]['goods_id'] %>/0.90.jpg" />
             <% if (cart[i]['settle'] == 0) { %>
                 <div class="shortage2">下次<br />购买</div>
             <% } %>
@@ -274,7 +274,7 @@
 <!-- 单品详情html模版 -->
 <script id="tmp_goods_index" type="text/html">
 	<div class="bigimage" id="goods_detail_pic">
-		<img src="/goods_img/<%= goods['goods_id'] %>/0.300.jpg">
+		<img src="http://eco.te168.cn/goods_img/<%= goods['goods_id'] %>/0.300.jpg">
 	</div>
 	<div class="goods_text">
 		<div class="goods_title1" id="goods_detail_name"><%= goods['name'] %> <%= goods['unit'] %></div>
@@ -311,16 +311,16 @@
                         	<div class="list_text">我的优惠券</div>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                     	<a href="#mysuggestion">
                         	<div class="list_text">问题反馈</div>
                         </a>
-                    </li>
-                    <li>
+                    </li> -->
+                    <!-- <li>
                         <a href="#invite">
                         	<div class="list_text">邀请朋友</div>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -387,7 +387,7 @@
 	        <div class="order_image1">
 	            <div class="image_list">
 	            	<% for (var k=0; k < orders[i]['items'].length; k ++ ) { %>
-	                    <div><img src="/goods_img/<%= orders[i]['items'][k]['goods_id']%>/0.90.jpg"></div>
+	                    <div><img src="http://eco.te168.cn/goods_img/<%= orders[i]['items'][k]['goods_id']%>/0.90.jpg"></div>
 	                <% } %>
 	            </div>
 	        </div>
@@ -438,7 +438,7 @@
 	<div class="order1">
 	<% for (var i = 0; i < order['items'].length; i ++ ) { %>
 			<div class="order_image2">
-				<div class="image1"><img src="/goods_img/<%= order['items'][i]['goods_id']%>/0.90.jpg" style="vertical-align:middle;"></div>
+				<div class="image1"><img src="http://eco.te168.cn/goods_img/<%= order['items'][i]['goods_id']%>/0.90.jpg" style="vertical-align:middle;"></div>
 			    <div class="detail">
 			    	<div class="order_title"><%= order['items'][i]['name'] %></div>
 			        <div class="order_price">
@@ -550,7 +550,7 @@
 </div>
 <% } %>
 <div class="address5">
-    <a href="#position">配送到其他地址</a>
+    <a href="#position_input">配送到其他地址</a>
 </div>
 </script>
 

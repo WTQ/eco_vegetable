@@ -34,7 +34,7 @@ img {
     border-bottom:none;
 }
 #afui {
-    background:#F27935;
+    background:#6AAB37;
 }
 .scrollBar, .afScrollbar {
     background: #888 !important;
@@ -1361,7 +1361,7 @@ img {
 	line-height:44px;
 	width:100%;
 	color:#fff;
-	background-color:#f27935;
+	background-color:#6AAB37;
 }
 .back1 {
 	float:left;
@@ -1692,7 +1692,7 @@ img {
 	padding-right:10px;
 }
 .account_goods {
-	background-color:#E1172B;
+	background-color:#00661A;
 	height:50px;
 }
 .order_shortage {
@@ -1778,9 +1778,9 @@ img {
 	bottom:50px;
 }
 .verify_index {
-	background:#F17935;
-	height:100%;
-	width:100%;
+	background-color: #C7EDCC;
+	height: 100%;
+	width: 100%;
 }
 .verify_back {
 	background:#00661A;
@@ -1790,7 +1790,7 @@ img {
 	position:absolute;
 	width:100%;
 	top:170px;
-	color:#FFF;
+	color:#3D444B;
 
 }
 .order_text p {
@@ -1838,7 +1838,7 @@ img {
 	padding-left:3.59%;
 }
 #address_footer {
-	background-color:#e74c3c!important;
+	background-color:#00661A!important;
 	height:50px !important;
 }
 .confirm_change{
@@ -1890,10 +1890,10 @@ img {
 	text-align:center;
 }
 .verify_address2 {
-	background-color:#e74c3c!important;
-	color:#FFF!important;
-	background:url('../image/list.png') no-repeat 94% center;
-	padding-left:15.31%!important;
+	background-color: #00661A!important;
+	color: #FFF!important;
+	background: url('../image/list.png') no-repeat 94% center;
+	padding-left: 15.31%!important;
 }
 #sign_footer {
 	height:50px!important;
