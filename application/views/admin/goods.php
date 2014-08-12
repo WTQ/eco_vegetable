@@ -1,10 +1,31 @@
 <!-- 商品管理页面 -->
 <?php load_view('admin/common/header'); ?>
-
 		<div class="content">
         	<div class="content1">
-            	<a href="<?php echo base_url('admin/goods/add_goods'); ?>">添加商品</a>
+            	<a href="<?php echo base_url('/admin/goods/add_goods'); ?>">添加商品</a>
             </div>
+            
+            <div class="content2">
+				<form action="<?php echo base_url('admin/goods/'); ?>" method="get">
+					<table width="100%">
+						<tr>
+							<td width="90%">产品分类：
+								<select name="stage">
+									<option value="0" <?php if($stage == 0) echo 'selected'?>>全部</option>
+									<option value="1" <?php if($stage == 1) echo 'selected'?> >特价蔬菜</option>
+									<option value="2" <?php if($stage == 2) echo 'selected'?> >时令蔬菜</option>
+									<option value="3" <?php if($stage == 3) echo 'selected'?> >有机蔬菜</option>
+									<option value="4" <?php if($stage == 4) echo 'selected'?> >土特产品</option>
+									<option value="5" <?php if($stage == 5) echo 'selected'?> >加工产品</option>
+									<option value="6" <?php if($stage == 6) echo 'selected'?> >进口蔬菜</option>
+									<option value="7" <?php if($stage == 7) echo 'selected'?> >其他扩展</option>
+								</select>
+								<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
             <div class="content2">
             	<table width="100%">
                       <tr>

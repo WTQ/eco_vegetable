@@ -207,7 +207,39 @@ class Goods_m extends MY_Model
 			'is_today'	=>	$is_today
 		));
 	}
+	
+	/**
+	 * 由商品分类，商家id可选
+	 * 商家id=0时为全局搜索；!=0时为在指定商家下搜索
+	 * 分类category=0时为全局搜索；!=0时为在指定分类下搜索
+	 */
+	public function get_bycategory($category, $shop_id = 0)
+	{
+		$shop_id = (int) $shop_id;
+		$category = (int)$category;
+		if ($shop_id == 0) {
+			if ($category == 0) {
+				return $this->get_all();
+			} else {
+				return $this->get_many_by('class_id', $category);
+			}
+		}
+		else {
+			if ($category == 0) {
+				$this->db->where('shop_id', $shop_id);				
+				return $this->get_all();
+			} else {
+				$this->db->where('shop_id', $shop_id);
+				
+				return $this->get_many_by(array(
+						'class_id'		=>	$category,
+						'shop_id'	=>	$shop_id,
+				));
+			}
 
+		}
+	}
+	
 	/**
 	 * 全部商品销量排序展示
 	 */

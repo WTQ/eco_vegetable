@@ -11,7 +11,7 @@
 						<tr>
 							<td width="90%">订单状态：
 								<select name="stage">
-									<option value="0">请选择</option>
+									<option value="0">全部</option>
 									<option value="1" <?php if($stage == 1) echo 'selected'?> >已提交</option>
 									<option value="2" <?php if($stage == 2) echo 'selected'?> >已发货</option>
 									<option value="3" <?php if($stage == 3) echo 'selected'?> >已完成</option>
@@ -28,15 +28,15 @@
 			<div class="content2">
 				<table width="100%">
 					<tr>
-						<td width="6%">订单号</td>
-						<td width="28%">订单商品</td>
-						<td width="8%">姓名</td>
-						<td width="10%">联系方式</td>
-						<td width="15%">配送地址</td>
-						<td width="8%">订单金额</td>
-						<td width="10%">下单时间</td>
-						<td width="6%">状态</td>
-						<td>操作</td>
+						<th width="6%">订单号</th>
+						<th width="28%">订单商品</th>
+						<th width="8%">姓名</th>
+						<th width="10%">联系方式</th>
+						<th width="15%">配送地址</th>
+						<th width="8%">订单金额</th>
+						<th width="10%">下单时间</th>
+						<th width="6%">状态</th>
+						<th>操作</th>
 					</tr>
 					<?php foreach ($orders as $order): ?>
 					<tr>
