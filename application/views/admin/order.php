@@ -9,7 +9,6 @@
             	<a href="javascript:;" onClick="doPrint()">打印</a> 
         	</div>-->	
         	<!--startprint-->
-        	<div id="print">
 				<div class="content2">
 					<form action="<?php echo base_url('admin/order/'); ?>" method="get">
 						<table width="100%">
@@ -34,7 +33,7 @@
 					<table width="100%">
 						<tr>
 							<th width="6%">订单号</th>
-							<th width="26%">订单商品</th>
+							<th width="25%">订单商品</th>
 							<th width="6%">姓名</th>
 							<th width="6%">联系方式</th>
 							<th width="15%">配送地址</th>
@@ -68,8 +67,8 @@
 		
 					</div>
 				</div>
-			</div>
 			<!--endprint-->
 		</div>
+	</div>
 		
 <?php load_view('admin/common/footer'); ?>
