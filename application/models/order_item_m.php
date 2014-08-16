@@ -37,8 +37,8 @@ class Order_item_m extends CI_Model
 	{
 		$order_id = (int) $order_id;
 		$this->db->where('order_id', $order_id);
-		$this->db->get('order_items');
-		$num = $this->db->count_all_results();
+		$query=$this->db->get('order_items');
+		$num = $query->num_rows();
 		return $num;
 	}
 	
