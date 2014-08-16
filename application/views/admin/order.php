@@ -4,66 +4,72 @@
 			<div class="content1">
             	<a href="<?php echo base_url('/admin/order/gen_excel/?'.$keywords); ?>">导出</a>
         	</div>	
-
-			<div class="content2">
-				<form action="<?php echo base_url('admin/order/'); ?>" method="get">
+        	<!--<div class="content11">
+            	<a href="javascript:printme()" target="_self">打印</a>
+            	<a href="javascript:;" onClick="doPrint()">打印</a> 
+        	</div>-->	
+        	<!--startprint-->
+        	<div id="print">
+				<div class="content2">
+					<form action="<?php echo base_url('admin/order/'); ?>" method="get">
+						<table width="100%">
+							<tr>
+								<td width="90%">订单状态：
+									<select name="stage">
+										<option value="0">全部</option>
+										<option value="1" <?php if($stage == 1) echo 'selected'?> >已提交</option>
+										<option value="2" <?php if($stage == 2) echo 'selected'?> >已发货</option>
+										<option value="3" <?php if($stage == 3) echo 'selected'?> >已完成</option>
+										<option value="4" <?php if($stage == 4) echo 'selected'?> >已取消</option>
+										<option value="5" <?php if($stage == 5) echo 'selected'?> >已确认</option>
+									</select>
+									<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+	
+				<div class="content2">
 					<table width="100%">
 						<tr>
-							<td width="90%">订单状态：
-								<select name="stage">
-									<option value="0">全部</option>
-									<option value="1" <?php if($stage == 1) echo 'selected'?> >已提交</option>
-									<option value="2" <?php if($stage == 2) echo 'selected'?> >已发货</option>
-									<option value="3" <?php if($stage == 3) echo 'selected'?> >已完成</option>
-									<option value="4" <?php if($stage == 4) echo 'selected'?> >已取消</option>
-									<option value="5" <?php if($stage == 5) echo 'selected'?> >已确认</option>
-								</select>
-								<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
+							<th width="6%">订单号</th>
+							<th width="26%">订单商品</th>
+							<th width="6%">姓名</th>
+							<th width="6%">联系方式</th>
+							<th width="15%">配送地址</th>
+							<th width="6%">订单金额</th>
+							<th width="10%">下单时间</th>
+							<th width="7%">状态</th>
+							<th>操作</th>
+						</tr>
+						<?php foreach ($orders as $order): ?>
+						<tr>
+							<td><a href="<?php echo base_url('/admin/order/detail?id='.$order['order_id']); ?>"><?php echo $order['order_id'];?></td>
+							<td>
+								<?php foreach ($order['items'] as $item): ?>
+		        						<?php echo $item['name']?> <font color="red">单价：<?php echo '￥' . $item['price']; ?></font> x <?php echo $item['quantity']?><br />
+		        						<?php endforeach; ?>
+		        					</td>
+									<td><?php echo $order['username'];?></td>
+							<td><?php echo $order['phone']; ?></td>
+							<td><?php echo $order['address'];?></td>
+							<td><?php echo '￥' . $order['total_prices'];?></td>
+							<td><?php echo date('Y-m-d H:i:s', $order['add_time']);?></td>
+							<td><?php echo get_stage($order['stage']); ?></td>
+							<td>
+								<a href="<?php echo base_url('/admin/order/edit_v/?order_id=' . $order['order_id']); ?>">编辑状态</a>
 							</td>
 						</tr>
+						<?php endforeach;?>
 					</table>
-				</form>
-			</div>
-
-			<div class="content2">
-				<table width="100%">
-					<tr>
-						<th width="6%">订单号</th>
-						<th width="28%">订单商品</th>
-						<th width="8%">姓名</th>
-						<th width="10%">联系方式</th>
-						<th width="15%">配送地址</th>
-						<th width="8%">订单金额</th>
-						<th width="10%">下单时间</th>
-						<th width="6%">状态</th>
-						<th>操作</th>
-					</tr>
-					<?php foreach ($orders as $order): ?>
-					<tr>
-						<td><?php echo $order['order_id'];?></td>
-						<td>
-							<?php foreach ($order['items'] as $item): ?>
-	        						<?php echo $item['name']?> <font color="red">单价：<?php echo '￥' . $item['price']; ?></font> x <?php echo $item['quantity']?><br />
-	        						<?php endforeach; ?>
-	        					</td>
-								<td><?php echo $order['username'];?></td>
-						<td><?php echo $order['phone']; ?></td>
-						<td><?php echo $order['address'];?></td>
-						<td><?php echo '￥' . $order['total_prices'];?></td>
-						<td><?php echo date('Y-m-d H:i:s', $order['add_time']);?></td>
-						<td><?php echo get_stage($order['stage']); ?></td>
-						<td>
-							<a href="<?php echo base_url('/admin/order/edit_v/?order_id=' . $order['order_id']); ?>">编辑状态</a>
-						</td>
-					</tr>
-					<?php endforeach;?>
-				</table>
-				<div class="page">
-					<?php echo $page_html; ?>
-	
+					<div class="page">
+						<?php echo $page_html; ?>
+		
+					</div>
 				</div>
 			</div>
-
+			<!--endprint-->
 		</div>
 		
 <?php load_view('admin/common/footer'); ?>
