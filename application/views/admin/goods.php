@@ -8,6 +8,7 @@
             <div class="content2">
 				<form action="<?php echo base_url('admin/goods/'); ?>" method="get">
 					<table width="100%">
+						<tr>商品数量：<?php echo($number);?></tr>
 						<tr>
 							<td width="90%">产品分类：
 								<select name="stage">
