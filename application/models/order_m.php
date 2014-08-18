@@ -423,6 +423,20 @@ class Order_m extends MY_Model
 		return $return;
 	}
 	
+	public function to_detail($order_id)
+	{
+		$order_id = (int)$order_id;
+		$return = array();
+		$this->db->where('order_id', $order_id);
+		$query = $this->db->get('order');
+		foreach ($query->result_array() as $row) {
+			$return = $row;
+			$return['items'] = $this->order_item_m->get_items($row['order_id']);
+			$return['num'] = $this->order_item_m->get_items_num($row['order_id']);
+		}
+		return $return;
+	}
+	
 	public function num2excel($stage = 0)
 	{
 		if($stage) {

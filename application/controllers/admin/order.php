@@ -50,6 +50,15 @@ class Order extends A_Controller
 		load_view('admin/order', $data);
 	}
 	
+	public function detail()
+	{
+		$order_id = $this->input->get('id');
+		$data['orders'] = $this->order_m->to_detail($order_id);
+		$data['orders']['username'] = $this->user_m->get_byid($data['orders']['user_id']);
+		load_view('admin/order_detail', $data);
+	}
+	
+	
 	public function gen_excel()
 	{
 		$shop_id = $this->input->get('shop_id');
