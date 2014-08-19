@@ -296,7 +296,7 @@ body {
 	border-collapse:collapse;
 }
 .content3 table th {
-	padding: 10px 0;
+	padding-bottom: 0px;
 }
 
 .content3 tr {
