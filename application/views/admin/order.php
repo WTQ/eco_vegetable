@@ -57,7 +57,7 @@
 							<td><?php echo date('Y-m-d H:i:s', $order['add_time']);?></td>
 							<td><?php echo get_stage($order['stage']); ?></td>
 							<td>
-								<a href="<?php echo base_url('/admin/order/edit_v/?order_id=' . $order['order_id']); ?>">编辑状态</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo base_url('/admin/order/detail?id='.$order['order_id']); ?>">打印订单</a>
+								<a href="<?php echo base_url('/admin/order/edit_v/?order_id=' . $order['order_id']); ?>">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo base_url('/admin/order/detail?id='.$order['order_id']); ?>">打印</a>
 							</td>
 						</tr>
 						<?php endforeach;?>
