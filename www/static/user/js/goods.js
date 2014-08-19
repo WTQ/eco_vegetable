@@ -897,11 +897,19 @@ $.ui.ready(function() {
 });
 
 function load_verify() {
+	var flag = 0;
 	// 订单提交成功后恢复购物车初始图标
 	$.ui.removeBadge("#total_items");
 	// $.ui.updateBadge("#total_items", 0, 'tr', '#FFF');
-	setTimeout(function() {
+	// 添加返回主界面按钮
+	$("#verify_click").click(function() {
 		$.ui.loadContent('#index', false, false, 'fade');
+		flag = 1;
+	});
+	setTimeout(function() {
+		if (flag == 0) {
+			$.ui.loadContent('#index', false, false, 'fade');
+		}
 	}, 5000);
 }
 
@@ -949,7 +957,7 @@ $.ui.ready(function() {
 		if (curcnt < 1 ) {
 			clearInterval(timeobj); // 停止计时器
 			$(".send_verifycode").text('重新获取');
-			$(".send_verifycode").css('background-color','#de0808');
+			$(".send_verifycode").css('background-color','#6AAB37');
 			bind_send_verify();
 		}
 	}
@@ -1006,7 +1014,7 @@ $.ui.ready(function() {
 	});
 
 	$(".verifycode_input").focus(function(){
-		$(".verify1").css('background-color','#de0808');
+		$(".verify1").css('background-color','#6AAB37');
 		$(".verify2").show();
 	});
 

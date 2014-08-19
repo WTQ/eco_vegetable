@@ -30,11 +30,11 @@ class Shop extends A_Controller
 		$data['shop']	=	$this->shop_m->limit($per_page, ($p-1) * $per_page)->get_all();
 		$data['page']	=	page($this->shop_m->count_all(), $per_page); 
 		
-		foreach ($data['shop'] as $row) {
+		/*foreach ($data['shop'] as $row) {
 			$data['community'][$row->community_id] = $this->zone_community_m->get($row->community_id);	// 查询community信息
 			$data['block'][$row->community_id] = $this->zone_block_m->get($data['community'][$row->community_id]->block_id);	// 查询block信息
 			$data['district'][$row->community_id] = $this->zone_district_m->get($data['block'][$row->community_id]->district_id);	// 查询district信息
-		}
+		}*/
 		if ($data !== NULL) {
 			load_view('admin/shop_tab', $data);
 		} else {
@@ -111,9 +111,9 @@ class Shop extends A_Controller
 			$shop_hours		= $this->shop_m->time_format($start_time, $close_time);	
 			
 			$hours			= $shop_hours;						// JSON编码后的营业时间
-			$district		= $this->input->post('district');	// 接收到的是id
-			$block			= $this->input->post('block');		// 接收到的是id
-			$community		= $this->input->post('community');
+//			$district		= $this->input->post('district');	// 接收到的是id
+//			$block			= $this->input->post('block');		// 接收到的是id
+//			$community		= $this->input->post('community');
 			$name			= $this->input->post('shop_name');
 			$manager		= $this->input->post('manager');
 			$address		= $this->input->post('address');
@@ -121,13 +121,13 @@ class Shop extends A_Controller
 			$discript		= $this->input->post('discript');
 			
 			$data['shop']	= array(
-								'community_id'	=>	$community,
+//								'community_id'	=>	$community,
 								'name'			=>	$name,
 								'manager'		=>	$manager,
 								'address'		=>	$address,
 								'phone'			=>	$phone,
 								'shop_hours'	=>	$hours,
-								'discript'		=>	$discript,
+//								'discript'		=>	$discript,
 			);
 			
 			$this->shop_m->edit($shop_id, $data['shop']);
@@ -135,14 +135,14 @@ class Shop extends A_Controller
 			redirect('admin/shop');
 		} else {
 			$shop		= $this->shop_m->get($shop_id);							// 获取shop信息
-			$community	= $this->zone_community_m->get($shop->community_id);	// 获取community信息
-			$block		= $this->zone_block_m->get($community->block_id);		// 获取block信息
-			$district	= $this->zone_district_m->get($block->district_id);		// 获取district信息
+//			$community	= $this->zone_community_m->get($shop->community_id);	// 获取community信息
+//			$block		= $this->zone_block_m->get($community->block_id);		// 获取block信息
+//			$district	= $this->zone_district_m->get($block->district_id);		// 获取district信息
 			
 			$data['shop'] = array(
-					'district'		=> $district,
-					'block'			=> $block,
-					'community'		=> $community->name,
+//					'district'		=> $district,
+//					'block'			=> $block,
+//					'community'		=> $community->name,
 					'name'			=> $shop->name,
 					'manager'		=> $shop->manager,
 					'address'		=> $shop->address,
@@ -151,9 +151,9 @@ class Shop extends A_Controller
 					'discript'		=> $shop->discript,
 					'form_url'		=> 'admin/shop/edit_shop?shop_id='.$shop_id,
 			);
-			$data['district']	= $this->zone_district_m->get_all();
-			$data['block']		= $this->zone_block_m->get_all();
-			$data['community']	= $this->zone_community_m->get_all();
+//			$data['district']	= $this->zone_district_m->get_all();
+//			$data['block']		= $this->zone_block_m->get_all();
+//			$data['community']	= $this->zone_community_m->get_all();
 			
 			load_view('admin/shop_edit', $data);
 		}

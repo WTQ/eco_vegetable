@@ -33,6 +33,15 @@ class Order_item_m extends CI_Model
 		return $query->result_array();
 	}
 	
+	public function get_items_num($order_id)
+	{
+		$order_id = (int) $order_id;
+		$this->db->where('order_id', $order_id);
+		$query=$this->db->get('order_items');
+		$num = $query->num_rows();
+		return $num;
+	}
+	
 	public function add($data)
 	{
 		if($this->db->insert('order_items', $data) === FALSE) {
