@@ -35,7 +35,8 @@ class Goods extends A_Controller
 		}
 		
 		$data['goods'] = $this->goods_m->order_by('goods_id', 'desc')->limit($per_page, ($p-1) * $per_page)->get_bycategory($stage);	// 获取goods表里对应分类的记录（对象形式）
-		$data['page'] = page(sizeof($this->goods_m->order_by('goods_id', 'desc')->get_bycategory($stage)), $per_page);						// 分页参数
+		$data['number'] = sizeof($this->goods_m->order_by('goods_id', 'desc')->get_bycategory($stage));
+		$data['page'] = page($data['number'], $per_page);						// 分页参数
 		foreach ($data['goods'] as $row) {
 				$data['shop'][$row->shop_id] = $this->shop_m->get($row->shop_id);			// 获取shop信息
 				$data['category'][$row->class_id] = $this->category_m->get($row->class_id);	// 获取category信息
