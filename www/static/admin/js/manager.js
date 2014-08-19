@@ -38,13 +38,31 @@ function printme() {
 	window.print();
 }
 
+
+function pagesetup_null(){
+	var hkey_root,hkey_path,hkey_key
+	hkey_root="HKEY_CURRENT_USER"
+	hkey_path="\\Software\\Microsoft\\Internet Explorer\\PageSetup\\"
+	//设置网页打印的页眉页脚为空
+	try{
+	var RegWsh = new ActiveXObject("WScript.Shell")
+	hkey_key="header" 
+	RegWsh.RegWrite(hkey_root+hkey_path+hkey_key,"")
+	hkey_key="footer"
+	RegWsh.RegWrite(hkey_root+hkey_path+hkey_key,"")
+	}catch(e){}
+}
+
 function doPrint() { 
+	
+	
 	bdhtml=window.document.body.innerHTML; 
 	sprnstr="<!--startprint-->"; //开始打印标识字符串有17个字符
 	eprnstr="<!--endprint-->"; //结束打印标识字符串
 	prnhtml=bdhtml.substr(bdhtml.indexOf(sprnstr)+17); //从开始打印标识之后的内容
 	prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr)); //截取开始标识和结束标识之间的内容
 	window.document.body.innerHTML=prnhtml; //把需要打印的指定内容赋给body.innerHTML
+	pagesetup_null();
 	window.print(); //调用浏览器的打印功能打印指定区域
 	window.document.body.innerHTML=bdhtml; // 最后还原页面
 }
