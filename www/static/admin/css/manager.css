@@ -116,6 +116,7 @@ body {
 
 .header {
 	width:100%;
+
 	height:60px;
 	background-color:#34495E;
 	
@@ -224,6 +225,7 @@ body {
 	background-color:#19BB9B;
 }
 .content {
+	_width:90%;
 	
 }
 .content1 {
