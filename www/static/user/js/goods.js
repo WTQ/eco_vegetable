@@ -1092,6 +1092,7 @@ $.ui.ready(function() {
 				// 如果是从购物车页面登录
 				if (localStorage['back2cart'] == 1) {
 					localStorage['back2cart'] = 0;
+					localStorage['user_id']      = data.user_id;
 					// 继续填写用户默认地址
 					redirect("#position_input");
 				} else {
@@ -1100,6 +1101,7 @@ $.ui.ready(function() {
 					localStorage['community_id'] = data.community_id;
 					localStorage['user_address'] = data.address;		// 区别商家地址shop_address
 					localStorage['phone']        = data.phone;
+					localStorage['user_id']      = data.user_id;
 					// 跳转到用户验证成功页面
 					redirect('#verify_suc');
 				}
