@@ -29,43 +29,5 @@
                     <div class="cl"></div>
                 </div>
             </div>
-        	<!-- <div class="item1">
-            	About Us
-            </div>
-        	<div class="item">
-            	我的消息
-                <div class="menuitem">
-        	   	        <div class="menuitem1">
-            	        	<table width="400" border="0">
-  					    	<tr>
-    							<td><a href="#">4</a></td>
-  							</tr>
-  							<tr>
-   						 		<td><a href="#">5</a></td>
-  							</tr>
-							</table>
-
-            			</div>
-       			    </div>
-            </div>
-        	<div class="item">
-            	Menu Item
-                	<div class="menuitem">
-        	   	        <div class="menuitem1">
-            	        	<table width="400" border="0">
-  					    	<tr>
-    						<td><a href="#">1</a></td>
-  							</tr>
-  							<tr>
-   						 	<td><a href="#">2</a></td>
-  							</tr>
-  							<tr>
-    						<td><a href="#">3</a></td>
- 					 		</tr>
-							</table>
-
-            			</div>
-       			    </div>
-            </div> -->
        	    <div class="cl"></div>
     	</div>
