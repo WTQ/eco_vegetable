@@ -6,8 +6,7 @@
         <div class="menu">
         	<div class="menu1"><a href="<?php echo base_url('admin/');?>">
             	<div id="image1"></div>
-                <div class="word">系统首页</div>
-                <div class="cl"></div></a>
+                <div class="word">系统首页</div></a>
             </div>
             <!-- <div class="menu1"><a href="<?php echo base_url('admin/zone');?>">
             	<div id="image3"></div>
@@ -16,18 +15,16 @@
             </div> -->
             <div class="menu1"><a href="<?php echo base_url('admin/shop');?>">
             	<div id="image3"></div>
-                <div class="word">店铺管理</div>
-                <div class="cl"></div></a>
+                <div class="word">店铺管理</div></a>
             </div>
             <div class="menu1"><a href="<?php echo base_url('admin/goods');?>">
             	<div id="image2"></div>
                 <div class="word">商品管理</div>
-                <div class="cl"></div></a>
+                </a>
             </div>
             <div class="menu1"><a href="<?php echo base_url('admin/order');?>">
             	<div id="image3"></div>
-                <div class="word">订单管理</div>
-                <div class="cl"></div></a>
+                <div class="word">订单管理</div></a>
             </div>
             <!-- <div class="menu1"><a href="<?php echo base_url('admin/user');?>">
             	<div id="image4"></div>

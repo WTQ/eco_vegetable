@@ -17,15 +17,23 @@
 						</tr>
 					</table>
 				</div>
+                
+                <div class="content3">
+					<table width="100%">
+						<tr>
+							<th width="100%" style="padding-bottom:10px">配送地址：<?php echo $orders['address'];?></th>
+						</tr>
+					</table>
+				</div>
 	
 				<div class="content2">
 					<table width="100%">
 						<tr>
 							<th width="8%">商品编号</th>
-							<th width="68%">商品名称</th>
+							<th width="56%">商品名称</th>
 							<th width="8%">数量</th>
-							<th width="8%">价格</th>
-							<th>小计</th>
+							<th width="14%">价格（元）</th>
+							<th>小计（元）</th>
 						</tr>
 						<?php foreach ($orders['items'] as $item): ?>
 							<tr>
@@ -44,7 +52,7 @@
 						<table width="100%">
 							<tr>
 								<th width="90%" style="text-align: right;">订单总价：</th>
-								<th style="text-align: center;"><?php echo $orders['total_prices'];?></th>
+								<th style="text-align: center;"><?php echo $orders['total_prices'];?>&nbsp;&nbsp;元</th>
 							</tr>
 						</table>
 					</div>
