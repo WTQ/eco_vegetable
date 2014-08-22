@@ -454,4 +454,34 @@ class Order_m extends MY_Model
 		}
 		return TRUE;
 	}
+	/**
+	 * 商品订单统计
+	 */
+	public function goods_list($stage = 0)
+	{
+		$return = array();
+// 		$stage = 1; // 测试语句
+// 		$num = 2;
+// 		$offset = 0;
+		if($stage) {
+			$query = $this->db->query("SELECT order_id FROM `yf_order` WHERE stage=" . $stage);	
+		} else {
+			$query = $this->db->query("SELECT order_id FROM `yf_order`");
+		}
+		if (!empty($query->result_array())) {
+			$order_id = "(";
+			foreach ($query->result_array() as $key => $row) {
+				if ($key == 0) {
+					$order_id = $order_id . $row['order_id'];
+				} else {
+					$order_id = $order_id . "," . $row['order_id'];
+				}
+			}
+			$order_id = $order_id . ")";
+			//$query2 = $this->db->query("SELECT order_id,goods_id,name,quantity FROM `yf_order_items` WHERE order_id IN " . $order_id);
+			$query2 = $this->db->query("SELECT goods_id,name,SUM(quantity) FROM `yf_order_items` WHERE order_id IN " . $order_id . " GROUP BY goods_id");
+			$return = $query2->result_array();
+		}
+		return $return;
+	}
 }
