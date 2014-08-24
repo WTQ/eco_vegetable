@@ -261,11 +261,12 @@ img {
 	background:url('../image/search.png') no-repeat 40% center #FFFFFF!important;
 }
 
-#afui .menuButton {
+#afui .menusort {
 	right:0;
 	width:60px;
+	font-size:16px;
 }
-#afui .menuButton:after {
+#afui .menusort:after {
 	top:11px;
 	left:20px;
 }
