@@ -35,13 +35,12 @@
 				<div class="content2">
 					<table width="100%">
 						<tr>
-							<th width="6%">订单号</th>
-							<th width="25%">订单商品</th>
-							<th width="6%">姓名</th>
+							<th width="7%">订单号</th>
+							<th width="32%">订单商品</th>
 							<th width="6%">联系方式</th>
 							<th width="15%">配送地址</th>
 							<th width="6%">订单金额</th>
-							<th width="10%">下单时间</th>
+							<th width="11%">下单时间</th>
 							<th width="7%">状态</th>
 							<th>操作</th>
 						</tr>
@@ -53,14 +52,13 @@
 		        						<?php echo $item['name']?> <font color="red">单价：<?php echo '￥' . $item['price']; ?></font> x <?php echo $item['quantity']?><br />
 		        						<?php endforeach; ?>
 		        					</td>
-									<td><?php echo $order['username'];?></td>
 							<td><?php echo $order['phone']; ?></td>
 							<td><?php echo $order['address'];?></td>
 							<td><?php echo '￥' . $order['total_prices'];?></td>
 							<td><?php echo date('Y-m-d H:i:s', $order['add_time']);?></td>
 							<td><?php echo get_stage($order['stage']); ?></td>
 							<td>
-								<a href="<?php echo base_url('/admin/order/edit_v/?order_id=' . $order['order_id']); ?>">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo base_url('/admin/order/detail?id='.$order['order_id']); ?>">打印</a>
+								<a href="<?php echo base_url('/admin/order/edit_v/?order_id=' . $order['order_id']); ?>">编辑</a>&nbsp;&nbsp;<a href="<?php echo base_url('/admin/order/detail?id='.$order['order_id']); ?>">打印</a>
 							</td>
 						</tr>
 						<?php endforeach;?>
