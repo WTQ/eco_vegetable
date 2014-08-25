@@ -466,7 +466,7 @@ class Order_m extends MY_Model
 		} else {
 			$query = $this->db->query("SELECT order_id FROM `yf_order`");
 		}
-		if ((null!==$query->result_array())&&(!empty($query->result_array()))) {
+		if ($query->num_rows() > 0) {
 			$order_id = "(";
 			foreach ($query->result_array() as $key => $row) {
 				if ($key == 0) {
