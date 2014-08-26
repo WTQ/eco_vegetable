@@ -486,15 +486,13 @@ class Order_m extends MY_Model
 	public function goods_list($stage = 0)
 	{
 		$return = array();
-// 		$stage = 1; // 测试语句
-// 		$num = 2;
-// 		$offset = 0;
+
 		if($stage) {
 			$query = $this->db->query("SELECT order_id FROM `yf_order` WHERE stage=" . $stage);	
 		} else {
 			$query = $this->db->query("SELECT order_id FROM `yf_order`");
 		}
-		if (!empty($query->result_array())) {
+		if ($query->num_rows() > 0) {
 			$order_id = "(";
 			foreach ($query->result_array() as $key => $row) {
 				if ($key == 0) {
