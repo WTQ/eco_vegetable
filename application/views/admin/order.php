@@ -13,7 +13,7 @@
 					<form action="<?php echo base_url('admin/order/'); ?>" method="get">
 						<table width="100%">
 							<tr>
-								<td width="81%">订单状态：
+								<td width="78%">订单状态：
 									<select name="stage">
 										<option value="0">全部</option>
 										<option value="1" <?php if($stage == 1) echo 'selected'?> >已提交</option>
@@ -25,7 +25,8 @@
 									<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
 								</td>
 								<td>
-									<a href="<?php echo base_url('/admin/order/gen_excel/?'.$keywords); ?>">导出excel表格</a>
+									<a href="<?php echo base_url('/admin/order/gen_excel/?'.$keywords); ?>">导出excel表格</a>&nbsp;&nbsp;&nbsp;&nbsp;
+									<a href="<?php echo base_url('/admin/order/gen_word/?'.$keywords); ?>">订单批量打印</a>
 								</td>
 							</tr>
 						</table>
