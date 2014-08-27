@@ -423,6 +423,32 @@ class Order_m extends MY_Model
 		return $return;
 	}
 	
+	public function to_word($stage = 0, $num=0, $offset=0)
+	{
+		$return = array();
+		if($stage) {
+			$this->db->where('stage', $stage);
+		}
+		$this->db->order_by("order_id", "desc");
+		if(!$num) {
+			$query = $this->db->get('order');
+		} else {
+			$query = $this->db->get('order', $num, $offset);
+		}
+		
+		$i = 0;
+		foreach ($query->result_array() as $row) {
+			$return[$i] = $row;
+			$return[$i]['items'] = $this->order_item_m->get_items($row['order_id']);
+			$return[$i]['num'] = $this->order_item_m->get_items_num($row['order_id']);
+			$i++;
+		}
+		return $return;
+	}
+	
+	/**
+	 * 获取打印的订单详情模块
+	 */
 	public function to_detail($order_id)
 	{
 		$order_id = (int)$order_id;

@@ -30,14 +30,14 @@
             <div class="content2">
             	<table width="100%">
                       <tr>
-                        <th width="6%">编号</th>
-                        <th width="30%">品名</th>
+                        <th width="7%">编号</th>
+                        <th width="35%">品名</th>
                         <th width="5%">图片</th>
                         <th width="10%">分类</th>
                         <th width="8%">规格</th>
                         <th width="8%">价格</th>
-                        <th width="6%">库存</th>
-                        <th width="6%">推荐</th>
+                        <!-- <th width="6%">库存</th>
+                        <th width="6%">推荐</th> -->
                         <th width="6%">上架</th>
                         <th>操作</th>
                       </tr>
@@ -49,12 +49,12 @@
                         <td><?php echo $category[$row->class_id]->class_name; ?></td>
                         <td><?php echo $row->unit; ?></td>
                         <td><?php echo $row->price; ?></td>
-                        <td><?php if ($row->stock === '0') {
+                        <!-- <td><?php if ($row->stock === '0') {
                         	echo '无'; } else {echo '有';}?>
 						</td>
                         <td><?php if ($row->is_today === '1') {
                         	echo '是'; } else {echo '否';}?>
-						</td>
+						</td> -->
 						<td><?php if ($row->sold === '1') {
                         	echo '是'; } else {echo '否';}?>
 						</td>

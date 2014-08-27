@@ -94,6 +94,25 @@ class Order extends A_Controller
 		}
 	}
 	
+	public function gen_word()
+	{
+		$shop_id = $this->input->get('shop_id');
+		$stage = $this->input->get('stage');
+		$this->load->library('word');
+		$Orders = $this->order_m->to_word($stage);//$this->shops_m->shop_id2char($shop_id)
+		$i = 0;
+		foreach ($Orders as $key) {
+			$Orders[$i]['username'] = $this->user_m->get_byid($key['user_id']);
+			$i++;
+		}
+		$this->word->index($Orders);
+		if ( $stage == 1) {
+			foreach($Orders as $Order) {
+				$this->order_m->set_stage($Order['order_id'], 5);
+			}
+		}
+	}
+	
 	public function edit_v()
 	{
 		$Order_id = $this->input->get('order_id', TRUE);
