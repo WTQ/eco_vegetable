@@ -251,7 +251,10 @@ body {
 	color:#FFF;
 	background::#2C3E50 !important;
 }
-
+.content_row {
+	float:left;
+	width:50%;
+}
 .content2 {
 	margin:0 5%;
 	line-height:30px;

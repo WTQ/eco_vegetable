@@ -1,9 +1,12 @@
 <!-- 订单管理页面 -->
 <?php load_view('admin/common/header'); ?>	
 		<div class="content">
-			<div class="content1">
-            	<a href="<?php echo base_url('/admin/order/order_goods/'); ?>">商品统计</a>
-        	</div>	
+			<div class="content1 content_row">
+            	<a href="<?php echo base_url('/admin/order/'); ?>">订单统计</a>
+        	</div>
+        	<div class="content1 content_row">
+            	<a href="<?php echo base_url('/admin/order/order_goods/'); ?>">订单商品统计</a>
+        	</div>
         	<!--<div class="content11">
             	<a href="javascript:printme()" target="_self">打印</a>
             	<a href="javascript:;" onClick="doPrint()">打印</a> 
