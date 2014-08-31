@@ -50,6 +50,9 @@
 </head>
 
 <body>
+<div style="margin-top: 50px;">
+	<a href="http://eco.te168.cn/static/eco.apk" style="display: block; width: 80%; height: 30px; background: #3fb58f;">点击下载</a>
+</div>
 </body>
 
 </html>
