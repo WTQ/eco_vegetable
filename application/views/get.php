@@ -45,13 +45,13 @@
                     theUrl = '你的iPad APP（中文版-默认）对应下载地址：APP Store地址';
             }
         }
-        location.href = 'http://eco.te168.cn/static/eco.apk';
+        // location.href = 'http://eco.te168.cn/static/eco.apk';
     </script>
 </head>
 
 <body>
-<div style="margin-top: 50px;">
-	<a href="http://eco.te168.cn/static/eco.apk" style="display: block; width: 80%; height: 30px; background: #3fb58f;">点击下载</a>
+<div style="margin-top: 50px;font-size:14px;">
+	<a href="http://eco.te168.cn/static/eco.apk" style="margin:0 auto;color:#fff; font-weight:bold; display: block; text-decoration:none;text-align:center; width: 80%; line-height: 40px; background: #3fb58f;">生态蔬菜APP点击下载</a>
 </div>
 </body>
 
