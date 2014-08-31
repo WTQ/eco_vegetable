@@ -45,8 +45,7 @@
                     theUrl = '你的iPad APP（中文版-默认）对应下载地址：APP Store地址';
             }
         }
-        // location.href = 'http://eco.te168.cn/static/eco.apk';
-        window.open('http://eco.te168.cn/static/eco.apk');
+        location.href = 'http://eco.te168.cn/static/eco.apk';
     </script>
 </head>
 
