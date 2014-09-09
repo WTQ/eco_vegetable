@@ -47,6 +47,7 @@ class Order extends A_Controller
 		}
 		$data['shop_id'] = $shop_id;
 		$data['stage'] = $stage;
+		$data['search_input'] = $keywords;
 		//var_dump($data);exit();
 		load_view('admin/order', $data);
 	}
