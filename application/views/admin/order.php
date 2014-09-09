@@ -25,6 +25,7 @@
 										<option value="4" <?php if($stage == 4) echo 'selected'?> >已取消</option>
 										<option value="5" <?php if($stage == 5) echo 'selected'?> >已确认</option>
 									</select>
+									<input autocomplete="off" id="search_input" name="search_input" type="search" placeholder="可输入配送地址">
 									<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
 								</td>
 								<td>

@@ -401,12 +401,16 @@ class Order_m extends MY_Model
 	/**
 	 * 订单管理模块
 	 */
-	public function to_excel($stage = 0, $num=0, $offset=0)
+	public function to_excel($stage = 0, $search_input = "", $num = 0, $offset = 0)
 	{
 		$return = array();
 		if($stage) {
 			$this->db->where('stage', $stage);
 		}
+		if (strlen($search_input) != 0) {
+			$this->db->like('address', $search_input);
+		}
+		
 		$this->db->order_by("order_id", "desc");
 		if(!$num) {
 			$query = $this->db->get('order');
