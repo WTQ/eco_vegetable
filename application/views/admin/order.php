@@ -1,9 +1,12 @@
 <!-- 订单管理页面 -->
 <?php load_view('admin/common/header'); ?>	
 		<div class="content">
-			<div class="content1">
-            	<a href="<?php echo base_url('/admin/order/order_goods/'); ?>">商品统计</a>
-        	</div>	
+			<div class="content1 content_row">
+            	<a href="<?php echo base_url('/admin/order/'); ?>">订单统计</a>
+        	</div>
+        	<div class="content1 content_row">
+            	<a href="<?php echo base_url('/admin/order/order_goods/'); ?>">订单商品统计</a>
+        	</div>
         	<!--<div class="content11">
             	<a href="javascript:printme()" target="_self">打印</a>
             	<a href="javascript:;" onClick="doPrint()">打印</a> 
@@ -22,6 +25,7 @@
 										<option value="4" <?php if($stage == 4) echo 'selected'?> >已取消</option>
 										<option value="5" <?php if($stage == 5) echo 'selected'?> >已确认</option>
 									</select>
+									<input autocomplete="off" id="search_input" name="search_input" type="search" placeholder="可输入配送地址" value = "<?php echo $search_input; ?>">
 									<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
 								</td>
 								<td>

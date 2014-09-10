@@ -28,8 +28,9 @@ class Order extends A_Controller
 
 		$shop_id = 1;
 		$stage = $this->input->get('stage', TRUE);
-
-		$data['orders'] = $this->order_m->to_excel($stage, $per_page, ($p-1)*$per_page);
+		$keywords = $this->input->get('search_input', TRUE);
+		
+		$data['orders'] = $this->order_m->to_excel($stage, $keywords, $per_page, ($p-1)*$per_page);
 		$i = 0;
 		foreach ($data['orders'] as $key) {
 			$data['orders'][$i]['username'] = $this->user_m->get_byid($key['user_id']);
@@ -39,14 +40,15 @@ class Order extends A_Controller
 		$data['page_html'] =  $this->_page_init($per_page, $total_row, $shop_id, $stage);
 		$data['shops'] = $this->shops_m->get_all();
 		if($shop_id !== FALSE) {
-			$data['keywords'] ='shop_id='.$shop_id.'&'.'stage='.$stage;
+			$data['keywords'] ='shop_id='.$shop_id.'&'.'stage='.$stage.'&'.'search_input='.$keywords;
 			
 		} else {
 			$data['keywords']='';
 		}
 		$data['shop_id'] = $shop_id;
 		$data['stage'] = $stage;
-		
+		$data['search_input'] = $keywords;
+		//var_dump($data);exit();
 		load_view('admin/order', $data);
 	}
 	
@@ -72,10 +74,11 @@ class Order extends A_Controller
 	
 	public function gen_excel()
 	{
-		$shop_id = $this->input->get('shop_id');
-		$stage = $this->input->get('stage');
+		$shop_id = 1;
+		$stage = $this->input->get('stage', TRUE);
+		$keywords = $this->input->get('search_input', TRUE);
 		$this->load->library('excel');
-		$Orders = $this->order_m->to_excel($stage);//$this->shops_m->shop_id2char($shop_id)
+		$Orders = $this->order_m->to_excel($stage, $keywords);//$this->shops_m->shop_id2char($shop_id)
 		if($shop_id == FALSE) {
 			$shop['shop_name'] = '全部店铺';
 		} else {
