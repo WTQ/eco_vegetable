@@ -31,7 +31,7 @@
             	<table width="100%">
                       <tr>
                         <th width="7%">编号</th>
-                        <th width="35%">品名</th>
+                        <th width="30%">品名</th>
                         <th width="5%">图片</th>
                         <th width="10%">分类</th>
                         <th width="8%">规格</th>
@@ -55,10 +55,10 @@
                         <td><?php if ($row->is_today === '1') {
                         	echo '是'; } else {echo '否';}?>
 						</td> -->
-						<td><?php if ($row->sold === '1') {
+						<td style="text-align:center;"><?php if ($row->sold === '1') {
                         	echo '是'; } else {echo '否';}?>
 						</td>
-                        <td><a href="<?php echo base_url('/admin/goods/edit_goods?goods_id=' .$row->goods_id); ?>">编辑</a>
+                        <td style="text-align:center;"><a href="<?php echo base_url('/admin/goods/edit_goods?goods_id=' .$row->goods_id); ?>">编辑</a>
                         	<a onclick="return del_alert()" href="<?php echo base_url('/admin/goods/del_goods?goods_id=' .$row->goods_id); ?>">删除</a>
                         	<a href="<?php echo base_url('/admin/goods/in_out_stock?goods_id=' .$row->goods_id); ?>">
                         	<?php if ($row->stock === '0') {

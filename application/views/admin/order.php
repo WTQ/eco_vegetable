@@ -13,7 +13,7 @@
 					<form action="<?php echo base_url('admin/order/'); ?>" method="get">
 						<table width="100%">
 							<tr>
-								<td width="78%">订单状态：
+								<td width="80%">订单状态：
 									<select name="stage">
 										<option value="0">全部</option>
 										<option value="1" <?php if($stage == 1) echo 'selected'?> >已提交</option>
@@ -36,12 +36,12 @@
 				<div class="content2">
 					<table width="100%">
 						<tr>
-							<th width="7%">订单号</th>
-							<th width="32%">订单商品</th>
-							<th width="6%">联系方式</th>
+							<th width="5%">订单号</th>
+							<th width="25%">订单商品</th>
+							<th width="5%">联系方式</th>
 							<th width="15%">配送地址</th>
 							<th width="6%">订单金额</th>
-							<th width="11%">下单时间</th>
+							<th width="8%">下单时间</th>
 							<th width="7%">状态</th>
 							<th>操作</th>
 						</tr>
@@ -58,8 +58,8 @@
 							<td><?php echo '￥' . $order['total_prices'];?></td>
 							<td><?php echo date('Y-m-d H:i:s', $order['add_time']);?></td>
 							<td><?php echo get_stage($order['stage']); ?></td>
-							<td>
-								<a href="<?php echo base_url('/admin/order/edit_v/?order_id=' . $order['order_id']); ?>">编辑</a>&nbsp;&nbsp;<a href="<?php echo base_url('/admin/order/detail?id='.$order['order_id']); ?>">打印</a>
+							<td style="text-align:center;">
+								<a href="<?php echo base_url('/admin/order/edit_v/?order_id=' . $order['order_id']); ?>">编辑</a>&nbsp;<a href="<?php echo base_url('/admin/order/detail?id='.$order['order_id']); ?>">打印</a>
 							</td>
 						</tr>
 						<?php endforeach;?>

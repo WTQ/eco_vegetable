@@ -11,7 +11,7 @@ body {
 }
 .leftmenu {
 	float:left;
-	width:12%;
+	width:160px;
 }
 .xiaomaibu {
 	height:60px;
@@ -55,6 +55,7 @@ body {
     text-decoration: none;
 	display:inline-block;
 	color:#FFFFFF;
+	width:100%;
 }
 .menu1 a:hover {
 	color:#1ABC9C;
@@ -62,43 +63,43 @@ body {
 }
 #image1 {
 	float:left;
-	width:55px;
+	width:35%;
 	height:74px;
 	background:url('../image/shouye.gif') no-repeat center center;
 }
 #image2 {
 	float:left;
-	width:55px;
+	width:35%;
 	height:74px;
 	background:url('../image/shangpin.gif') no-repeat center center;
 }
 #image3 {
 	float:left;
-	width:55px;
+	width:35%;
 	height:74px;
 	background:url('../image/dianpu.gif') no-repeat center center;
 }
 #image4 {
 	float:left;
-	width:55px;
+	width:35%;
 	height:74px;
 	background:url('../image/yonghu.gif') no-repeat center center;
 }
 #image5 {
 	float:left;
-	width:55px;
+	width:35%;
 	height:74px;
 	background:url('../image/tongji.gif') no-repeat center center;
 }
 #image6 {
 	float:left;
-	width:55px;
+	width:35%;
 	height:74px;
 	background:url('../image/guanggao.gif') no-repeat center center;
 }
 #image7 {
 	float:left;
-	width:55px;
+	width:35%;
 	height:74px;
 	background:url('../image/xitong.gif') no-repeat center center;
 }
@@ -110,8 +111,7 @@ body {
 	
 }
 .right {
-	float:left;
-	width:88%;
+	margin-left:160px;
 }
 
 .header {
@@ -235,7 +235,6 @@ body {
 }
 .content1 a {
 	display:inline;
-	
 	text-align:center;
 	margin-left:24%;
 	display:block;
@@ -250,6 +249,7 @@ body {
 .content1 a:hover {
 	color:#FFF;
 	background::#2C3E50 !important;
+	display:block;
 }
 
 .content2 {
