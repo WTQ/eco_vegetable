@@ -1,8 +1,11 @@
 <!-- 订单商品统计页面 -->
 <?php load_view('admin/common/header'); ?>
 		<div class="content">
-			<div class="content1">
+			<div class="content1 content_row">
             	<a href="<?php echo base_url('/admin/order/'); ?>">订单统计</a>
+        	</div>
+        	<div class="content1 content_row">
+            	<a href="<?php echo base_url('/admin/order/order_goods/'); ?>">订单商品统计</a>
         	</div>	
         	<!--<div class="content11">
             	<a href="javascript:printme()" target="_self">打印</a>
@@ -32,8 +35,9 @@
 				<div class="content2">
 					<table width="100%">
 						<tr>
-							<th width="50%">订单商品</th>
-							<th>商品数量</th>
+							<th width="33%">订单商品</th>
+							<th width="33%">商品数量</th>
+							<th>商品分类</th>
 						</tr>
 						<?php foreach ($orders as $order): ?>
 						<tr>							
@@ -42,6 +46,9 @@
 		        			</td>
 							<td>
 								<?php echo $order['SUM(quantity)']?>
+							</td>
+							<td>
+								<?php echo $order['class_name']?>
 							</td>
 						</tr>
 						<?php endforeach;?>

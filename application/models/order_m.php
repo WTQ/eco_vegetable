@@ -23,7 +23,7 @@ class Order_m extends MY_Model
 	{
 		parent::__construct();
 		// 加载order_items_m类，goods_m类
-		$this->load->model(array('order_items_m', 'goods_m', 'order_item_m'));
+		$this->load->model(array('order_items_m', 'goods_m', 'order_item_m', 'category_m'));
 
 		// 加载order的配置文件
 		$this->load->config('order_stage', TRUE);
@@ -401,12 +401,16 @@ class Order_m extends MY_Model
 	/**
 	 * 订单管理模块
 	 */
-	public function to_excel($stage = 0, $num=0, $offset=0)
+	public function to_excel($stage = 0, $search_input = "", $num = 0, $offset = 0)
 	{
 		$return = array();
 		if($stage) {
 			$this->db->where('stage', $stage);
 		}
+		if (strlen($search_input) != 0) {
+			$this->db->like('address', $search_input);
+		}
+		
 		$this->db->order_by("order_id", "desc");
 		if(!$num) {
 			$query = $this->db->get('order');
@@ -423,6 +427,32 @@ class Order_m extends MY_Model
 		return $return;
 	}
 	
+	public function to_word($stage = 0, $num=0, $offset=0)
+	{
+		$return = array();
+		if($stage) {
+			$this->db->where('stage', $stage);
+		}
+		$this->db->order_by("order_id", "desc");
+		if(!$num) {
+			$query = $this->db->get('order');
+		} else {
+			$query = $this->db->get('order', $num, $offset);
+		}
+		
+		$i = 0;
+		foreach ($query->result_array() as $row) {
+			$return[$i] = $row;
+			$return[$i]['items'] = $this->order_item_m->get_items($row['order_id']);
+			$return[$i]['num'] = $this->order_item_m->get_items_num($row['order_id']);
+			$i++;
+		}
+		return $return;
+	}
+	
+	/**
+	 * 获取打印的订单详情模块
+	 */
 	public function to_detail($order_id)
 	{
 		$order_id = (int)$order_id;
@@ -466,6 +496,7 @@ class Order_m extends MY_Model
 		} else {
 			$query = $this->db->query("SELECT order_id FROM `yf_order`");
 		}
+		
 		if ($query->num_rows() > 0) {
 			$order_id = "(";
 			foreach ($query->result_array() as $key => $row) {
@@ -476,9 +507,15 @@ class Order_m extends MY_Model
 				}
 			}
 			$order_id = $order_id . ")";
-			//$query2 = $this->db->query("SELECT order_id,goods_id,name,quantity FROM `yf_order_items` WHERE order_id IN " . $order_id);
+			// 相同商品合并数量
 			$query2 = $this->db->query("SELECT goods_id,name,SUM(quantity) FROM `yf_order_items` WHERE order_id IN " . $order_id . " GROUP BY goods_id");
 			$return = $query2->result_array();
+			// 获取分类、分类名称
+			foreach ($return as $key => $row) {
+				$return[$key]['class_id'] = $this->db->query("SELECT class_id FROM `yf_goods` WHERE goods_id=" . $row['goods_id'])->result_array()[0]['class_id'];
+				$return[$key]['class_name'] = $this->db->query("SELECT class_name FROM `yf_category` WHERE class_id=" . $return[$key]['class_id'])->result_array()[0]['class_name'];
+			}
+
 		}
 		return $return;
 	}
