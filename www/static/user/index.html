@@ -208,7 +208,12 @@
                             <td id="user_phone"><!--联系电话--></td>
                           </tr>
                           <tr>
-                            <td>现金<!--付款方式--></td>
+                            <td class="fav">
+                            <select id="pay" class="fav_select">
+                                <option value="0">货到付款</option>
+                                <option value="1">支付宝</option>
+                            </select>
+                            </td>
                           </tr>
                           <tr>
                             <td class="fav"><!--优惠信息-->
@@ -250,7 +255,7 @@
                     	预计于次日8:30送到
                     </div>
                     <div class="verify_back" id="verify_click">点我进入首页</div>
-                </div>              
+                </div>
             </div>
         </div>
 
@@ -739,6 +744,41 @@
         <!-- 邀请朋友 -->
         <div id="invite" title="" class="panel" data-header="none" data-footer="common_footer" data-tab="tab_more" style="overflow:hidden;">
         	<div class="h_header">
+                <a class="backButton" onClick="$.ui.goBack()"></a>
+                <div>邀请朋友</div>
+            </div>
+            <div class="invitation_fri">
+                <div class="invitation_code">邀请朋友扫描我的邀请码</div>
+                <div class="invitation_list">
+                    <ul class="invitation">
+                        <li>
+                            <a href="#">
+                            <div class="text_list1">邀请qq好友</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                            <div class="text_list2">邀请微信好友</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                            <div class="text_list3">分享到微信朋友圈</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                            <div class="text_list4">分享到新浪微博</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 支付宝登陆页面 -->
+        <div id="alipay" title="" class="panel" data-header="none" data-footer="common_footer" data-tab="tab_more" style="overflow:hidden;">
+            <div class="h_header">
                 <a class="backButton" onClick="$.ui.goBack()"></a>
                 <div>邀请朋友</div>
             </div>
