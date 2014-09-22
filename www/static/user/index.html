@@ -316,6 +316,11 @@
                         	<div class="list_text">我的优惠券</div>
                         </a>
                     </li>
+                    <li>
+                        <a href="#alipay">
+                            <div class="list_text">支付宝</div>
+                        </a>
+                    </li>
                     <!-- <li>
                     	<a href="#mysuggestion">
                         	<div class="list_text">问题反馈</div>
@@ -777,36 +782,184 @@
         </div>
 
         <!-- 支付宝登陆页面 -->
+<style>
+*{
+    margin:0;
+    padding:0;
+}
+ul,ol{
+    list-style:none;
+}
+.title{
+    color: #ADADAD;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px 5px 10px;
+}
+.hidden{
+    display:none;
+}
+
+.new-btn-login-sp{
+    border:1px solid #D74C00;
+    padding:1px;
+    display:inline-block;
+}
+
+.new-btn-login{
+    background-color: transparent;
+    background-image: url("images/new-btn-fixed.png");
+    border: medium none;
+}
+.new-btn-login{
+    background-position: 0 -198px;
+    width: 82px;
+    color: #FFFFFF;
+    font-weight: bold;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 10px 3px;
+}
+.new-btn-login:hover{
+    background-position: 0 -167px;
+    width: 82px;
+    color: #FFFFFF;
+    font-weight: bold;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 10px 3px;
+}
+.bank-list{
+    overflow:hidden;
+    margin-top:5px;
+}
+.bank-list li{
+    float:left;
+    width:153px;
+    margin-bottom:5px;
+}
+
+#main{
+    width:455px;
+    margin:0 auto;
+    font-size:14px;
+    font-family:'宋体';
+}
+#logo{
+    background-color: transparent;
+    background-image: url("images/new-btn-fixed.png");
+    border: medium none;
+    background-position:0 0;
+    width:166px;
+    height:35px;
+    float:left;
+}
+.red-star{
+    color:#f00;
+    width:10px;
+    display:inline-block;
+}
+.null-star{
+    color:#fff;
+}
+.content{
+    margin-top:5px;
+}
+
+.content dt{
+    width:160px;
+    display:inline-block;
+    text-align:right;
+    float:left;
+
+}
+.content dd{
+    margin-left:100px;
+    margin-bottom:5px;
+}
+#foot{
+    margin-top:10px;
+}
+.foot-ul li {
+    text-align:center;
+}
+.note-help {
+    color: #999999;
+    font-size: 12px;
+    line-height: 130%;
+    padding-left: 3px;
+}
+
+.cashier-nav {
+    font-size: 14px;
+    margin: 15px 0 10px;
+    text-align: left;
+    height:30px;
+    border-bottom:solid 2px #CFD2D7;
+}
+.cashier-nav ol li {
+    float: left;
+}
+.cashier-nav li.current {
+    color: #AB4400;
+    font-weight: bold;
+}
+.cashier-nav li.last {
+    clear:right;
+}
+.alipay_link {
+    text-align:right;
+}
+.alipay_link a:link{
+    text-decoration:none;
+    color:#8D8D8D;
+}
+.alipay_link a:visited{
+    text-decoration:none;
+    color:#8D8D8D;
+}
+</style>
         <div id="alipay" title="" class="panel" data-header="none" data-footer="common_footer" data-tab="tab_more" style="overflow:hidden;">
             <div class="h_header">
                 <a class="backButton" onClick="$.ui.goBack()"></a>
-                <div>邀请朋友</div>
-            </div>
-            <div class="invitation_fri">
-                <div class="invitation_code">邀请朋友扫描我的邀请码</div>
-                <div class="invitation_list">
-                    <ul class="invitation">
-                        <li>
-                            <a href="#">
-                            <div class="text_list1">邀请qq好友</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <div class="text_list2">邀请微信好友</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <div class="text_list3">分享到微信朋友圈</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <div class="text_list4">分享到新浪微博</div>
-                            </a>
-                        </li>
-                    </ul>
+                <div>支付宝支付</div>
+                <div id="main">
+                    <form name=alipayment action=alipayapi.php method=post target="_blank">
+                        <div id="body" style="clear:left">
+                            <dl class="content">
+                                <dt>卖家支付宝帐户：</dt>
+                              <dd>
+                                    <span class="null-star">*</span>
+                                    <input size="30" name="WIDseller_email" />
+                                    <span></span>
+                                </dd>
+                                <dt>商户订单号：</dt>
+                                <dd>
+                                    <span class="null-star">*</span>
+                                    <input size="30" name="WIDout_trade_no" />
+                                    <span></span>
+                                </dd>
+                                <dt>订单名称：</dt>
+                                <dd>
+                                    <span class="null-star">*</span>
+                                    <input size="30" name="WIDsubject" />
+                                    <span></span>
+                                </dd>
+                                <dt>付款金额：</dt>
+                                <dd>
+                                    <span class="null-star">*</span>
+                                    <input size="30" name="WIDtotal_fee" />
+                                    <span></span>
+                                </dd>
+                                <dt></dt>
+                                <dd>
+                                    <span class="new-btn-login-sp">
+                                        <button class="new-btn-login" type="submit" style="text-align:center;">确 认</button>
+                                    </span>
+                                </dd>
+                            </dl>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

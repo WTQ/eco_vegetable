@@ -44,7 +44,7 @@ function shop_info() {
 	$.getJSON(url('/user/shop?callback=?'), get, function(data) {
 		if (data.error == 0) {
 			firstLoadShop = false;
-			
+
 			$('#shop_scrolling').html('<div id="body1_image"></div>');
 
 			var low_price = data.low_price;
@@ -85,7 +85,7 @@ function shop_info() {
  */
 function goods_info() {
 	shop_info();
-	
+
 	if (firstLoadGoods != true) {
 		return;
 	}
@@ -620,7 +620,7 @@ function cart_confirm() {
 		'shop_id'	  : localStorage['shop_id'],
 		'total_price' : localStorage['total_price']
 	};
-	
+
 	load_mask();
 	$.getJSON(url('/user/cart?callback=?'), get, function(data) {
 		// 清除同步服务器之前的购物车本地存储
@@ -802,7 +802,7 @@ function cart_in_de() {
 	// + 按钮事件
 	$(".increase").click(function(n) {
 		n.stopPropagation();	// 阻止冒泡
-		
+
 		// 获取购物车中各商品信息DOM对象
 		var cart_goods = $(".cart_goods");
 		// 获取购物车中各商品数量DOM对象
@@ -824,24 +824,24 @@ function cart_in_de() {
 		// 更新商品数量和总金额显示
 		var n = cart_item(goods_id);
 		$(goods_num[i]).text(($.parseJSON(localStorage['cart'])[n].qty));
-		
+
 		// 去掉下次购买阴影层
 		unsettle_hide_mask(i);
 		// 更新购物车
 		cart_badge();
 	});
-	
+
 	// - 按钮事件
 	$(".decrease").click(function(n){
 		n.stopPropagation();	// 阻止冒泡
-		
+
 		// 获取购物车中各商品信息DOM对象
 		var cart_goods = $(".cart_goods");
 		// 获取购物车中各商品数量DOM对象
 		var goods_num  = $(".number");
 		// 查询是第几个increase按钮
 		var i          = $(".decrease").index($(this));
-		
+
 		// 判断数量是不是为1了，如果为1，应该滑出右边的删除部分
 		var old_num	   = $(goods_num[i]).text();
 		if (old_num == 1) {
@@ -849,7 +849,7 @@ function cart_in_de() {
 			$('.swipe_left').eq(i).show();
 			return ;
 		}
-		
+
 		// 获取该increase按钮所属的商品信息
 		var goods_id   = $(cart_goods[i]).attr('goods_id');
 		var price      = $(cart_goods[i]).attr('price');
@@ -878,22 +878,28 @@ function cart_in_de() {
  */
 $.ui.ready(function() {
 	$('#account_footer').delegate('.confirm_order', 'click', function() {
-		var get = {
-			'final_price' : $('.total_price').text(),
-			'coupon_id'	  : $('#shop_cuopons').val()
-		};
-	
-		// （选择优惠后）最终总额
-		localStorage['total_price'] = get.final_price;
-		$.getJSON(url('/user/order/submit?callback=?'), get, function(data) {
-			// 将“下次购买”商品设置settle=1
-			cart_destroy();
-			cart_set_settle();
+		var alipay = $('#pay').val();
 
-			redirect('#verify');
-		});
+		if (alipay == 1) {
+			// TODO 调用支付宝
+			redirect('/alipay/index');
+		} else {
+			var get = {
+				'final_price' : $('.total_price').text(),
+				'coupon_id'	  : $('#shop_cuopons').val()
+			};
+
+			// （选择优惠后）最终总额
+			localStorage['total_price'] = get.final_price;
+			$.getJSON(url('/user/order/submit?callback=?'), get, function(data) {
+				// 将“下次购买”商品设置settle=1
+				cart_destroy();
+				cart_set_settle();
+
+				redirect('#verify');
+			});
+		}
 	});
-
 });
 
 function load_verify() {
@@ -1389,7 +1395,7 @@ $.ui.ready(function() {
 		$('.swipe_left').eq(index).hide();
 		$('.cart_goods').eq(index).css('margin-left', '0');
 		unsettle_set_mask(index);
-		
+
 		// 更新购物车
 		cart_badge();
 	});
@@ -1406,7 +1412,7 @@ $.ui.ready(function() {
 });
 
 /**
- * 加上下次购买阴影层 
+ * 加上下次购买阴影层
  */
 function unsettle_set_mask(index) {
 	var shortage_pos = $('#cartgoods_all .goods_image').eq(index);
@@ -1415,7 +1421,7 @@ function unsettle_set_mask(index) {
 }
 
 /**
- * 去掉下次购买阴影层 
+ * 去掉下次购买阴影层
  */
 function unsettle_hide_mask(index) {
 	var shortage_pos = $('#cartgoods_all .goods_image').eq(index);

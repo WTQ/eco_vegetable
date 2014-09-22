@@ -102,6 +102,7 @@ class Order extends U_Controller
 		$phone     = $this->get_phone();						// 获取手机号
 		$user_id   = $this->user_m->phone2id($phone);
 		$address   = $this->address_m->get_default($user_id)->name;
+		$alipay	   = (int) get('pay');							// 是否使用支付宝
 		$coupon_id = (int) get('coupon_id');					// 获取JSONP传递过来的coupon_id
 
 		$coupon    = $this->coupon_m->deal_coupon($coupon_id);	// 查询所选的优惠券的详细内容
