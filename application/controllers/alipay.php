@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * 支付宝控制器
+ * Apipay API
  */
 
 require_once(APPPATH.'third_party/alipay/alipay_submit.class.php');
@@ -8,19 +8,21 @@ require_once(APPPATH.'third_party/alipay/alipay_submit.class.php');
 class Alipay extends MY_Controller
 {
 	public $total_fee    = 0.01;
-	public $subject      = '订单';
-	public $out_trade_no = '1282889603601';
+	public $subject      = '我的订单';
+	public $out_trade_no = '0000000000000';
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(array('alipay_m', 'order_m', 'order_items_m', 'order_item_m', 'order_online_m'));
+		$this->load->model(array('alipay_m', 'order_m', 'order_items_m', 'order_item_m', 'alipay_m'));
 		$this->load->library('curl');
-		$this->config->load('alipay_config', TRUE);	// 装载支付宝配置文件
+		$this->config->load('alipay_config', TRUE);		// 加载支付宝配置文件
 	}
 
 	public function index()
 	{
+		require_once(APPPATH.'third_party/alipay/alipay_submit.class.php');
+
 		$alipay_config = $this->config->item('alipay_config');
 		// 返回格式（必填）
 		$format = "xml";
@@ -29,6 +31,7 @@ class Alipay extends MY_Controller
 		// 请求号（必填）
 		$req_id = date('Ymdhis');
 
+		$this->set_data();
 		// 服务器异步通知页面路径
 		$notify_url             = $alipay_config['notify_url'];
 		// 需http://格式的完整路径，不允许加?id=123这类自定义参数
@@ -71,13 +74,13 @@ class Alipay extends MY_Controller
 
 		// 建立请求
 		$alipaySubmit   = new AlipaySubmit($alipay_config);
-		$html_text      = $alipaySubmit->buildRequestHttp($para_token);
+		$html_text      = $alipaySubmit->buildRequestHttp($para_token);var_dump($html_text);
 
 		// URLDECODE返回的信息
-		$html_text      = urldecode($html_text);
+		$html_text      = urldecode($html_text);var_dump($html_text);
 
-		// 解析远程模拟提交后返回的信息
-		$para_html_text = $alipaySubmit->parseResponse($html_text);
+		// XML解析远程模拟提交后返回的信息
+		$para_html_text = $alipaySubmit->parseResponse($html_text);var_dump($para_html_text);
 
 		// 获取request_token
 		$request_token  = $para_html_text['request_token'];
@@ -100,8 +103,38 @@ class Alipay extends MY_Controller
 		);
 
 		// 建立请求
-		$alipaySubmit = new AlipaySubmit($alipay_config);
-		$html_text    = $alipaySubmit->buildRequestForm($parameter, 'get', '确认');var_dump($html_text);exit();
+		$alipaySubmit = new AlipaySubmit($alipay_config);var_dump($alipaySubmit);
+		$html_text    = $alipaySubmit->buildRequestForm($parameter, 'get', '确认');var_dump($html_text);
+
 		echo $html_text;
+	}
+
+	/**
+	 * 查询流水信息
+	 */
+	public function set_data()
+	{
+		$order_id = (int) get('order_inline');
+		$order_inline = $this->alipay_m->get($order_id);
+		if (isset($order_inline->trade_no)) {
+			$this->out_trade_no = $order_inline->trade_no;
+			$this->total_fee = $order_inline->total_fee;
+		}
+	}
+
+	/**
+	 * 异步通知
+	 */
+	public function notify()
+	{
+		require_once(APPPATH.'third_party/alipay/alipay_notify.class.php');
+	}
+
+	/**
+	 * 同步通知
+	 */
+	public function callback()
+	{
+		require_once(APPPATH.'third_party/alipay/alipay_notify.class.php');
 	}
 }

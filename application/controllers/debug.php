@@ -233,4 +233,12 @@ class Debug extends CI_Controller
 		$this->load->model('coupon_m');
 		var_dump($this->coupon_m->get_reduce(1));
 	}
+	/**
+	 * 新测试
+	 */
+	public function new_test()
+	{
+			$order_id = date('ymd') . rand(10000, 99999);
+		var_dump($order_id);
+	}
 }

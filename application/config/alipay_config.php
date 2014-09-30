@@ -20,11 +20,11 @@
 
 //↓↓↓↓↓↓↓↓↓↓请在这里配置您的基本信息↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 //合作身份者id，以2088开头的16位纯数字
-$config['partner']		= '2088101000137799';
+$config['partner']		= '2088611413212494';
 
 //安全检验码，以数字和字母组成的32位字符
 //如果签名方式设置为“MD5”时，请设置该参数
-$config['key']			= '';
+$config['key']			= 'f3yohiit93q516rxf42qu55sl7021gbe';
 
 //商户的私钥（后缀是.pem）文件相对路径
 //如果签名方式设置为“0001”时，请设置该参数
@@ -32,18 +32,18 @@ $config['private_key_path']	= APPPATH.'key/rsa_private_key.pem';
 
 //支付宝公钥（后缀是.pem）文件相对路径
 //如果签名方式设置为“0001”时，请设置该参数
-$config['ali_public_key_path']= APPPATH.'key/alipay_public_key.pem';
+$config['ali_public_key_path'] = APPPATH.'key/alipay_public_key.pem';
 
 
 //↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 // TODO 卖家支付宝账号
-$config['seller_email']  = 'lemongend@163.com';
+$config['seller_email']  = 'eco_vegetable@163.com';
 // 页面跳转同步通知页面路径
-$config['call_back_url'] = 'http://eco/static/user/';
+$config['call_back_url'] = 'http://eco/static/user/#index';
 // 服务器异步通知页面路径
-$config['notify_url']    = 'http://eco/static/user/';
+$config['notify_url']    = 'http://eco.te168.cn/';
 // 操作中断返回地址
-$config['merchant_url']  = 'http://eco/static/user/#index';
+$config['merchant_url']  = 'http://eco/static/user/#cart';
 
 
 //签名方式 不需修改

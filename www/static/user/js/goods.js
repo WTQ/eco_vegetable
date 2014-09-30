@@ -878,25 +878,30 @@ function cart_in_de() {
  */
 $.ui.ready(function() {
 	$('#account_footer').delegate('.confirm_order', 'click', function() {
-		var alipay = $('#pay').val();
+		var payment     = $('#pay').val();
+		var final_price = $('.total_price').text();
+		var coupon_id   = $('#shop_cuopons').val();
 
-		if (alipay == 1) {
-			// TODO 调用支付宝
-			redirect('/alipay/index');
-		} else {
-			var get = {
-				'final_price' : $('.total_price').text(),
-				'coupon_id'	  : $('#shop_cuopons').val()
-			};
+		var get = {
+			'final_price' : final_price,
+			'payment'     : payment,
+			'coupon_id'	  : coupon_id
+		};
 
-			// （选择优惠后）最终总额
-			localStorage['total_price'] = get.final_price;
+		// （选择优惠后）最终总额
+		localStorage['total_price'] = get.final_price;
+		if (payment == 0) {
 			$.getJSON(url('/user/order/submit?callback=?'), get, function(data) {
 				// 将“下次购买”商品设置settle=1
 				cart_destroy();
 				cart_set_settle();
 
 				redirect('#verify');
+			});
+		} else if (payment == 1) {
+			redirect('#alipay');
+			$.getJSON(url('/alipay/index'), get, function(data) {
+				$('#alipay').html();
 			});
 		}
 	});
