@@ -5,7 +5,7 @@
 
 require_once(APPPATH.'third_party/alipay/alipay_submit.class.php');
 
-class Alipay extends MY_Controller
+class Alipay extends U_Controller
 {
 	public $total_fee    = 0.01;
 	public $subject      = '我的订单';
@@ -30,6 +30,15 @@ class Alipay extends MY_Controller
 		$v      = "2.0";
 		// 请求号（必填）
 		$req_id = date('Ymdhis');
+
+		// partner ID
+		$partner = trim($alipay_config['partner']);
+
+		// 签名方式
+		$sec_id = trim($alipay_config['sign_type']);
+
+		// 页面编码
+		$_input_charset = trim(strtolower($alipay_config['input_charset']));
 
 		$this->set_data();
 		// 服务器异步通知页面路径
@@ -63,24 +72,24 @@ class Alipay extends MY_Controller
 		// 构造要请求的参数数组
 		$para_token = array(
 			"service"        => "alipay.wap.trade.create.direct",
-			"partner"        => trim($alipay_config['partner']),
-			"sec_id"         => trim($alipay_config['sign_type']),
+			"partner"        => $partner,
+			"sec_id"         => $sec_id,
 			"format"         => $format,
 			"v"              => $v,
 			"req_id"         => $req_id,
 			"req_data"       => $req_data,
-			"_input_charset" => trim(strtolower($alipay_config['input_charset']))
+			"_input_charset" => $_input_charset
 		);
 
 		// 建立请求
 		$alipaySubmit   = new AlipaySubmit($alipay_config);
-		$html_text      = $alipaySubmit->buildRequestHttp($para_token);var_dump($html_text);
+		$html_text      = $alipaySubmit->buildRequestHttp($para_token);
 
 		// URLDECODE返回的信息
-		$html_text      = urldecode($html_text);var_dump($html_text);
+		$html_text      = urldecode($html_text);
 
 		// XML解析远程模拟提交后返回的信息
-		$para_html_text = $alipaySubmit->parseResponse($html_text);var_dump($para_html_text);
+		$para_html_text = $alipaySubmit->parseResponse($html_text);
 
 		// 获取request_token
 		$request_token  = $para_html_text['request_token'];
@@ -93,20 +102,34 @@ class Alipay extends MY_Controller
 		// 构造要请求的参数数组
 		$parameter = array(
 			"service"        => "alipay.wap.auth.authAndExecute",
-			"partner"        => trim($alipay_config['partner']),
-			"sec_id"         => trim($alipay_config['sign_type']),
+			"partner"        => $partner,
+			"sec_id"         => $sec_id,
 			"format"         => $format,
 			"v"              => $v,
 			"req_id"         => $req_id,
 			"req_data"       => $req_data,
-			"_input_charset" => trim(strtolower($alipay_config['input_charset']))
+			"_input_charset" => $_input_charset
 		);
 
 		// 建立请求
-		$alipaySubmit = new AlipaySubmit($alipay_config);var_dump($alipaySubmit);
-		$html_text    = $alipaySubmit->buildRequestForm($parameter, 'get', '确认');var_dump($html_text);
+		$alipaySubmit = new AlipaySubmit($alipay_config);
+		$html_array   = $alipaySubmit->buildRequestPara($parameter);
+		$sign         = $html_array['sign'];
 
-		echo $html_text;
+		$html_text    = $alipaySubmit->buildRequestForm($parameter, 'get', '确认');
+
+
+		// 自组http请求链接
+		$alipay_gateway_new = 'http://wappaygw.alipay.com/service/rest.htm?';
+
+		$http_req = $alipay_gateway_new.'_input_charset='.$_input_charset.'&format='.
+					$format.'&partner='.$partner.'&req_data='.$req_data.'&req_id='.
+					$req_id.'&sec_id='.$sec_id.'&service=alipay.wap.auth.authAndExecute&v=2.0&sign='.$sign;
+		$data = array(
+			'http_req' => $http_req
+		);
+		$this->json_out($data);
+		// echo $html_text;
 	}
 
 	/**

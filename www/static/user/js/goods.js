@@ -901,7 +901,7 @@ $.ui.ready(function() {
 		} else if (payment == 1) {
 			redirect('#alipay');
 			$.getJSON(url('/alipay/index'), get, function(data) {
-				$('#alipay').html();
+				$('#alipay_confirm').attr('href', data.http_req);
 			});
 		}
 	});

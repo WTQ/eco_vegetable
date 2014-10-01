@@ -170,7 +170,7 @@ class Order extends U_Controller
 			);
 			$order_id = $this->alipay_m->new_order();
 			$out = array(
-				'status' => '0',
+				'status'       => '0',
 				'order_inline' => $order_id
 			);
 			$this->json_out($out);
