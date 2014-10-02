@@ -1,19 +1,18 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * 支付宝 Model层
+ * 支付宝流水 Model层
  */
 class Alipay_m extends MY_Model
 {
-	protected $_table = 'order_inline';
-
-	protected $primary_key = 'order_id';
+	protected $_table      = 'order_online';
+	
+	protected $primary_key = 'flow_id';
 
 	public function __construct()
 	{
 		parent::__construct();
 
-		// 加载商品分类模型和商家模型
-		$this->load->model( array('category_m', 'shop_m'));
+		$this->load->model( array('category_m', 'order_m', 'user_m', 'shop_m'));
 	}
 
 	/**
@@ -33,8 +32,13 @@ class Alipay_m extends MY_Model
 	/**
 	 * 创建新流水
 	 */
-	public function new_order($data)
+	public function add_flow($data)
 	{
 		return $this->insert($data);
+	}
+
+	public function get_by()
+	{
+
 	}
 }

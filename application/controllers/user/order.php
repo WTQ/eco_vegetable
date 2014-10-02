@@ -99,84 +99,83 @@ class Order extends U_Controller
  		}
 
 		$shop_id   = (int) cookie('shop_id');
-		$phone     = $this->get_phone();						// 获取手机号
+		$phone     = $this->get_phone();
 		$user_id   = $this->user_m->phone2id($phone);
 		$address   = $this->address_m->get_default($user_id)->name;
-		$payment   = (int) get('payment');						// 是否使用支付宝
-		$coupon_id = (int) get('coupon_id');					// 获取JSONP传递过来的coupon_id
+		$payment   = (int) get('payment');
+		$coupon_id = (int) get('coupon_id');
 		$coupon    = $this->coupon_m->deal_coupon($coupon_id);	// 查询所选的优惠券的详细内容
 
-		// 货到付款
-		if ($payment == 0) {
-			// 创建订单
-			$order_add = array(
-				'total_prices' => $this->cart->total(),
-				'shop'         => $shop_id,
-				'phone'        => $phone,
-				'user_id'      => $user_id,
-				'address'      => $address,
-				'stage'        => ORDER_STAGE_SUBMIT,
-				'add_time'     => time()
-			);
-			$order_id = $this->order_m->add($order_add);
+		$total_prices = $this->cart->total();
 
-			// 订单创建成功，执行将购物车内容添加到订购表中
-			if ($order_id > 0) {
-				foreach ($this->cart->contents() as $item) {
-					$goods_id = $item['id'];
-					$goods    = $this->goods_m->get($goods_id);
+		// 创建订单
+		$order_add = array(
+			'total_prices' => $total_prices,
+			'shop'         => $shop_id,
+			'phone'        => $phone,
+			'user_id'      => $user_id,
+			'address'      => $address,
+			'stage'        => ORDER_STAGE_SUBMIT,
+			'add_time'     => time()
+		);
+		$order_id = $this->order_m->add($order_add);
 
-					// 销量统计
-					$this->goods_m->add_sale($goods_id, $item['qty']);
+		// 订单创建成功，执行将购物车内容添加到订购表中
+		if ($order_id > 0) {
+			foreach ($this->cart->contents() as $item) {
+				$goods_id = $item['id'];
+				$goods    = $this->goods_m->get($goods_id);
 
-					// 存在商品即结算
-					if($goods != FALSE) {
-						$item_add = array(
-							'order_id'     => $order_id,
-							'goods_id'     => $goods_id,
-							'price'        => $goods->price,
-							'name'         => $goods->name,
-							'unit'         => $goods->unit,
-							'shop'         => $shop_id,
-							'quantity'     => $item['qty'],
-							'total_prices' => $item['subtotal']
-						);
-						$this->order_items_m->add($item_add);
-					}
+				// 销量统计
+				$this->goods_m->add_sale($goods_id, $item['qty']);
+
+				// 存在商品即结算
+				if($goods != FALSE) {
+					$item_add = array(
+						'order_id'     => $order_id,
+						'goods_id'     => $goods_id,
+						'price'        => $goods->price,
+						'name'         => $goods->name,
+						'unit'         => $goods->unit,
+						'shop'         => $shop_id,
+						'quantity'     => $item['qty'],
+						'total_prices' => $item['subtotal']
+					);
+					$this->order_items_m->add($item_add);
 				}
+			}
+			// 货到付款
+			if ($payment == 0) {
 				// 订单处理成功，销毁本次购物车内容
 				$this->cart->destroy();
+				$out = array(
+					'order_id' => $order_id,
+					'status'   => '0'
+				);
+			} else if ($payment == 1) {
+				// 支付宝，创建流水
+				$flow = array(
+					'order_id'     => $order_id,
+					'total_fee'    => $total_prices,
+					'out_trade_no' => $this->_rand_id(),
+					'status'       => 'ORDER_STAGE_SUBMIT',
+					'payer'        => $user_id
+				);
+				$flow_id = $this->alipay_m->add_flow($flow);
+				if ($flow_id > 0) {
+					$out = array(
+						'flow_id' => $flow_id,
+						'status'  => '0'
+					);
+				} else {
+					$out = array('status' => '4');
+				}
 			}
-
-			$out = array(
-				'status' => '0',
-			);
-
-			$this->json_out($out);
-		}
-		// 支付宝
-		else if ($payment == 1) {
-			// 创建流水
-			$order_inline = array(
-				'total_fee' => $this->cart->total(),
-				'status'    => 1,
-				'trade_no'  => $this->_new_orderid,
-				// 'shop'         => $shop_id,
-				// 'phone'        => $phone,
-				// 'user_id'      => $user_id,
-				// 'address'      => $address,
-				// 'stage'        => ORDER_STAGE_SUBMIT,
-				// 'add_time'     => time()
-			);
-			$order_id = $this->alipay_m->new_order();
-			$out = array(
-				'status'       => '0',
-				'order_inline' => $order_id
-			);
-			$this->json_out($out);
 		} else {
-			// TODO
- 		}
+			$out = array('status' => '-1');
+		}
+
+		$this->json_out($out);
 	}
 
 	/**
@@ -269,13 +268,13 @@ class Order extends U_Controller
 	/**
 	 * 生成流水订单id
 	 */
-	private function _new_orderid()
+	private function _rand_id()
 	{
 		do {
-			$order_id = date('ymd') . rand(1000000, 9999999);	// 13位流水号
-			$order    = $this->alipay_m->get($order_id);
+			$rand_id = date('Ymdhis') . rand(00000, 99999);	// 时间+随机数
+			$order   = $this->alipay_m->get_by('out_trade_no', $rand_id);
 		} while (isset($order->order_id));
 		
-		return (int) $order_id;
+		return $rand_id;
 	}
 }

@@ -890,20 +890,24 @@ $.ui.ready(function() {
 
 		// （选择优惠后）最终总额
 		localStorage['total_price'] = get.final_price;
-		if (payment == 0) {
-			$.getJSON(url('/user/order/submit?callback=?'), get, function(data) {
+
+		$.getJSON(url('/user/order/submit?callback=?'), get, function(data) {alert(data['status']);
+			if (payment == 0) {
 				// 将“下次购买”商品设置settle=1
 				cart_destroy();
 				cart_set_settle();
 
 				redirect('#verify');
-			});
-		} else if (payment == 1) {
-			redirect('#alipay');
-			$.getJSON(url('/alipay/index'), get, function(data) {
-				$('#alipay_confirm').attr('href', data.http_req);
-			});
-		}
+			} else if (payment == 1) {
+				var get = {
+					'flow_id' : data.flow_id
+				};
+				$.getJSON(url('/alipay/index'), get, function(data) {
+					$('#alipay_confirm').attr('href', data.http_req);
+				});
+				redirect('#alipay');
+			}
+		});
 	});
 });
 

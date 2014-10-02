@@ -83,12 +83,12 @@ class Goods_m extends MY_Model
 	 */
 	public function get_num($shop_id, $class_id = 0)
 	{
-		$shop_id = (int) $shop_id;
+		$shop_id  = (int) $shop_id;
 		$class_id = (int) $class_id;
 
 		return $this->count_by( array(
-								'shop_id'	=>	$shop_id,
-								'class_id'	=>	$class_id,
+			'shop_id'  => $shop_id,
+			'class_id' => $class_id
 		));
 	}
 
@@ -99,15 +99,15 @@ class Goods_m extends MY_Model
 	public function get_byclass($shop_id, $class_id=NULL, $num=10, $offset=0)
 	{
 
-		$shop_id	= (int) $shop_id;
-		$class_id	= (int) $class_id;
+		$shop_id  = (int) $shop_id;
+		$class_id = (int) $class_id;
 
 		if ($class_id == 0 || $class_id == NULL) {
 			return $this->limit($num, $offset)->get_many_by('shop_id', $shop_id);	// class_id = 0，查询该商店中全部商品
 		} else {
 			return $this->limit($num, $offset)->get_many_by(array(	// class_id != 0,查询该商店中指定分类的商品
-					'shop_id'	=>	$shop_id,
-					'class_id'	=>	$class_id,
+					'shop_id'  => $shop_id,
+					'class_id' => $class_id
 			));
 		}
 	}

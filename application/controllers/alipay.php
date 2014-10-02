@@ -9,25 +9,31 @@ class Alipay extends U_Controller
 {
 	public $total_fee    = 0.01;
 	public $subject      = '我的订单';
-	public $out_trade_no = '0000000000000';
+	public $out_trade_no = '0000000000000';		// 商家唯一订单号
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(array('alipay_m', 'order_m', 'order_items_m', 'order_item_m', 'alipay_m'));
+
+		$this->load->model(array('alipay_m', 'order_m', 'order_items_m', 'order_item_m'));
 		$this->load->library('curl');
-		$this->config->load('alipay_config', TRUE);		// 加载支付宝配置文件
+		$this->config->load('alipay_config', TRUE);
 	}
 
 	public function index()
 	{
 		require_once(APPPATH.'third_party/alipay/alipay_submit.class.php');
+		$flow_id = (int) get('flow_id');
+		$this->_set_flow($flow_id);
 
 		$alipay_config = $this->config->item('alipay_config');
+
 		// 返回格式（必填）
 		$format = "xml";
+
 		// 返回格式（必填）
 		$v      = "2.0";
+
 		// 请求号（必填）
 		$req_id = date('Ymdhis');
 
@@ -135,13 +141,12 @@ class Alipay extends U_Controller
 	/**
 	 * 查询流水信息
 	 */
-	public function set_data()
+	private function _set_flow($flow_id)
 	{
-		$order_id = (int) get('order_inline');
-		$order_inline = $this->alipay_m->get($order_id);
-		if (isset($order_inline->trade_no)) {
-			$this->out_trade_no = $order_inline->trade_no;
-			$this->total_fee = $order_inline->total_fee;
+		$flow = $this->alipay_m->get($flow_id);
+		if (isset($flow->out_trade_no)) {
+			$this->out_trade_no = $flow->out_trade_no;
+			$this->total_fee    = $flow->total_fee;
 		}
 	}
 
