@@ -245,7 +245,7 @@ $config['encryption_key'] = 'RJWuFoG2ugWxCixPHF5X';
 |
 */
 $config['sess_cookie_name']		= 'yf_session';
-$config['sess_expiration']		= 7200;
+$config['sess_expiration']		= 1440000;
 $config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= TRUE;

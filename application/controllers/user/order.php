@@ -40,8 +40,9 @@ class Order extends U_Controller
 				$type = 1;
 			}
 			$per_page = 5;
+			$orders   = $this->order_m->user_orders($phone, $start, $per_page, $update, $type);
 			$data     = array(
-				'orders' => $this->order_m->user_orders($phone, $start, $per_page, $update, $type),
+				'orders' => $orders,
 				'status' => 0
 			);
 			$this->json_out($data);
@@ -168,11 +169,11 @@ class Order extends U_Controller
 						'status'  => '0'
 					);
 				} else {
-					$out = array('status' => '4');
+					$out = array('status' => '3');
 				}
 			}
 		} else {
-			$out = array('status' => '-1');
+			$out = array('status' => '4');
 		}
 
 		$this->json_out($out);

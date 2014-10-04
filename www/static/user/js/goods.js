@@ -891,13 +891,15 @@ $.ui.ready(function() {
 		// （选择优惠后）最终总额
 		localStorage['total_price'] = get.final_price;
 
-		$.getJSON(url('/user/order/submit?callback=?'), get, function(data) {alert(data['status']);
+		$.getJSON(url('/user/order/submit?callback=?'), get, function(data) {
 			if (payment == 0) {
-				// 将“下次购买”商品设置settle=1
-				cart_destroy();
-				cart_set_settle();
+				if (data.status == 0) {
+					// 将“下次购买”商品设置settle=1
+					cart_destroy();
+					cart_set_settle();
+					redirect('#verify');
+				}
 
-				redirect('#verify');
 			} else if (payment == 1) {
 				var get = {
 					'flow_id' : data.flow_id

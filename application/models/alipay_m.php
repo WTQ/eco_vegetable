@@ -36,9 +36,4 @@ class Alipay_m extends MY_Model
 	{
 		return $this->insert($data);
 	}
-
-	public function get_by()
-	{
-
-	}
 }

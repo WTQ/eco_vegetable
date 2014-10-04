@@ -238,7 +238,26 @@ class Debug extends CI_Controller
 	 */
 	public function new_test()
 	{
-			$order_id = date('ymd') . rand(10000, 99999);
+		$order_id = date('Ymdhis') . rand(00000, 99999);
 		var_dump($order_id);
+	}
+	public function test11()
+	{
+		$this->load->library('session');
+		$newdata = array(
+		                   'username'  => '11111',
+		               );
+
+		$this->session->set_userdata($newdata);
+		var_dump($this->session->all_userdata());
+	}
+
+	public function test22()
+	{
+		var_dump($this->session->all_userdata());
+	}
+	public function test_cart()
+	{
+		var_dump($this->cart->total_items());
 	}
 }
