@@ -151,17 +151,45 @@ class Alipay extends U_Controller
 	}
 
 	/**
-	 * 异步通知
+	 * 异步通知（支付宝订单状态变更）
 	 */
 	public function notify()
 	{
 		require_once(APPPATH.'third_party/alipay/alipay_notify.class.php');
+
+		$out_trade_no = $_POST['out_trade_no'];
+
 	}
 
 	/**
-	 * 同步通知
+	 * 同步通知（订单支付成功）
 	 */
 	public function callback()
+	{
+		require_once(APPPATH.'third_party/alipay/alipay_notify.class.php');
+
+		$alipay_config = $this->config->item('alipay_config');
+		$alipay_notify = new AlipayNotify($alipay_config);
+		$verify_result = $alipay_notify->verifyReturn();
+		log_message('info', $verify_result);
+
+		if ($verify_result) {
+			$out_trade_no  = $_GET['out_trade_no'];
+			$trade_no      = $_GET['trade_no'];
+			$result        = $_GET['result'];
+			$flow          = $this->alipay_m->get_by('out_trade_no', $out_trade_no);
+			$flow_id       = $flow->flow_id;
+
+			$this->alipay_m->edit_flow($flow_id, 'ORDER_STAGE_PAYED');
+		}
+		header('Location: http://eco/static/user/');
+		exit;
+	}
+
+	/**
+	 * 中断返回
+	 */
+	public function merchant()
 	{
 		require_once(APPPATH.'third_party/alipay/alipay_notify.class.php');
 	}

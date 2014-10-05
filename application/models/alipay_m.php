@@ -5,7 +5,7 @@
 class Alipay_m extends MY_Model
 {
 	protected $_table      = 'order_online';
-	
+
 	protected $primary_key = 'flow_id';
 
 	public function __construct()
@@ -35,5 +35,14 @@ class Alipay_m extends MY_Model
 	public function add_flow($data)
 	{
 		return $this->insert($data);
+	}
+
+	/**
+	 * 修改流水状态
+	 */
+	public function edit_flow($flow_id, $status='ORDER_STAGE_PAYED')
+	{
+		$flow_id = (int) $flow_id;
+		return $this->update($flow_id, array('status' => $status));
 	}
 }

@@ -892,24 +892,24 @@ $.ui.ready(function() {
 		localStorage['total_price'] = get.final_price;
 
 		$.getJSON(url('/user/order/submit?callback=?'), get, function(data) {
-			if (payment == 0) {
-				if (data.status == 0) {
-					// 将“下次购买”商品设置settle=1
-					cart_destroy();
-					cart_set_settle();
-					redirect('#verify');
-				}
+			if (data.status == 0) {
+				// 将“下次购买”商品设置settle=1
+				cart_destroy();
+				cart_set_settle();
 
-			} else if (payment == 1) {
-				var get = {
-					'order_id' : data.order_id,
-					'flow_id'  : data.flow_id
-				};
-				$.getJSON(url('/alipay/index'), get, function(data) {
-					location.href = data.http_req;
-					load_mask();
-				});
-				hide_mask();
+				if (payment == 0) {
+					redirect('#verify');
+				} else if (payment == 1) {
+					var get = {
+						'order_id' : data.order_id,
+						'flow_id'  : data.flow_id
+					};
+					$.getJSON(url('/alipay/index'), get, function(data) {
+						location.href = data.http_req;
+						load_mask();
+					});
+					hide_mask();
+				}
 			}
 		});
 	});
