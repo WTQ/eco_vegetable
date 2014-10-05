@@ -905,9 +905,10 @@ $.ui.ready(function() {
 					'flow_id' : data.flow_id
 				};
 				$.getJSON(url('/alipay/index'), get, function(data) {
-					$('#alipay_confirm').attr('href', data.http_req);
+					location.href = data.http_req;
+					load_mask();
 				});
-				redirect('#alipay');
+				hide_mask();
 			}
 		});
 	});
