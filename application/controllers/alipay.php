@@ -146,6 +146,7 @@ class Alipay extends U_Controller
 		if (isset($flow->out_trade_no)) {
 			$this->out_trade_no = $flow->out_trade_no;
 			$this->total_fee    = $flow->total_fee;
+			$this->subject      = '订单No.' . $flow->order_id;
 		}
 	}
 

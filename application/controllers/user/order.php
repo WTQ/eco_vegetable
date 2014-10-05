@@ -165,8 +165,9 @@ class Order extends U_Controller
 				$flow_id = $this->alipay_m->add_flow($flow);
 				if ($flow_id > 0) {
 					$out = array(
-						'flow_id' => $flow_id,
-						'status'  => '0'
+						'order_id' => $order_id,
+						'flow_id'  => $flow_id,
+						'status'   => '0'
 					);
 				} else {
 					$out = array('status' => '3');
@@ -275,7 +276,7 @@ class Order extends U_Controller
 			$rand_id = date('Ymdhis') . rand(00000, 99999);	// 时间+随机数
 			$order   = $this->alipay_m->get_by('out_trade_no', $rand_id);
 		} while (isset($order->order_id));
-		
+
 		return $rand_id;
 	}
 }

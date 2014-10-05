@@ -902,7 +902,8 @@ $.ui.ready(function() {
 
 			} else if (payment == 1) {
 				var get = {
-					'flow_id' : data.flow_id
+					'order_id' : data.order_id,
+					'flow_id'  : data.flow_id
 				};
 				$.getJSON(url('/alipay/index'), get, function(data) {
 					location.href = data.http_req;
