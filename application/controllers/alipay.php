@@ -46,7 +46,6 @@ class Alipay extends U_Controller
 		// 页面编码
 		$_input_charset = trim(strtolower($alipay_config['input_charset']));
 
-		$this->set_data();
 		// 服务器异步通知页面路径
 		$notify_url             = $alipay_config['notify_url'];
 		// 需http://格式的完整路径，不允许加?id=123这类自定义参数
