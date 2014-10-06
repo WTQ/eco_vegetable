@@ -2,3 +2,9 @@
 return_url_log:isSign=false,request_token=requestToken&result=success&trade_no=2014100616247597&sign=72ebb2067781fcfa8e7bd67e330409c0&sign_type=MD5
 执行日期：20141006102237
 return_url_log:isSign=false,request_token=requestToken&result=success&trade_no=2014100616272597&sign=3d04dfc272de2d5068e98e73c46d110b&sign_type=MD5
+执行日期：20141007005104
+return_url_log:isSign=false,request_token=requestToken&result=success&trade_no=2014100719935997&sign=467f3b73c113b2803c6dcf711a24d4c3&sign_type=MD5
+执行日期：20141007011316
+return_url_log:isSign=false,request_token=requestToken&result=success&trade_no=2014100719973797&sign=ffc3f1a083df9d44f54145d12bd32945&sign_type=MD5
+执行日期：20141007014336
+return_url_log:isSign=false,request_token=requestToken&result=success&trade_no=2014100720014197&sign=c0706fe58fb6dd9643956fcb37507f96&sign_type=MD5
