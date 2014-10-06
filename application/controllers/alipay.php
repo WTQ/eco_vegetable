@@ -4,6 +4,7 @@
  */
 
 require_once(APPPATH.'third_party/alipay/alipay_submit.class.php');
+require_once(APPPATH.'third_party/alipay/alipay_notify.class.php');
 
 class Alipay extends U_Controller
 {
@@ -22,7 +23,6 @@ class Alipay extends U_Controller
 
 	public function index()
 	{
-		require_once(APPPATH.'third_party/alipay/alipay_submit.class.php');
 		$flow_id = (int) get('flow_id');
 		$this->_set_flow($flow_id);
 
@@ -155,10 +155,15 @@ class Alipay extends U_Controller
 	 */
 	public function notify()
 	{
-		require_once(APPPATH.'third_party/alipay/alipay_notify.class.php');
-
+		$alipay_config = $this->config->item('alipay_config');
+		$alipay_notify  = new AlipayNotify($alipay_config);
+		$verify_result = $alipay_notify->verifyNotify();
+		if($verify_result) {
+			$out_trade_no = $_POST['out_trade_no'];
+			$total_fee    = $_POST['total_fee'];
+			$result       = $_POST['result'];
+		}
 		$out_trade_no = $_POST['out_trade_no'];
-
 	}
 
 	/**
@@ -166,17 +171,15 @@ class Alipay extends U_Controller
 	 */
 	public function callback()
 	{
-		require_once(APPPATH.'third_party/alipay/alipay_notify.class.php');
-
 		$alipay_config = $this->config->item('alipay_config');
 		$alipay_notify = new AlipayNotify($alipay_config);
 		$verify_result = $alipay_notify->verifyReturn();
-		log_message('info', $verify_result);
 
 		if ($verify_result) {
 			$out_trade_no  = $_GET['out_trade_no'];
-			$trade_no      = $_GET['trade_no'];
-			$result        = $_GET['result'];
+			$trade_no      = $_GET['trade_no'];	// 支付宝交易号
+			$result        = $_GET['result'];	// 支付结果
+
 			$flow          = $this->alipay_m->get_by('out_trade_no', $out_trade_no);
 			$flow_id       = $flow->flow_id;
 
@@ -191,6 +194,6 @@ class Alipay extends U_Controller
 	 */
 	public function merchant()
 	{
-		require_once(APPPATH.'third_party/alipay/alipay_notify.class.php');
+
 	}
 }
