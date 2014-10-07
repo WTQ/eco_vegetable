@@ -211,8 +211,8 @@ class Alipay extends U_Controller
 				$this->order_m->edit($order_id, array('stage'=>8));
 			}
 		// }
-		echo 'aaa';
-		echo "<script>window.opener=null;window.close();</script>";
+		echo 'b';
+		echo "<script>window.opener=null;window.open('','_self');window.close();</script>";
 		exit;
 	}
 
