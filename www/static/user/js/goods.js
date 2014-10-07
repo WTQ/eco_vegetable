@@ -891,6 +891,8 @@ $.ui.ready(function() {
 		// （选择优惠后）最终总额
 		localStorage['total_price'] = get.final_price;
 
+
+		load_mask();
 		$.getJSON(url('/user/order/submit?callback=?'), get, function(data) {
 			if (data.status == 0) {
 				// 将“下次购买”商品设置settle=1
@@ -904,11 +906,10 @@ $.ui.ready(function() {
 						'order_id' : data.order_id,
 						'flow_id'  : data.flow_id
 					};
-					$.getJSON(url('/alipay/index'), get, function(data) {
+					$.getJSON(url('/alipay?callback=?'), get, function(data) {
 						location.href = data.http_req;
-						load_mask();
+						hide_mask();
 					});
-					hide_mask();
 				}
 			}
 		});

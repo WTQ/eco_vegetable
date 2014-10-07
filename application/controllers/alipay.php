@@ -211,7 +211,7 @@ class Alipay extends U_Controller
 				$this->order_m->edit($order_id, array('stage'=>8));
 			}
 		// }
-		header('Location: http://eco/static/user/');
+		header('Location: ' . $alipay_config['merchant_url']);
 		exit;
 	}
 
