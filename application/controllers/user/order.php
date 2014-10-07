@@ -236,6 +236,39 @@ class Order extends U_Controller
 	}
 
 	/**
+	 * 重建流水
+	 */
+	public function rebuild()
+	{
+		if ($this->check_login()) {
+			$order_id = (int) get('order_id');
+			$order = $this->order_m->get($order_id);
+			$total_prices = $order->total_prices;
+			$payer = $order->user_id;
+			// 重建流水（和原order关联）
+			$flow = array(
+				'order_id'     => $order_id,
+				'total_fee'    => $total_prices,
+				'out_trade_no' => $this->_rand_id(),
+				'status'       => 'ORDER_STAGE_UNPAYED',
+				'create_time'  => time(),
+				'payer'        => $payer
+			);
+			$flow_id = $this->alipay_m->add_flow($flow);
+
+			if ($flow_id > 0) {
+				$data = array('order_id'=>$order_id, 'flow_id'=>$flow_id, 'status'=>'0');
+			} else {
+				$data = array('status'=>'3');
+			}
+		} else {
+			$data = array('status'=>'4');
+		}
+
+		$this->json_out($data);
+	}
+
+	/**
 	 * 检验验证码
 	 *
 	 * @param string $captchar

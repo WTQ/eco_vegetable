@@ -12,3 +12,5 @@ return_url_log:isSign=false,request_token=requestToken&result=success&trade_no=2
 return_url_log:isSign=false,request_token=requestToken&result=success&trade_no=2014100720964097&sign=b888480d743fbb7a9fe359b6d777ec53&sign_type=MD5
 执行日期：20141007112040
 return_url_log:isSign=false,request_token=requestToken&result=success&trade_no=2014100721042597&sign=ee9bbeaef15d534ebf7b2a564425093c&sign_type=MD5
+执行日期：20141007143927
+return_url_log:isSign=false,request_token=requestToken&result=success&trade_no=2014100721927097&sign=ffd9004f3fd00d66c490bcaa53f1cf31&sign_type=MD5

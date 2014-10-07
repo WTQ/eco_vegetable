@@ -385,17 +385,7 @@
 	            </div>
 	            <div class="order_status">
 	                <div class="order_status1"><%= orders[i]['stage_name'] %></div>
-	                <div class="order_status2" order_id="<%= orders[i]['order_id']%>">
-						<% if (orders[i]['stage'] == 1) { %>
-						取消
-						<% } else if (orders[i]['stage'] == 2) { %>
-						完成
-						<% } else if (orders[i]['stage'] == 7) { %>
-                        未付款
-                        <% } else if (orders[i]['stage'] == 8) { %>
-                        已付款
-                        <% } %>
-					</div>
+	                <div class="order_status2" order_id="<%= orders[i]['order_id']%>"><% if (orders[i]['stage'] == 1) { %>取消<% } else if (orders[i]['stage'] == 2) { %>完成<% } else if (orders[i]['stage'] == 7) { %>在线支付<% } else if (orders[i]['stage'] == 8) { %>已付款<% } %></div>
 	            </div>
 	        </div>
 	        <div class="order_image1">
@@ -446,17 +436,7 @@
 			<div class="order_status">
 				<div class="order_status1"><%= order['stage_name'] %></div>
 				<!-- <div class="order_status2">取消</div> -->
-                <div class="order_status2">
-                <% if (order['stage'] == 1) { %>
-                取消
-                <% } else if (order['stage'] == 2) { %>
-                完成
-                <% } else if (order['stage'] == 7) { %>
-                未付款
-                <% } else if (order['stage'] == 8) { %>
-                已付款
-                <% } %>
-                </div>
+                <div class="order_status2" order_id="<%= order['order_id']%>"><% if (order['stage'] == 1) {%>取消<%} else if (order['stage'] == 2) {%>完成<%} else if (order['stage'] == 7) {%>在线支付<%} else if (order['stage'] == 8) { %>已付款<%}%></div>
 			</div>
 		</div>
 	</div>

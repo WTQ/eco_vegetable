@@ -1228,7 +1228,7 @@ $.ui.ready(function() {
 });
 
 /**
- * 取消订单
+ * 重新处理订单（取消或在线支付）
  */
 function order_cancel() {
 	//是否取消订单的弹出框
@@ -1236,7 +1236,7 @@ function order_cancel() {
 
 	$(".order_status2").click(function(n) {
 		n.stopPropagation(n);
-		var text = trim($(this).text());
+		var text = $(this).text();
 
 		var order_id = $(this).attr('order_id');
 		var that = this;
@@ -1260,7 +1260,23 @@ function order_cancel() {
 				},
 				cancelOnly: false
 			});
-		} else {
+		} else if (text == '在线支付') {
+			var get = {
+				'order_id' : order_id
+			}
+			$.getJSON(url('/user/order/rebuild'), get, function(data) {
+				if (data.status == 0) {
+					var get = {
+						'order_id' : data.order_id,
+						'flow_id'  : data.flow_id,
+					};
+					$.getJSON(url('/alipay/index'), get, function(data) {
+						location.href = data.http_req;
+						load_mask();
+					});
+					hide_mask();
+				}
+			});
 		}
 		return false;
 	});
