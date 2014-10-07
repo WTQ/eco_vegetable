@@ -212,7 +212,7 @@ class Alipay extends U_Controller
 			}
 		// }
 		echo 'aaa';
-		echo "<script>window.close();</script>";
+		echo "<script>var opened=window.open('about:blank','_self');opened.opener=null;opened.close();</script>";
 		exit;
 	}
 
