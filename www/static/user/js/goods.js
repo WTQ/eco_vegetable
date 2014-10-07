@@ -915,6 +915,10 @@ $.ui.ready(function() {
 								redirect('#myorder');
 							}
 						});
+						ref.addEventListener('exit', function(event) {
+                            ref.close();
+                            redirect('#myorder');
+                        });
 						hide_mask();
 					});
 				}
@@ -1281,8 +1285,11 @@ function order_cancel() {
 						'order_id' : data.order_id,
 						'flow_id'  : data.flow_id,
 					};
+					
+                    load_mask();
 					$.getJSON(url('/alipay?callback=?'), get, function(data) {
 						// location.href = data.http_req;
+                        hide_mask();
 						var ref = window.open(data.http_req, '_blank');
 						ref.addEventListener('loadstop', function(event) {
 							if (event.url == 'http://eco.te168.cn/alipay/close') {
@@ -1290,9 +1297,12 @@ function order_cancel() {
 								redirect('#myorder');
 							}
 						});
-						load_mask();
+						
+                        ref.addEventListener('exit', function(event) {
+                            ref.close();
+                            redirect('#myorder');
+                        });
 					});
-					hide_mask();
 				}
 			});
 		}
