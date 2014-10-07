@@ -151,19 +151,41 @@ class Alipay extends U_Controller
 	}
 
 	/**
-	 * 异步通知（支付宝订单状态变更）
+	 * 异步通知（支付宝交易状态变更）
 	 */
 	public function notify()
 	{
 		$alipay_config = $this->config->item('alipay_config');
-		$alipay_notify  = new AlipayNotify($alipay_config);
+		$alipay_notify = new AlipayNotify($alipay_config);
 		$verify_result = $alipay_notify->verifyNotify();
-		if($verify_result) {
-			$out_trade_no = $_POST['out_trade_no'];
-			$total_fee    = $_POST['total_fee'];
-			$result       = $_POST['result'];
+		$doc = new DOMDocument();
+		if ($alipay_config['sign_type'] == 'MD5') {
+			$doc->loadXML($_POST['notify_data']);
 		}
-		$out_trade_no = $_POST['out_trade_no'];
+		if ($alipay_config['sign_type'] == '0001') {
+			$doc->loadXML($alipay_notify->decrypt($_POST['notify_data']));
+		}
+
+		if(!empty($doc->getElementsByTagName("notify")->item(0)->nodeValue)) {
+			// 商户订单号
+			$out_trade_no = $doc->getElementsByTagName("out_trade_no")->item(0)->nodeValue;
+			// 支付宝交易号
+			$trade_no     = $doc->getElementsByTagName("trade_no")->item(0)->nodeValue;
+			// 交易状态
+			$trade_status = $doc->getElementsByTagName("trade_status")->item(0)->nodeValue;
+
+			if($trade_status == 'TRADE_FINISHED') {
+				$flow     = $this->alipay_m->get_by('out_trade_no', $out_trade_no);
+				$flow_id  = $flow->flow_id;
+				$order_id = $flow->order_id;
+				$this->alipay_m->edit_flow($flow_id, 'ORDER_STAGE_PAYED', time());
+				$this->order_m->edit($order_id, array('stage'=>8));
+
+				echo "success";		// 请不要修改或删除
+			} else if ($trade_status == 'TRADE_SUCCESS') {
+				echo "success";		// 请不要修改或删除
+			}
+		}
 	}
 
 	/**
@@ -188,7 +210,6 @@ class Alipay extends U_Controller
 				$this->alipay_m->edit_flow($flow_id, 'ORDER_STAGE_PAYED', time());
 				$this->order_m->edit($order_id, array('stage'=>8));
 			}
-
 		// }
 		echo "<script>location.href='" . $alipay_config['merchant_url'] . "'</script>";
 		exit;
