@@ -943,12 +943,12 @@ function login_success() {
 		// 跳转回购物车页面
 		setTimeout(function() {
 			$.ui.loadContent('#account_cart', false, false, 'fade');
-		}, 5000);
+		}, 3000);
 	} else {
 		// 如果是从小区选择页面跳转进来
 		// 跳转回商家首页
 		setTimeout(function() {
-			$.ui.loadContent('#sort', false, false, 'fade');
+			$.ui.loadContent('#index', false, false, 'fade');
 		}, 3000);
 	}
 
@@ -1103,20 +1103,23 @@ $.ui.ready(function() {
 		var phone    = $("#phone").val();
 		var password = $("#pwd").val();
 		var get      = {
-			'phone'		: phone,
-			'password'	: password,
+			'phone'    : phone,
+			'password' : password,
 		};
 		$.getJSON(url('/user/login?callback=?'), get, function(data) {
 			// 用户验证成功
 			if (data.login == 1) {
 				// 如果是从购物车页面登录
 				if (localStorage['back2cart'] == 1) {
-					localStorage['back2cart'] = 0;
+					localStorage['back2cart']    = 0;
+					localStorage['shop_id']      = data.shop_id;
+					localStorage['community_id'] = data.community_id;
+					localStorage['user_address'] = data.address;		// 区别商家地址shop_address
+					localStorage['phone']        = data.phone;
 					localStorage['user_id']      = data.user_id;
-					// 继续填写用户默认地址
-					redirect("#position_input");
+					redirect('#verify_suc');
 				} else {
-					// 如果是从小区定位页面登录
+					// 如果是从“我的账户”页面登录
 					localStorage['shop_id']      = data.shop_id;
 					localStorage['community_id'] = data.community_id;
 					localStorage['user_address'] = data.address;		// 区别商家地址shop_address
