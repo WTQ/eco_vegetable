@@ -907,7 +907,8 @@ $.ui.ready(function() {
 						'flow_id'  : data.flow_id
 					};
 					$.getJSON(url('/alipay?callback=?'), get, function(data) {
-						location.href = data.http_req;
+						// location.href = data.http_req;
+						window.open(data.http_req, '_blank');
 						hide_mask();
 					});
 				}

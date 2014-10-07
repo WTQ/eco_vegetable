@@ -212,7 +212,7 @@ class Alipay extends U_Controller
 			}
 		// }
 		echo 'aaa';
-		echo "<script>location.href='file:///android_asset/www/index.html#cart'</script>";
+		echo "<script>ref.close();</script>";
 		exit;
 	}
 
