@@ -213,10 +213,10 @@ class Alipay extends U_Controller
 		// }
 		redirect('alipay/close');
 	}
-	
+
 	public function close()
 	{
-		
+
 	}
 
 	/**

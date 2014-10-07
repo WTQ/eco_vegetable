@@ -1280,8 +1280,14 @@ function order_cancel() {
 						'order_id' : data.order_id,
 						'flow_id'  : data.flow_id,
 					};
-					$.getJSON(url('/alipay/index'), get, function(data) {
-						location.href = data.http_req;
+					$.getJSON(url('/alipay?callback=?'), get, function(data) {
+						// location.href = data.http_req;
+						var ref = window.open(data.http_req, '_blank');
+						ref.addEventListener('loadstop', function(event) {
+							if (event.url == 'http://eco.te168.cn/alipay/close') {
+								ref.close();
+							}
+						});
 						load_mask();
 					});
 					hide_mask();
