@@ -908,7 +908,12 @@ $.ui.ready(function() {
 					};
 					$.getJSON(url('/alipay?callback=?'), get, function(data) {
 						// location.href = data.http_req;
-						window.open(data.http_req, '_blank');
+						var ref = window.open(data.http_req, '_blank');
+						ref.addEventListener('loadstop', function(event) {
+							if (event.url == 'http://eco.te168.cn/alipay/close') {
+								ref.close();
+							}
+						});
 						hide_mask();
 					});
 				}
