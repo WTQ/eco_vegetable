@@ -904,7 +904,7 @@ $.ui.ready(function() {
 						'order_id' : data.order_id,
 						'flow_id'  : data.flow_id
 					};
-					$.getJSON(url('/alipay/index'), get, function(data) {
+					$.getJSON(url('/alipay?callback=?'), get, function(data) {
 						location.href = data.http_req;
 						load_mask();
 					});
