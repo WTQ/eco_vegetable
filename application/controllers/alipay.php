@@ -211,7 +211,8 @@ class Alipay extends U_Controller
 				$this->order_m->edit($order_id, array('stage'=>8));
 			}
 		// }
-		echo "<script>location.href='" . $alipay_config['merchant_url'] . "'</script>";
+		echo 'aaa';
+		echo "<script>location.href='file:///android_asset/www/index.html#cart'</script>";
 		exit;
 	}
 
