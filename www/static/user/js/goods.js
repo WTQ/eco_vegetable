@@ -912,6 +912,7 @@ $.ui.ready(function() {
 						ref.addEventListener('loadstop', function(event) {
 							if (event.url == 'http://eco.te168.cn/alipay/close') {
 								ref.close();
+								redirect('#myorder');
 							}
 						});
 						hide_mask();
