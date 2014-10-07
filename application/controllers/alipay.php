@@ -190,7 +190,7 @@ class Alipay extends U_Controller
 			}
 
 		// }
-		header('Location: http://eco/static/user/');
+		header('Location: ' . $alipay_config['merchant_url']);
 		exit;
 	}
 
