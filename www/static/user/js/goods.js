@@ -1278,7 +1278,7 @@ function order_cancel() {
 		} else if (text == '在线支付') {
 			var get = {
 				'order_id' : order_id
-			}
+			};
 			$.getJSON(url('/user/order/rebuild'), get, function(data) {
 				if (data.status == 0) {
 					var get = {
@@ -1294,7 +1294,7 @@ function order_cancel() {
 						ref.addEventListener('loadstop', function(event) {
 							if (event.url == 'http://eco.te168.cn/alipay/close') {
 								ref.close();
-								redirect('#myorder');
+								load_myorder();
 							}
 						});
 						
