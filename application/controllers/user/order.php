@@ -159,9 +159,11 @@ class Order extends U_Controller
 					'order_id'     => $order_id,
 					'total_fee'    => $total_prices,
 					'out_trade_no' => $this->_rand_id(),
-					'status'       => 'ORDER_STAGE_SUBMIT',
+					'status'       => 'ORDER_STAGE_UNPAYED',
+					'create_time'  => time(),
 					'payer'        => $user_id
 				);
+				$this->order_m->edit($order_id, array('stage'=>7));	// 在线支付状态有别
 				$flow_id = $this->alipay_m->add_flow($flow);
 				if ($flow_id > 0) {
 					$out = array(
@@ -273,7 +275,7 @@ class Order extends U_Controller
 	private function _rand_id()
 	{
 		do {
-			$rand_id = date('Ymdhis') . rand(00000, 99999);	// 时间+随机数
+			$rand_id = date('Ymdhis') . rand(10000, 99999);	// 时间+随机数=19位
 			$order   = $this->alipay_m->get_by('out_trade_no', $rand_id);
 		} while (isset($order->order_id));
 

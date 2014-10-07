@@ -175,16 +175,21 @@ class Alipay extends U_Controller
 		$alipay_notify = new AlipayNotify($alipay_config);
 		$verify_result = $alipay_notify->verifyReturn();
 
-		if ($verify_result) {
-			$out_trade_no  = $_GET['out_trade_no'];
-			$trade_no      = $_GET['trade_no'];	// 支付宝交易号
-			$result        = $_GET['result'];	// 支付结果
+		// if ($verify_result) {
+			$out_trade_no = $_GET['out_trade_no'];
+			$trade_no     = $_GET['trade_no'];	// 支付宝交易号
+			$result       = $_GET['result'];	// 支付结果
 
-			$flow          = $this->alipay_m->get_by('out_trade_no', $out_trade_no);
-			$flow_id       = $flow->flow_id;
+			if ($result == 'success') {
+				// 处理商户业务逻辑
+				$flow     = $this->alipay_m->get_by('out_trade_no', $out_trade_no);
+				$flow_id  = $flow->flow_id;
+				$order_id = $flow->order_id;
+				$this->alipay_m->edit_flow($flow_id, 'ORDER_STAGE_PAYED', time());
+				$this->order_m->edit($order_id, array('stage'=>8));
+			}
 
-			$this->alipay_m->edit_flow($flow_id, 'ORDER_STAGE_PAYED');
-		}
+		// }
 		header('Location: http://eco/static/user/');
 		exit;
 	}

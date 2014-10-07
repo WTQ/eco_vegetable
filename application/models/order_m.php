@@ -170,8 +170,8 @@ class Order_m extends MY_Model
 		// 如果起始订单编号$start=0，则查询最新的$num条返回
 		if($start==0) {
 			$filter = array (
-					'shop' => $shop_id,
-					'stage' => 1
+				'shop'  => $shop_id,
+				'stage' => 1
 			);
 			$orders = $this->limit($num)->get_many_by($filter);
 		} else {
@@ -273,7 +273,6 @@ class Order_m extends MY_Model
 		$order_id = (int) $order_id;
 		$return   = array();
 		$order    = $this->get_by('order_id', $order_id );
-		// var_dump($order);exit();
 
 		if(isset($order->order_id)) {
 			$order->add_time   = date('m-d H:i', $order->add_time);
@@ -410,14 +409,14 @@ class Order_m extends MY_Model
 		if (strlen($search_input) != 0) {
 			$this->db->like('address', $search_input);
 		}
-		
+
 		$this->db->order_by("order_id", "desc");
 		if(!$num) {
 			$query = $this->db->get('order');
 		} else {
 			$query = $this->db->get('order', $num, $offset);
 		}
-	
+
 		$i = 0;
 		foreach ($query->result_array() as $row) {
 			$return[$i] = $row;
@@ -426,7 +425,7 @@ class Order_m extends MY_Model
 		}
 		return $return;
 	}
-	
+
 	public function to_word($stage = 0, $num=0, $offset=0)
 	{
 		$return = array();
@@ -439,7 +438,7 @@ class Order_m extends MY_Model
 		} else {
 			$query = $this->db->get('order', $num, $offset);
 		}
-		
+
 		$i = 0;
 		foreach ($query->result_array() as $row) {
 			$return[$i] = $row;
@@ -449,7 +448,7 @@ class Order_m extends MY_Model
 		}
 		return $return;
 	}
-	
+
 	/**
 	 * 获取打印的订单详情模块
 	 */
@@ -466,7 +465,7 @@ class Order_m extends MY_Model
 		}
 		return $return;
 	}
-	
+
 	public function num2excel($stage = 0)
 	{
 		if($stage) {
@@ -474,7 +473,7 @@ class Order_m extends MY_Model
 		}
 		return $this->db->count_all_results('order');
 	}
-	
+
 	public function set_stage($order_id, $stage)
 	{
 		$data = array('stage'=>$stage);
@@ -492,11 +491,11 @@ class Order_m extends MY_Model
 		$return = array();
 
 		if($stage) {
-			$query = $this->db->query("SELECT order_id FROM `yf_order` WHERE stage=" . $stage);	
+			$query = $this->db->query("SELECT order_id FROM `yf_order` WHERE stage=" . $stage);
 		} else {
 			$query = $this->db->query("SELECT order_id FROM `yf_order`");
 		}
-		
+
 		if ($query->num_rows() > 0) {
 			$order_id = "(";
 			foreach ($query->result_array() as $key => $row) {

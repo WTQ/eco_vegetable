@@ -40,9 +40,9 @@ class Alipay_m extends MY_Model
 	/**
 	 * 修改流水状态
 	 */
-	public function edit_flow($flow_id, $status='ORDER_STAGE_PAYED')
+	public function edit_flow($flow_id, $status='ORDER_STAGE_PAYED', $time)
 	{
 		$flow_id = (int) $flow_id;
-		return $this->update($flow_id, array('status' => $status));
+		return $this->update($flow_id, array('status'=>$status, 'done_time'=>$time));
 	}
 }
