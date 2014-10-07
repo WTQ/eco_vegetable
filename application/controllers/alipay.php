@@ -190,7 +190,7 @@ class Alipay extends U_Controller
 			}
 
 		// }
-		header('Location: ' . $alipay_config['merchant_url']);
+		echo "<script>location.href='" . $alipay_config['merchant_url'] . "'</script>";
 		exit;
 	}
 
