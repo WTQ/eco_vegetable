@@ -511,8 +511,11 @@ class Order_m extends MY_Model
 			$return = $query2->result_array();
 			// 获取分类、分类名称
 			foreach ($return as $key => $row) {
-				$return[$key]['class_id'] = $this->db->query("SELECT class_id FROM `yf_goods` WHERE goods_id=" . $row['goods_id'])->result_array()[0]['class_id'];
-				$return[$key]['class_name'] = $this->db->query("SELECT class_name FROM `yf_category` WHERE class_id=" . $return[$key]['class_id'])->result_array()[0]['class_name'];
+				if (!empty($this->db->query("SELECT class_id FROM `yf_goods` WHERE goods_id=" . $row['goods_id'])->result_array())) {
+					$return[$key]['class_id'] = $this->db->query("SELECT class_id FROM `yf_goods` WHERE goods_id=" . $row['goods_id'])->result_array()[0]['class_id'];
+					$return[$key]['class_name'] = $this->db->query("SELECT class_name FROM `yf_category` WHERE class_id=" . $return[$key]['class_id'])->result_array()[0]['class_name'];
+			
+				}
 			}
 		}
 		return $return;
