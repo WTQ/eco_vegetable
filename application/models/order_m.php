@@ -517,7 +517,9 @@ class Order_m extends MY_Model
 					$query_tempname = $this->db->query("SELECT class_name FROM `yf_category` WHERE class_id=" . $return[$key]['class_id'])->result_array();
 					if (!empty($query_tempname)) {
 						$return[$key]['class_name'] = $query_tempname[0]['class_name'];
-					}	
+					} else {
+						$return[$key]['class_name'] = "";
+					}
 				}
 			}
 		}
