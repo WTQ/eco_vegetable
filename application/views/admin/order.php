@@ -2,7 +2,7 @@
 <?php load_view('admin/common/header'); ?>
 		<div class="content">
 			<div class="content1 content_row">
-            	<a href="<?php echo base_url('/admin/order/'); ?>">订单统计</a>
+	           <a href="<?php echo base_url('/admin/order/'); ?>">订单统计</a>
         	</div>
         	<div class="content1 content_row">
             	<a href="<?php echo base_url('/admin/order/order_goods/'); ?>">订单商品统计</a>
@@ -32,8 +32,8 @@
 									<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
 								</td>
 								<td>
-									<a href="<?php echo base_url('/admin/order/gen_excel/?'.$keywords); ?>">导出excel表格</a>&nbsp;&nbsp;&nbsp;&nbsp;
-									<a href="<?php echo base_url('/admin/order/gen_word/?'.$keywords); ?>">订单批量打印</a>
+									<a href="<?php echo base_url('/admin/order/gen_excel/?'.$keywords); ?>">导出</a>&nbsp;&nbsp;&nbsp;&nbsp;
+									<a href="<?php echo base_url('/admin/order/gen_word/?'.$keywords); ?>">批量打印</a>
 								</td>
 							</tr>
 						</table>
@@ -48,7 +48,7 @@
 							<th width="5%">联系方式</th>
 							<th width="15%">配送地址</th>
 							<th width="6%">订单金额</th>
-							<th width="8%">下单时间</th>
+							<th width="18%">下单时间</th>
 							<th width="7%">状态</th>
 							<th>操作</th>
 						</tr>

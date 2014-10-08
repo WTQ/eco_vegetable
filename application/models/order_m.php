@@ -514,7 +514,6 @@ class Order_m extends MY_Model
 				$return[$key]['class_id'] = $this->db->query("SELECT class_id FROM `yf_goods` WHERE goods_id=" . $row['goods_id'])->result_array()[0]['class_id'];
 				$return[$key]['class_name'] = $this->db->query("SELECT class_name FROM `yf_category` WHERE class_id=" . $return[$key]['class_id'])->result_array()[0]['class_name'];
 			}
-
 		}
 		return $return;
 	}
