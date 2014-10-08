@@ -25,6 +25,16 @@
 										<option value="4" <?php if($stage == 4) echo 'selected'?> >已取消</option>
 										<option value="5" <?php if($stage == 5) echo 'selected'?> >已确认</option>
 									</select>
+									<select name="sort_stage">
+										<option value="0">全部</option>
+										<option value="1" <?php if($sort_stage == 1) echo 'selected'?> >特价蔬菜</option>
+										<option value="2" <?php if($sort_stage == 2) echo 'selected'?> >时令蔬菜</option>
+										<option value="3" <?php if($sort_stage == 3) echo 'selected'?> >有机蔬菜</option>
+										<option value="4" <?php if($sort_stage == 4) echo 'selected'?> >土特产品</option>
+										<option value="5" <?php if($sort_stage == 5) echo 'selected'?> >加工产品</option>
+										<option value="6" <?php if($sort_stage == 6) echo 'selected'?> >进口蔬菜</option>
+										<option value="7" <?php if($sort_stage == 7) echo 'selected'?> >其他扩展</option>
+									</select>
 									<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
 								</td>
 							</tr>

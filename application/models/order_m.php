@@ -486,7 +486,7 @@ class Order_m extends MY_Model
 	/**
 	 * 商品订单统计
 	 */
-	public function goods_list($stage = 0)
+	public function goods_list($stage = 0, $sort_stage = 0)
 	{
 		$return = array();
 
@@ -511,13 +511,29 @@ class Order_m extends MY_Model
 			$return = $query2->result_array();
 			// 获取分类、分类名称
 			foreach ($return as $key => $row) {
-				if (!empty($this->db->query("SELECT class_id FROM `yf_goods` WHERE goods_id=" . $row['goods_id'])->result_array())) {
-					$return[$key]['class_id'] = $this->db->query("SELECT class_id FROM `yf_goods` WHERE goods_id=" . $row['goods_id'])->result_array()[0]['class_id'];
-					$return[$key]['class_name'] = $this->db->query("SELECT class_name FROM `yf_category` WHERE class_id=" . $return[$key]['class_id'])->result_array()[0]['class_name'];
-			
+				$query_tempid = $this->db->query("SELECT class_id FROM `yf_goods` WHERE goods_id=" . $row['goods_id'])->result_array();
+				if (!empty($query_tempid)) {	
+					$return[$key]['class_id'] = $query_tempid[0]['class_id'];
+					$query_tempname = $this->db->query("SELECT class_name FROM `yf_category` WHERE class_id=" . $return[$key]['class_id'])->result_array();
+					if (!empty($query_tempname)) {
+						$return[$key]['class_name'] = $query_tempname[0]['class_name'];
+					}	
 				}
 			}
 		}
-		return $return;
+		$result = array();
+		// 剔除不符合分类名称的项目
+		if($sort_stage) { 
+			$i = 0;
+			foreach ($return as $key => $row) {
+				if ($sort_stage == $return[$key]['class_id']) {
+					$result[$i++] = $row;
+				}
+			}
+		} else {
+			$result = $return;
+		}
+		//var_dump($result);exit();
+		return $result;
 	}
 }
