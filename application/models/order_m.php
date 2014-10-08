@@ -512,7 +512,7 @@ class Order_m extends MY_Model
 			// 获取分类、分类名称
 			foreach ($return as $key => $row) {
 				$query_tempid = $this->db->query("SELECT class_id FROM `yf_goods` WHERE goods_id=" . $row['goods_id'])->result_array();
-				if (!empty($query_tempid)) {	
+				if (!empty($query_tempid)) {
 					$return[$key]['class_id'] = $query_tempid[0]['class_id'];
 					$query_tempname = $this->db->query("SELECT class_name FROM `yf_category` WHERE class_id=" . $return[$key]['class_id'])->result_array();
 					if (!empty($query_tempname)) {
@@ -525,11 +525,13 @@ class Order_m extends MY_Model
 		}
 		$result = array();
 		// 剔除不符合分类名称的项目
-		if($sort_stage) { 
+		if($sort_stage) {
 			$i = 0;
 			foreach ($return as $key => $row) {
-				if ($sort_stage == $return[$key]['class_id']) {
-					$result[$i++] = $row;
+				if (isset($return[$key]['class_id'])) {
+					if ($sort_stage == $return[$key]['class_id']) {
+						$result[$i++] = $row;
+					}
 				}
 			}
 		} else {
