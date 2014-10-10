@@ -14,7 +14,7 @@ class Order extends U_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		load_model(array('order_m', 'address_m', 'user_m', 'order_items_m', 'coupon_m'));
+		load_model(array('order_m', 'address_m', 'user_m', 'order_items_m', 'coupon_m', 'alipay_m'));
 		load_helper('page');
 	}
 
@@ -40,8 +40,9 @@ class Order extends U_Controller
 				$type = 1;
 			}
 			$per_page = 5;
+			$orders   = $this->order_m->user_orders($phone, $start, $per_page, $update, $type);
 			$data     = array(
-				'orders' => $this->order_m->user_orders($phone, $start, $per_page, $update, $type),
+				'orders' => $orders,
 				'status' => 0
 			);
 			$this->json_out($data);
@@ -99,16 +100,18 @@ class Order extends U_Controller
  		}
 
 		$shop_id   = (int) cookie('shop_id');
-		$phone     = $this->get_phone();						// 获取手机号
+		$phone     = $this->get_phone();
 		$user_id   = $this->user_m->phone2id($phone);
 		$address   = $this->address_m->get_default($user_id)->name;
-		$coupon_id = (int) get('coupon_id');					// 获取JSONP传递过来的coupon_id
-
+		$payment   = (int) get('payment');
+		$coupon_id = (int) get('coupon_id');
 		$coupon    = $this->coupon_m->deal_coupon($coupon_id);	// 查询所选的优惠券的详细内容
+
+		$total_prices = $this->cart->total();
 
 		// 创建订单
 		$order_add = array(
-			'total_prices' => $this->cart->total(),
+			'total_prices' => $total_prices,
 			'shop'         => $shop_id,
 			'phone'        => $phone,
 			'user_id'      => $user_id,
@@ -142,13 +145,39 @@ class Order extends U_Controller
 					$this->order_items_m->add($item_add);
 				}
 			}
-			// 订单处理成功，销毁本次购物车内容
-			$this->cart->destroy();
+			// 货到付款
+			if ($payment == 0) {
+				// 订单处理成功，销毁本次购物车内容
+				$this->cart->destroy();
+				$out = array(
+					'order_id' => $order_id,
+					'status'   => '0'
+				);
+			} else if ($payment == 1) {
+				// 支付宝，创建流水
+				$flow = array(
+					'order_id'     => $order_id,
+					'total_fee'    => $total_prices,
+					'out_trade_no' => $this->_rand_id(),
+					'status'       => 'ORDER_STAGE_UNPAYED',
+					'create_time'  => time(),
+					'payer'        => $user_id
+				);
+				$this->order_m->edit($order_id, array('stage'=>7));	// 在线支付状态有别
+				$flow_id = $this->alipay_m->add_flow($flow);
+				if ($flow_id > 0) {
+					$out = array(
+						'order_id' => $order_id,
+						'flow_id'  => $flow_id,
+						'status'   => '0'
+					);
+				} else {
+					$out = array('status' => '3');
+				}
+			}
+		} else {
+			$out = array('status' => '4');
 		}
-
-		$out = array(
-			'status' => '0',
-		);
 
 		$this->json_out($out);
 	}
@@ -207,6 +236,39 @@ class Order extends U_Controller
 	}
 
 	/**
+	 * 重建流水
+	 */
+	public function rebuild()
+	{
+		if ($this->check_login()) {
+			$order_id = (int) get('order_id');
+			$order = $this->order_m->get($order_id);
+			$total_prices = $order->total_prices;
+			$payer = $order->user_id;
+			// 重建流水（和原order关联）
+			$flow = array(
+				'order_id'     => $order_id,
+				'total_fee'    => $total_prices,
+				'out_trade_no' => $this->_rand_id(),
+				'status'       => 'ORDER_STAGE_UNPAYED',
+				'create_time'  => time(),
+				'payer'        => $payer
+			);
+			$flow_id = $this->alipay_m->add_flow($flow);
+
+			if ($flow_id > 0) {
+				$data = array('order_id'=>$order_id, 'flow_id'=>$flow_id, 'status'=>'0');
+			} else {
+				$data = array('status'=>'3');
+			}
+		} else {
+			$data = array('status'=>'4');
+		}
+
+		$this->json_out($data);
+	}
+
+	/**
 	 * 检验验证码
 	 *
 	 * @param string $captchar
@@ -238,5 +300,18 @@ class Order extends U_Controller
 			return  FALSE;
 		}
 		return TRUE;
+	}
+
+	/**
+	 * 生成流水订单id
+	 */
+	private function _rand_id()
+	{
+		do {
+			$rand_id = date('Ymdhis') . rand(10000, 99999);	// 时间+随机数=19位
+			$order   = $this->alipay_m->get_by('out_trade_no', $rand_id);
+		} while (isset($order->order_id));
+
+		return $rand_id;
 	}
 }

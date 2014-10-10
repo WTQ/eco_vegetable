@@ -9,7 +9,7 @@
 /**
  * 请求数据端的URL
  */
-var site_url = '';
+var site_url = 'http://eco.te168.cn';
 
 /**
  * 商品分页数

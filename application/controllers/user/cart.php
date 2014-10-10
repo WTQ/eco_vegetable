@@ -42,7 +42,7 @@ class Cart extends U_Controller
 			}
 		}
 
-		$data = $this->_cart_data();	// 返回数组
+		$data = $this->_cart_data();
 
 		$this->json_out($data);
 	}

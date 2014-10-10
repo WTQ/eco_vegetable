@@ -26,12 +26,12 @@ class Login extends U_Controller
 			set_cookie('address', $address, 3600 * 24 * 365);
 			set_cookie('shop_id', $shop_id, 3600 * 24 * 365);
 			$data = array(
-				'login'        =>	1,
-				'user_id'      =>	$user_id,
-				'phone'        =>	$phone,
-				'address'      =>	$address,
-				'community_id' =>	$community_id,
-				'shop_id'      =>	$shop_id
+				'login'        => 1,
+				'user_id'      => $user_id,
+				'phone'        => $phone,
+				'address'      => $address,
+				'community_id' => $community_id,
+				'shop_id'      => $shop_id
 			);
 			$this->json_out($data);
 		} else {

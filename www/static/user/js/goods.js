@@ -44,7 +44,7 @@ function shop_info() {
 	$.getJSON(url('/user/shop?callback=?'), get, function(data) {
 		if (data.error == 0) {
 			firstLoadShop = false;
-			
+
 			$('#shop_scrolling').html('<div id="body1_image"></div>');
 
 			var low_price = data.low_price;
@@ -85,7 +85,7 @@ function shop_info() {
  */
 function goods_info() {
 	shop_info();
-	
+
 	if (firstLoadGoods != true) {
 		return;
 	}
@@ -620,7 +620,7 @@ function cart_confirm() {
 		'shop_id'	  : localStorage['shop_id'],
 		'total_price' : localStorage['total_price']
 	};
-	
+
 	load_mask();
 	$.getJSON(url('/user/cart?callback=?'), get, function(data) {
 		// 清除同步服务器之前的购物车本地存储
@@ -802,7 +802,7 @@ function cart_in_de() {
 	// + 按钮事件
 	$(".increase").click(function(n) {
 		n.stopPropagation();	// 阻止冒泡
-		
+
 		// 获取购物车中各商品信息DOM对象
 		var cart_goods = $(".cart_goods");
 		// 获取购物车中各商品数量DOM对象
@@ -824,24 +824,24 @@ function cart_in_de() {
 		// 更新商品数量和总金额显示
 		var n = cart_item(goods_id);
 		$(goods_num[i]).text(($.parseJSON(localStorage['cart'])[n].qty));
-		
+
 		// 去掉下次购买阴影层
 		unsettle_hide_mask(i);
 		// 更新购物车
 		cart_badge();
 	});
-	
+
 	// - 按钮事件
 	$(".decrease").click(function(n){
 		n.stopPropagation();	// 阻止冒泡
-		
+
 		// 获取购物车中各商品信息DOM对象
 		var cart_goods = $(".cart_goods");
 		// 获取购物车中各商品数量DOM对象
 		var goods_num  = $(".number");
 		// 查询是第几个increase按钮
 		var i          = $(".decrease").index($(this));
-		
+
 		// 判断数量是不是为1了，如果为1，应该滑出右边的删除部分
 		var old_num	   = $(goods_num[i]).text();
 		if (old_num == 1) {
@@ -849,7 +849,7 @@ function cart_in_de() {
 			$('.swipe_left').eq(i).show();
 			return ;
 		}
-		
+
 		// 获取该increase按钮所属的商品信息
 		var goods_id   = $(cart_goods[i]).attr('goods_id');
 		var price      = $(cart_goods[i]).attr('price');
@@ -878,22 +878,53 @@ function cart_in_de() {
  */
 $.ui.ready(function() {
 	$('#account_footer').delegate('.confirm_order', 'click', function() {
+		var payment     = $('#pay').val();
+		var final_price = $('.total_price').text();
+		var coupon_id   = $('#shop_cuopons').val();
+
 		var get = {
-			'final_price' : $('.total_price').text(),
-			'coupon_id'	  : $('#shop_cuopons').val()
+			'final_price' : final_price,
+			'payment'     : payment,
+			'coupon_id'	  : coupon_id
 		};
-	
+
 		// （选择优惠后）最终总额
 		localStorage['total_price'] = get.final_price;
-		$.getJSON(url('/user/order/submit?callback=?'), get, function(data) {
-			// 将“下次购买”商品设置settle=1
-			cart_destroy();
-			cart_set_settle();
 
-			redirect('#verify');
+
+		load_mask();
+		$.getJSON(url('/user/order/submit?callback=?'), get, function(data) {
+			if (data.status == 0) {
+				// 将“下次购买”商品设置settle=1
+				cart_destroy();
+				cart_set_settle();
+
+				if (payment == 0) {
+					redirect('#verify');
+				} else if (payment == 1) {
+					var get = {
+						'order_id' : data.order_id,
+						'flow_id'  : data.flow_id
+					};
+					$.getJSON(url('/alipay?callback=?'), get, function(data) {
+						// location.href = data.http_req;
+						var ref = window.open(data.http_req, '_blank');
+						ref.addEventListener('loadstop', function(event) {
+							if (event.url == 'http://eco.te168.cn/alipay/close') {
+								ref.close();
+								redirect('#myorder');
+							}
+						});
+						ref.addEventListener('exit', function(event) {
+                            ref.close();
+                            redirect('#myorder');
+                        });
+						hide_mask();
+					});
+				}
+			}
 		});
 	});
-
 });
 
 function load_verify() {
@@ -923,12 +954,12 @@ function login_success() {
 		// 跳转回购物车页面
 		setTimeout(function() {
 			$.ui.loadContent('#account_cart', false, false, 'fade');
-		}, 5000);
+		}, 3000);
 	} else {
 		// 如果是从小区选择页面跳转进来
 		// 跳转回商家首页
 		setTimeout(function() {
-			$.ui.loadContent('#sort', false, false, 'fade');
+			$.ui.loadContent('#index', false, false, 'fade');
 		}, 3000);
 	}
 
@@ -1083,20 +1114,23 @@ $.ui.ready(function() {
 		var phone    = $("#phone").val();
 		var password = $("#pwd").val();
 		var get      = {
-			'phone'		: phone,
-			'password'	: password,
+			'phone'    : phone,
+			'password' : password,
 		};
 		$.getJSON(url('/user/login?callback=?'), get, function(data) {
 			// 用户验证成功
 			if (data.login == 1) {
 				// 如果是从购物车页面登录
 				if (localStorage['back2cart'] == 1) {
-					localStorage['back2cart'] = 0;
+					localStorage['back2cart']    = 0;
+					localStorage['shop_id']      = data.shop_id;
+					localStorage['community_id'] = data.community_id;
+					localStorage['user_address'] = data.address;		// 区别商家地址shop_address
+					localStorage['phone']        = data.phone;
 					localStorage['user_id']      = data.user_id;
-					// 继续填写用户默认地址
-					redirect("#position_input");
+					redirect('#verify_suc');
 				} else {
-					// 如果是从小区定位页面登录
+					// 如果是从“我的账户”页面登录
 					localStorage['shop_id']      = data.shop_id;
 					localStorage['community_id'] = data.community_id;
 					localStorage['user_address'] = data.address;		// 区别商家地址shop_address
@@ -1209,7 +1243,7 @@ $.ui.ready(function() {
 });
 
 /**
- * 取消订单
+ * 重新处理订单（取消或在线支付）
  */
 function order_cancel() {
 	//是否取消订单的弹出框
@@ -1217,7 +1251,7 @@ function order_cancel() {
 
 	$(".order_status2").click(function(n) {
 		n.stopPropagation(n);
-		var text = trim($(this).text());
+		var text = $(this).text();
 
 		var order_id = $(this).attr('order_id');
 		var that = this;
@@ -1241,7 +1275,36 @@ function order_cancel() {
 				},
 				cancelOnly: false
 			});
-		} else {
+		} else if (text == '在线支付') {
+			var get = {
+				'order_id' : order_id
+			};
+			$.getJSON(url('/user/order/rebuild'), get, function(data) {
+				if (data.status == 0) {
+					var get = {
+						'order_id' : data.order_id,
+						'flow_id'  : data.flow_id,
+					};
+					
+                    load_mask();
+					$.getJSON(url('/alipay?callback=?'), get, function(data) {
+						// location.href = data.http_req;
+                        hide_mask();
+						var ref = window.open(data.http_req, '_blank');
+						ref.addEventListener('loadstop', function(event) {
+							if (event.url == 'http://eco.te168.cn/alipay/close') {
+								ref.close();
+								load_myorder();
+							}
+						});
+						
+                        ref.addEventListener('exit', function(event) {
+                            ref.close();
+                            redirect('#myorder');
+                        });
+					});
+				}
+			});
 		}
 		return false;
 	});
@@ -1389,7 +1452,7 @@ $.ui.ready(function() {
 		$('.swipe_left').eq(index).hide();
 		$('.cart_goods').eq(index).css('margin-left', '0');
 		unsettle_set_mask(index);
-		
+
 		// 更新购物车
 		cart_badge();
 	});
@@ -1406,7 +1469,7 @@ $.ui.ready(function() {
 });
 
 /**
- * 加上下次购买阴影层 
+ * 加上下次购买阴影层
  */
 function unsettle_set_mask(index) {
 	var shortage_pos = $('#cartgoods_all .goods_image').eq(index);
@@ -1415,7 +1478,7 @@ function unsettle_set_mask(index) {
 }
 
 /**
- * 去掉下次购买阴影层 
+ * 去掉下次购买阴影层
  */
 function unsettle_hide_mask(index) {
 	var shortage_pos = $('#cartgoods_all .goods_image').eq(index);

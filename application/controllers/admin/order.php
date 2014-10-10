@@ -20,8 +20,8 @@ class Order extends A_Controller
 		load_helper('form');
 		load_helper('order_stage_helper');
 	}
-	
-	public function index() 
+
+	public function index()
 	{
 		$per_page = 20;
 		$p = (int) page_cur();
@@ -29,7 +29,7 @@ class Order extends A_Controller
 		$shop_id = 1;
 		$stage = $this->input->get('stage', TRUE);
 		$keywords = $this->input->get('search_input', TRUE);
-		
+
 		$data['orders'] = $this->order_m->to_excel($stage, $keywords, $per_page, ($p-1)*$per_page);
 		$i = 0;
 		foreach ($data['orders'] as $key) {
@@ -41,28 +41,37 @@ class Order extends A_Controller
 		$data['shops'] = $this->shops_m->get_all();
 		if($shop_id !== FALSE) {
 			$data['keywords'] ='shop_id='.$shop_id.'&'.'stage='.$stage.'&'.'search_input='.$keywords;
-			
+
 		} else {
 			$data['keywords']='';
 		}
 		$data['shop_id'] = $shop_id;
 		$data['stage'] = $stage;
 		$data['search_input'] = $keywords;
-		//var_dump($data);exit();
+
 		load_view('admin/order', $data);
 	}
-	
+
 	public function order_goods()
 	{
 		$per_page = 20;
 		$stage = $this->input->get('stage', TRUE);
+		if (empty($stage)) {
+			$stage = 0;
+		}
 		
-		$data['orders'] = $this->order_m->goods_list($stage); 
+		$sort_stage = $this->input->get('sort_stage', TRUE);
+		if (empty($sort_stage)) {
+			$sort_stage = 0;
+		}
+		
+		$data['orders'] = $this->order_m->goods_list($stage, $sort_stage);
 		$data['stage'] = $stage;
+		$data['sort_stage'] = $sort_stage;
 		//var_dump($data['orders']);exit();
 		load_view('admin/order_goods', $data);
 	}
-	
+
 	public function detail()
 	{
 		$order_id = $this->input->get('id');
@@ -70,8 +79,8 @@ class Order extends A_Controller
 		$data['orders']['username'] = $this->user_m->get_byid($data['orders']['user_id']);
 		load_view('admin/order_detail', $data);
 	}
-	
-	
+
+
 	public function gen_excel()
 	{
 		$shop_id = 1;
@@ -96,7 +105,7 @@ class Order extends A_Controller
 	 		}
 		}
 	}
-	
+
 	public function gen_word()
 	{
 		$shop_id = $this->input->get('shop_id');
@@ -115,7 +124,7 @@ class Order extends A_Controller
 			}
 		}
 	}
-	
+
 	public function edit_v()
 	{
 		$Order_id = $this->input->get('order_id', TRUE);
@@ -125,26 +134,26 @@ class Order extends A_Controller
 
 		load_view('admin/order_edit', $data);
 	}
-	
+
 	public function edit()
 	{
 		$Order_id = $this->input->get('id', TRUE);
-		
+
 		$stage = $this->input->post('stage', TRUE);
 		$this->order_m->set_stage($Order_id, $stage);
 // 		$data['Order'] = $this->order_m->get($Order_id);
 // 		$data['form_url'] = '/admin/order/edit/?id='. $Order_id;
 // 		$data['Order']->username = $this->user_m->get_byid($data['Order']->user_id);
-// 		load_view('admin/order_edit', $data);		
+// 		load_view('admin/order_edit', $data);
 		redirect('admin/order');
 	}
-	
+
 	private function _page_init($per_page, $total_row, $shop_id, $stage)
 	{
 		$this->load->library('pagination');
-	
+
 		$config['total_rows'] = $total_row;
-	
+
 		$config['per_page'] = $per_page;
 		if($shop_id) {
 			$config['base_url'] = '/admin/order/?shop_id='. $shop_id. '&stage='. $stage;
@@ -159,7 +168,7 @@ class Order extends A_Controller
 		$config['next_link'] = '下一页';
 		$config['use_page_numbers'] = TRUE;
 		$config['page_query_string'] = TRUE;
-	
+
 		$this->pagination->initialize($config);
 		return $this->pagination->create_links();
 	}
