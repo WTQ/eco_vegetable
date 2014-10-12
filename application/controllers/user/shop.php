@@ -63,5 +63,6 @@ class Shop extends U_Controller
 
 		$data['goods'] = $this->goods_m->get_byclass($shop_id, $class_id, $per_page, $per_page*($p-1));
 		$this->json_out($data);
+		var_dump(data);
 	}
 }

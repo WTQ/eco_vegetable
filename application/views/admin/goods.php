@@ -43,8 +43,8 @@
                         <th width="10%">分类</th>
                         <th width="8%">规格</th>
                         <th width="8%">价格</th>
-                        <!-- <th width="6%">库存</th>
-                        <th width="6%">推荐</th> -->
+                        <th width="6%">库存</th>
+                        <!-- <th width="6%">推荐</th> -->
                         <th width="6%">上架</th>
                         <th>操作</th>
                       </tr>
@@ -56,10 +56,10 @@
                         <td><?php echo $category[$row->class_id]->class_name; ?></td>
                         <td><?php echo $row->unit; ?></td>
                         <td><?php echo $row->price; ?></td>
-                        <!-- <td><?php if ($row->stock === '0') {
+                        <td><?php if ($row->stock === '0') {
                         	echo '无'; } else {echo '有';}?>
 						</td>
-                        <td><?php if ($row->is_today === '1') {
+                        <!--<td><?php if ($row->is_today === '1') {
                         	echo '是'; } else {echo '否';}?>
 						</td> -->
 						<td style="text-align:center;"><?php if ($row->sold === '1') {

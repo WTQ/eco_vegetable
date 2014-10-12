@@ -93,12 +93,13 @@
 
 <!-- 商品列表html模版 -->
 <script id="goods_tab" type="text/html">
+
 <% for (var i = 0; i < goods.length; i++) { %>
 <a href="#goods_index/goods_id/<%= goods[i]['goods_id'] %>">
     <div class="goods">
         <div class="goods_image"><img src="http://eco.te168.cn/goods_img/<%= goods[i]['goods_id'] %>/0.90.jpg"></div>
         <div class="goods_detail">
-            <div class="goods_title"><%= goods[i]['name'] %></div>
+            <div class="goods_title"><%= goods[i]['name']%></div>
             <div class="goods_price">
                 <div class="price">
                     <div class="unit_price">单价</div>
