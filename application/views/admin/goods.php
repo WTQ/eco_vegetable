@@ -1,8 +1,14 @@
 <!-- 商品管理页面 -->
 <?php load_view('admin/common/header'); ?>
 		<div class="content">
-        	<div class="content1">
+        	<div class="content1 manage">
             	<a href="<?php echo base_url('/admin/goods/add_goods'); ?>">添加商品</a>
+            	<form action="<?php echo base_url('admin/goods/goods_search')?>" method="get" >
+	            	<div class="left"><input class="search_input2" size="30" type="text" name="search" value="<?php echo $keywords;?>" onmouseover=this.focus(); onclick="value=''; this.style.color='#000'"   onBlur="if(!value){value=defaultValue; this.style.color='#999'}"style="color:#999" /></div>
+	            	<div class="left"><input class="search_sub2" type="submit" name="submit" value=""/></div>
+	            	<div class="cl"></div>
+	            </form>
+	        <div class="cl"></div>
             </div>
             
             <div class="content2">
@@ -20,6 +26,7 @@
 									<option value="5" <?php if($stage == 5) echo 'selected'?> >加工产品</option>
 									<option value="6" <?php if($stage == 6) echo 'selected'?> >进口蔬菜</option>
 									<option value="7" <?php if($stage == 7) echo 'selected'?> >其他扩展</option>
+									<option value="8" <?php if($stage == 8) echo 'selected'?> >日常用品</option>
 								</select>
 								<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
 							</td>

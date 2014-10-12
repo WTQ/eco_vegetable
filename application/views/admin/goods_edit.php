@@ -57,7 +57,7 @@
 				<tr>
 					<td class="name">上下架</td>
 					<td class="detail">
-						<select name="is_today" class="list_select">
+						<select name="sold" class="list_select">
 							<option value="1" <?php echo $goods['sold'] == 1 ? 'selected':'' ;?>>上架</option>
 							<option value="0" <?php echo $goods['sold'] == 0 ? 'selected':'' ;?>>下架</option>
 						</select>

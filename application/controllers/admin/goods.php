@@ -33,7 +33,7 @@ class Goods extends A_Controller
 		} else {
 			$data['stage'] = 0;
 		}
-		
+		$data['keywords'] = '';
 		$data['goods'] = $this->goods_m->order_by('goods_id', 'desc')->limit($per_page, ($p-1) * $per_page)->get_bycategory($stage);	// 获取goods表里对应分类的记录（对象形式）
 		$data['number'] = sizeof($this->goods_m->order_by('goods_id', 'desc')->get_bycategory($stage));
 		$data['page'] = page($data['number'], $per_page);						// 分页参数
@@ -60,7 +60,7 @@ class Goods extends A_Controller
 			$intro		=	post('intro');			// 商品介绍
 			$is_today	=	post('is_today');		// 今日推荐
 			$sold		=	post('sold');			// 上下架
-			
+
 			$make_url = $this->config->item('admin_upload');
 			$config = array(
 					"savePath" => "uploads/goods_img" ,
@@ -152,7 +152,6 @@ class Goods extends A_Controller
 			$intro		=	$this->input->post('intro');	// 商品介绍
 			$is_today	=	$this->input->post('is_today');	//今日推荐
 			$sold		=	post('sold');					// 上下架
-			
 			$make_url	=	$this->config->item('admin_upload');
 			$config = array(
 					"savePath" => "uploads/goods_img" ,
@@ -243,6 +242,25 @@ class Goods extends A_Controller
 		$this->goods_m->mark_stock($goods_id, $stock);
 		
 		redirect('admin/goods');
+	}
+	/**
+	 * 按照商品名称搜索
+	 */
+	public function goods_search()
+	{
+		$keywords = get('search');
+		$data['stage'] = 0;
+		$per_page = 10;
+		$data['keywords'] = $keywords;
+		$p = (int) page_cur();
+		$data['goods'] = $this->goods_m->order_by('goods_id', 'desc')->limit($per_page, ($p-1) * $per_page)->search_many_by($keywords);	// 获取goods表里全部记录（对象形式）
+		$data['number'] = $this->goods_m->search_many_num($keywords);
+		$data['page'] = page($data['number'], $per_page); // 分页参数
+		foreach ($data['goods'] as $row) {
+			$data['shop'][$row->shop_id] = $this->shop_m->get($row->shop_id);			// 获取shop信息
+			$data['category'][$row->class_id] = $this->category_m->get($row->class_id);	// 获取category信息
+		}
+		load_view('admin/goods', $data);
 	}
 	
 	/**

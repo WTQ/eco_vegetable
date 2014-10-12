@@ -4,6 +4,11 @@ body {
 	 font-family: 'tahoma','arial','Microsoft Yahei';
 	 font-size:18px;
 }
+*{
+	margin:0;
+	padding:0;
+}
+
 .manager {
 	width:100%;
 	margin:0;
@@ -230,26 +235,26 @@ body {
 }
 .content1 {
 	margin: 30px 0;
-	display:inline-block;
+	display:block;
 	width:40%;
 }
 .content1 a {
-	display:inline;
+	float:left;
 	text-align:center;
 	margin-left:30%;
 	margin-right:30%;
-	display:block;
+	display:inline-block;
 	color:#000;
 	height:40px;
 	line-height:40px;
 	border-radius:5px 5px 5px 5px;
 	text-decoration:none;
 	background:#1ABC9C;
-
 }
 .content1 a:hover {
-	color:#FFF;
-	background::#2C3E50 !important;
+	float:left;
+	color:#fff;
+	background:#1ABC9C !important;
 	display:block;
 }
 .content_row {
@@ -334,4 +339,33 @@ body {
 .red {
     color:red;
 }
+.search_input2{
+	border:1px solid #1bbc9d;
+	border-right:none;
+	height:36px;
+	line-height:36px;
+}
 
+.search_sub2{
+	border:solid 1px #1bbc9d;
+	border-left:none;
+	background:url(../image/search1.jpg) no-repeat center left;
+	width:40px;
+	height:38px;
+	margin-left:-6px;
+}
+.manage {
+	width:100% !important;
+	height:40px;
+}
+.manage a {
+	margin-left:5% !important;
+	padding:0 1% 0 1%;
+}
+.manage form {
+	float:left;
+	width:50%;
+}
+.left {
+	float:left;
+}
