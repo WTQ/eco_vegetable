@@ -915,6 +915,10 @@ $.ui.ready(function() {
 								redirect('#myorder');
 							}
 						});
+						ref.addEventListener('exit', function(event) {
+                            ref.close();
+                            redirect('#myorder');
+                        });
 						hide_mask();
 					});
 				}
@@ -1274,25 +1278,31 @@ function order_cancel() {
 		} else if (text == '在线支付') {
 			var get = {
 				'order_id' : order_id
-			}
+			};
 			$.getJSON(url('/user/order/rebuild'), get, function(data) {
 				if (data.status == 0) {
 					var get = {
 						'order_id' : data.order_id,
 						'flow_id'  : data.flow_id,
 					};
+					
+                    load_mask();
 					$.getJSON(url('/alipay?callback=?'), get, function(data) {
 						// location.href = data.http_req;
+                        hide_mask();
 						var ref = window.open(data.http_req, '_blank');
 						ref.addEventListener('loadstop', function(event) {
 							if (event.url == 'http://eco.te168.cn/alipay/close') {
 								ref.close();
-								redirect('#myorder');
+								load_myorder();
 							}
 						});
-						load_mask();
+						
+                        ref.addEventListener('exit', function(event) {
+                            ref.close();
+                            redirect('#myorder');
+                        });
 					});
-					hide_mask();
 				}
 			});
 		}

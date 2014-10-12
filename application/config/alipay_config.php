@@ -43,7 +43,7 @@ $config['call_back_url'] = 'http://eco.te168.cn/alipay/callback';
 // 服务器异步通知页面路径
 $config['notify_url']    = 'http://eco.te168.cn/alipay/notify';
 // 操作中断返回地址
-$config['merchant_url']  = 'file:///android_asset/www/index.html#cart';
+$config['merchant_url']  = 'http://eco.te168.cn/alipay/close';
 
 
 //签名方式 不需修改

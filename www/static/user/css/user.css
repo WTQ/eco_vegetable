@@ -244,7 +244,10 @@ img {
 	height:44px;
 	background:url('../image/watermelon.png') no-repeat 10% center;
 }
-
+.dailyuse {
+	height:44px;
+	background:url('../image/papp.png') no-repeat 10% center;
+}
 .search1 {
 	float:left;
 	width:70%;
@@ -1920,3 +1923,4 @@ img {
 	text-align:left;
 	padding-left:13%;
 }
+

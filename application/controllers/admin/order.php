@@ -56,9 +56,18 @@ class Order extends A_Controller
 	{
 		$per_page = 20;
 		$stage = $this->input->get('stage', TRUE);
-
-		$data['orders'] = $this->order_m->goods_list($stage);
+		if (empty($stage)) {
+			$stage = 0;
+		}
+		
+		$sort_stage = $this->input->get('sort_stage', TRUE);
+		if (empty($sort_stage)) {
+			$sort_stage = 0;
+		}
+		
+		$data['orders'] = $this->order_m->goods_list($stage, $sort_stage);
 		$data['stage'] = $stage;
+		$data['sort_stage'] = $sort_stage;
 		//var_dump($data['orders']);exit();
 		load_view('admin/order_goods', $data);
 	}
