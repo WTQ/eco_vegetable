@@ -250,6 +250,7 @@ body {
 	border-radius:5px 5px 5px 5px;
 	text-decoration:none;
 	background:#1ABC9C;
+	padding:0 10px 0 10px;
 }
 .content1 a:hover {
 	float:left;
@@ -360,7 +361,7 @@ body {
 }
 .manage a {
 	margin-left:5% !important;
-	padding:0 1% 0 1%;
+	
 }
 .manage form {
 	float:left;
