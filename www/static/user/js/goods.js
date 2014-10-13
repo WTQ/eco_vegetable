@@ -108,6 +108,7 @@ function goods_info() {
 		
         // 将起送价本地存储
         localStorage['low_price'] = data.low_price;
+        $("#low_price").text("订单满 " + low_price + " 元免费送货上门");
 		
 		goods_scrolling();
 		hide_mask();
