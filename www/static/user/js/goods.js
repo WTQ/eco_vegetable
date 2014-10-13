@@ -84,8 +84,10 @@ function shop_info() {
  * 商品列表相关函数
  */
 function goods_info() {
-	shop_info();
-
+	// shop_info();
+    // 清除历史panel记录
+    $.ui.clearHistory();
+    
 	if (firstLoadGoods != true) {
 		return;
 	}
@@ -103,6 +105,9 @@ function goods_info() {
 		firstLoadGoods = false;
 		var html = template.render('goods_tab', data);				// JSON数据用模板渲染
 		$('#goods_scrolling').html(html);							// 把渲染后的html代码加载到panel中
+		
+        // 将起送价本地存储
+        localStorage['low_price'] = data.low_price;
 		
 		goods_scrolling();
 		hide_mask();
