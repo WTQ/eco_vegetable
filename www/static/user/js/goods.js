@@ -675,11 +675,11 @@ function cart_confirm() {
 				'total_price' : localStorage['total_price']		// 总额用于判断是否满足优惠条件
 			};
 
-			$.getJSON(url('/user/coupon?callback=?'), get, function(data) {
+			/*$.getJSON(url('/user/coupon?callback=?'), get, function(data) {
 				data['total_price'] = get.total_price;
 				var html = template.render('available_coupons', data);
 				$('#shop_cuopons').html(html);
-			});
+			});*/
 		}
 
 		hide_mask();
@@ -888,7 +888,7 @@ $.ui.ready(function() {
 		var get = {
 			'final_price' : final_price,
 			'payment'     : payment,
-			'coupon_id'	  : coupon_id
+			'coupon_id'	  : 0
 		};
 
 		// （选择优惠后）最终总额
@@ -897,6 +897,7 @@ $.ui.ready(function() {
 
 		load_mask();
 		$.getJSON(url('/user/order/submit?callback=?'), get, function(data) {
+			hide_mask();
 			if (data.status == 0) {
 				// 将“下次购买”商品设置settle=1
 				cart_destroy();
@@ -909,7 +910,9 @@ $.ui.ready(function() {
 						'order_id' : data.order_id,
 						'flow_id'  : data.flow_id
 					};
+					load_mask();
 					$.getJSON(url('/alipay?callback=?'), get, function(data) {
+						hide_mask();
 						// location.href = data.http_req;
 						var ref = window.open(data.http_req, '_blank');
 						ref.addEventListener('loadstop', function(event) {
@@ -922,9 +925,24 @@ $.ui.ready(function() {
                             ref.close();
                             redirect('#myorder');
                         });
-						hide_mask();
 					});
 				}
+			} else if (data.status == 1){
+				$.ui.popup({
+                    message: data.msg,
+                    cancelText: "取消",
+                    doneText: "登录",
+                    doneCallback: function () {
+                        redirect('#sign');
+                    },
+                    cancelOnly: false
+                });
+			} else {
+				$.ui.popup({
+					message	: data.msg,
+	                cancelText: "确认",
+	                cancelOnly: true
+				});
 			}
 		});
 	});
