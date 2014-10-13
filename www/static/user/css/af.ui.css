@@ -672,9 +672,9 @@ textarea {
   background-color: transparent;
 }
 #afui  .footer {
-  background: #F27935;
+  background: #00661A;
   border: none;
-  border-top: 1px solid #F27935;
+  border-top: 1px solid #00661A;
   box-shadow: none;
 }
 #afui footer>a:not(.button) {
@@ -805,7 +805,7 @@ textarea {
   color: #0088D1;
 }
 #afui .afPopup {
-  border: solid 1px #F17935;
+/*  border: solid 1px #F17935;*/
   -webkit-border-radius: 5px;
   border-radius: 5px;
   background: inherit;

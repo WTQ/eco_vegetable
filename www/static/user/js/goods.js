@@ -103,6 +103,7 @@ function goods_info() {
 		firstLoadGoods = false;
 		var html = template.render('goods_tab', data);				// JSON数据用模板渲染
 		$('#goods_scrolling').html(html);							// 把渲染后的html代码加载到panel中
+		
 		goods_scrolling();
 		hide_mask();
 	});
@@ -235,14 +236,15 @@ function sort_change() {
 function goods_scrolling() {
 	var p = 1;
 	var myScroller;
+	var is_scrolling = false;
 	bind_scrolling();
-
 	// 绑定相关滑动事件
     function bind_scrolling() {
     	myScroller = $('#goods_all').scroller();
     	myScroller.addInfinite();
 
 	    $.bind(myScroller, "infinite-scroll", infinite_scroll);
+		$.bind(myScroller, "infinite-scroll-end", infinite_scroll_end);
 	    myScroller.enable();
 
 	    // 绑定添加购物车按钮
@@ -257,53 +259,54 @@ function goods_scrolling() {
     		return false;
     	}
 
-    	if ($('#infinite').length > 0) {
-    		return false;
+    	if ($('.infinite').length < 1) {
+    		$('#goods_scrolling').append('<div class="infinite" id="infinite" style="height:90px;line-height:60px;text-align:center;font-weight:bold">正在加载...</div>');
     	}
+	};
+	
+	function infinite_scroll_end() {
+		if (is_scrolling == true) {
+        	return ;
+        } else {
+        	this.clearInfinite();
+        	is_scrolling == true;
+        }
 
-        var self = this;
+		setTimeout(function() {
+			myScroller.clearInfinite();
+			var class_id = get_param("class_id");
+			class_id = (class_id == null)? 0 : class_id;
+			var get = {
+				'shop_id'	: localStorage['shop_id'],
+				'class_id'	: class_id,					// 获取链接中的分类id号
+				'p'			: p + 1,
+			};
 
-        $('#goods_scrolling').append('<div id="infinite" style="height:90px;line-height:60px;text-align:center;font-weight:bold">正在加载...</div>');
-        this.scrollToBottom();
+			// 调用控制器获取数据
+			$.getJSON( url('/user/shop/list_goods?callback=?'), get, function(data) {
+				var html = template.render('goods_tab', data);			// 请求到的JSON数据用 html模板渲染
 
-        $.bind(myScroller, "infinite-scroll-end", function () {
-            // console.log("infinite-scroll-end");
-            $.unbind(myScroller, "infinite-scroll-end");
+				$('#goods_scrolling').append(html);						// 把渲染后的html代码添加到div块中
 
-            setTimeout(function() {
-            	self.clearInfinite();
-            	var class_id = get_param("class_id");
-            	class_id = (class_id == null)? 0 : class_id;
-            	var get = {
-					'shop_id'	: localStorage['shop_id'],
-        			'class_id'	: class_id,					// 获取链接中的分类id号
-        			'p'			: p + 1,
-            	};
+				// 绑定添加购物车按钮
+				add2cart();
 
-            	// 调用控制器获取数据
-            	$.getJSON( url('/user/shop/list_goods?callback=?'), get, function(data) {
-            		var html = template.render('goods_tab', data);			// 请求到的JSON数据用 html模板渲染
+				$('.infinite').remove();
 
-            		$('#goods_scrolling').append(html);						// 把渲染后的html代码添加到div块中
+				var goods_num = data.goods.length;
+				if (goods_num < 1) {
+					self.scrollToBottom(400);
+				}
 
-            		// 绑定添加购物车按钮
-            	    add2cart();
-
-					$('#infinite').remove();
-
-					var goods_num = data.goods.length;
-					if (goods_num < 1) {
-						self.scrollToBottom(400);
-					}
-
-            		if (goods_num < goods_page) {
-            			$.unbind(myScroller, "infinite-scroll");
-            		} else {
-                		p++;
-            		}
-            	});
-            }, 400);
-        });
+				if (goods_num < goods_page) {
+					$.unbind(myScroller, "infinite-scroll-end");
+					$.unbind(myScroller, "infinite-scroll");
+				} else {
+					p++;
+				}
+				is_scrolling = false;
+			});
+		}, 400);
     };
 }
 
@@ -672,11 +675,11 @@ function cart_confirm() {
 				'total_price' : localStorage['total_price']		// 总额用于判断是否满足优惠条件
 			};
 
-			$.getJSON(url('/user/coupon?callback=?'), get, function(data) {
+			/*$.getJSON(url('/user/coupon?callback=?'), get, function(data) {
 				data['total_price'] = get.total_price;
 				var html = template.render('available_coupons', data);
 				$('#shop_cuopons').html(html);
-			});
+			});*/
 		}
 
 		hide_mask();
@@ -885,7 +888,7 @@ $.ui.ready(function() {
 		var get = {
 			'final_price' : final_price,
 			'payment'     : payment,
-			'coupon_id'	  : coupon_id
+			'coupon_id'	  : 0
 		};
 
 		// （选择优惠后）最终总额
@@ -894,6 +897,7 @@ $.ui.ready(function() {
 
 		load_mask();
 		$.getJSON(url('/user/order/submit?callback=?'), get, function(data) {
+			hide_mask();
 			if (data.status == 0) {
 				// 将“下次购买”商品设置settle=1
 				cart_destroy();
@@ -906,7 +910,9 @@ $.ui.ready(function() {
 						'order_id' : data.order_id,
 						'flow_id'  : data.flow_id
 					};
+					load_mask();
 					$.getJSON(url('/alipay?callback=?'), get, function(data) {
+						hide_mask();
 						// location.href = data.http_req;
 						var ref = window.open(data.http_req, '_blank');
 						ref.addEventListener('loadstop', function(event) {
@@ -919,9 +925,24 @@ $.ui.ready(function() {
                             ref.close();
                             redirect('#myorder');
                         });
-						hide_mask();
 					});
 				}
+			} else if (data.status == 1){
+				$.ui.popup({
+                    message: data.msg,
+                    cancelText: "取消",
+                    doneText: "登录",
+                    doneCallback: function () {
+                        redirect('#sign');
+                    },
+                    cancelOnly: false
+                });
+			} else {
+				$.ui.popup({
+					message	: data.msg,
+	                cancelText: "确认",
+	                cancelOnly: true
+				});
 			}
 		});
 	});

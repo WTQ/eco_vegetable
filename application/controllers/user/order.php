@@ -172,11 +172,11 @@ class Order extends U_Controller
 						'status'   => '0'
 					);
 				} else {
-					$out = array('status' => '3');
+					$out = array('status' => '3', 'msg' => '流水创建失败');
 				}
 			}
 		} else {
-			$out = array('status' => '4');
+			$out = array('status' => '4', 'msg' => '订单创建失败');
 		}
 
 		$this->json_out($out);

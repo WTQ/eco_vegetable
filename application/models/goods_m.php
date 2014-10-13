@@ -416,5 +416,19 @@ class Goods_m extends MY_Model
 	{
 		return json_decode($arr);
 	}
-
+	
+	public function search_many_num($keywords)
+	{
+		$this->db->like('name',$keywords);
+		$query = $this->db->get('yf_goods');
+		$num = $query->num_rows;
+		return $num;
+	}
+	public function search_many_by($keywords)
+	{
+		$this->db->like('name',$keywords);
+		return $this->get_many_by();
+		
+	
+	}
 }

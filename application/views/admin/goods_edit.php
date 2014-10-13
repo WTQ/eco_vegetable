@@ -45,7 +45,7 @@
 					<td class="name">商品介绍</td>
 					<td class="detail" width="91%"><textarea name="intro" class="list_select" rows="8" cols="70"><?php echo $goods['intro'];?></textarea></td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td class="name">今日推荐</td>
 					<td class="detail">
 						<select name="is_today" class="list_select">
@@ -53,11 +53,20 @@
 							<option value="0" <?php echo $goods['is_today'] == 0 ? 'selected':'' ;?>>否</option>
 						</select>
 					</td>
+				</tr> -->
+				<tr>
+					<td class="name">有/缺货</td>
+					<td class="detail">
+						<select name="stock" class="list_select">
+							<option value="1" <?php echo $goods['stock'] == 1 ? 'selected':'' ;?>>有货</option>
+							<option value="0" <?php echo $goods['stock'] == 0 ? 'selected':'' ;?>>缺货</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td class="name">上下架</td>
 					<td class="detail">
-						<select name="is_today" class="list_select">
+						<select name="sold" class="list_select">
 							<option value="1" <?php echo $goods['sold'] == 1 ? 'selected':'' ;?>>上架</option>
 							<option value="0" <?php echo $goods['sold'] == 0 ? 'selected':'' ;?>>下架</option>
 						</select>
