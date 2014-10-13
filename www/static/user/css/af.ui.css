@@ -805,7 +805,7 @@ textarea {
   color: #0088D1;
 }
 #afui .afPopup {
-  border: solid 1px #F17935;
+/*  border: solid 1px #F17935;*/
   -webkit-border-radius: 5px;
   border-radius: 5px;
   background: inherit;
