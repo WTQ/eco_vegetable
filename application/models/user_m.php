@@ -2,11 +2,9 @@
 /**
  * 用户模型层
  * 
- * @package		eco_vegetable
- * @author 		lp1900
+ * @author		莫迟
  * @copyright	Copyright (c) 2014. 云帆工作室.
- * @version		Version 1.0
- * @since		2014.7.10
+ * @since		Version 1.0
  */
 
 class User_m extends MY_Model 
@@ -47,16 +45,20 @@ class User_m extends MY_Model
 				return FALSE;
 			}
 			
-			// 生成token
-			$salt = rand(100000, 999999) ;
-			$token = (md5(md5(time() . $salt)));
+			// 设置token更新的方式
+			$token = $user->token;
+			if (strlen($token) < 32) {
+				// 生成token
+				$salt = rand(100000, 999999) ;
+				$token = md5(md5(time() . $salt));
 			
-			// 更新token
-			$this->update($user->user_id, array('token' => $token));
+				// 更新token
+				$this->update($user->user_id, array('token' => $token));
+			}
 			
 			// 设置cookie
-			set_cookie('phone', $phone, 86500 * 365);
-			set_cookie('token', $token, 86500 * 365);
+			set_cookie('phone', $phone, 86500 * 365 * 10);
+			set_cookie('token', $token, 86500 * 365 * 10);
 			
 			return TRUE;
 		}
@@ -113,8 +115,8 @@ class User_m extends MY_Model
 		}
 
 		//在用户浏览器cookie中设置手机号与token
-		set_cookie('phone', $phone, 86500 * 365);
-		set_cookie('token', $token, 86500 * 365);
+		set_cookie('phone', $phone, 86500 * 365 * 10);
+		set_cookie('token', $token, 86500 * 365 * 10);
 
 		return $user_id;
 	}
@@ -141,7 +143,6 @@ class User_m extends MY_Model
 		return $user->username;
 	}
 	
-	
 	/**
 	 * 数据库密码生成函数
 	 *
@@ -165,5 +166,4 @@ class User_m extends MY_Model
 		$max = pow(10, $len) - 1;
 		return mt_rand($min, $max) . '';
 	}
-
 }
