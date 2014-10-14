@@ -85,6 +85,9 @@ function shop_info() {
  */
 function goods_info() {
 	// shop_info();
+    localStorage['shop_id']      = 1;
+    localStorage['community_id'] = 1;
+    
     // 清除历史panel记录
     $.ui.clearHistory();
     
