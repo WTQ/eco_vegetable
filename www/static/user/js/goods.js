@@ -84,7 +84,8 @@ function shop_info() {
  * 商品列表相关函数
  */
 function goods_info() {
-	// shop_info();
+    // shop_info();
+    cart_badge();
     localStorage['shop_id']      = 1;
     localStorage['community_id'] = 1;
     
