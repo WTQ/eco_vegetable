@@ -103,9 +103,9 @@ class Goods_m extends MY_Model
 		$class_id = (int) $class_id;
 
 		if ($class_id == 0 || $class_id == NULL) {
-			return $this->order_by('goods_id desc')->limit($num, $offset)->get_many_by('shop_id', $shop_id);	// class_id = 0，查询该商店中全部商品
+			return $this->order_by('goods_id', 'desc')->limit($num, $offset)->get_many_by('shop_id', $shop_id);	// class_id = 0，查询该商店中全部商品
 		} else {
-			return $this->order_by('goods_id desc')->limit($num, $offset)->get_many_by(array(	// class_id != 0,查询该商店中指定分类的商品
+			return $this->order_by('goods_idZ', 'desc')->limit($num, $offset)->get_many_by(array(	// class_id != 0,查询该商店中指定分类的商品
 					'shop_id'  => $shop_id,
 					'class_id' => $class_id
 			));
