@@ -27,6 +27,7 @@ class Goods extends A_Controller
 	{
 		$per_page = 10;
 		$p = (int) page_cur();
+		$data['p'] = $p;
 		$stage = (int)$this->input->get('stage', TRUE);
 		if (isset($stage)) {
 			$data['stage'] = $stage;
@@ -132,6 +133,7 @@ class Goods extends A_Controller
 	public function edit_goods()
 	{
 		$goods_id = (int) get('goods_id');
+		$p        = (int) get('p');
 		$goods		= $this->goods_m->get($goods_id);				// 获取goods信息
 		$old		= $this->goods_m->pic_dejson($goods->pic);		// 把原来的图片路径解码
 		$old_array	= array(
@@ -191,7 +193,7 @@ class Goods extends A_Controller
 			
 			$this->goods_m->edit_goods($goods_id, $data['goods']);
 			
-			redirect('admin/goods');
+			redirect('admin/goods?p='.$p);
 		} else {
 			$goods	=	$this->goods_m->get($goods_id);				// 获取goods信息
 			$shop	=	$this->shop_m->get($goods->shop_id);		// 获取shop信息
@@ -208,7 +210,7 @@ class Goods extends A_Controller
 					'pic'		=>	$this->goods_m->pic_dejson($goods->pic),		// 将JSON解码
 					'is_today'	=>	$goods->is_today,
 					'sold'		=>	$goods->sold,
-					'form_url'	=>	'admin/goods/edit_goods?goods_id='.$goods_id,
+					'form_url'	=>	'admin/goods/edit_goods?p='.$p.'goods_id='.$goods_id,
 			);
 			$data['shop']	=	$this->shop_m->get_all();		// 获取shop表全部记录用于下拉列表中的选项
 			$data['class']	=	$this->category_m->get_all();	// 获取category表全部记录用于下拉列表中的选项

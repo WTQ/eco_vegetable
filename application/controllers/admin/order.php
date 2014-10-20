@@ -25,7 +25,7 @@ class Order extends A_Controller
 	{
 		$per_page = 20;
 		$p = (int) page_cur();
-
+		$data['p'] = $p;
 		$shop_id = 1;
 		$stage = $this->input->get('stage', TRUE);
 		$keywords = $this->input->get('search_input', TRUE);
@@ -129,7 +129,8 @@ class Order extends A_Controller
 	{
 		$Order_id = $this->input->get('order_id', TRUE);
 		$data['Order'] = $this->order_m->get($Order_id);
-		$data['form_url'] = '/admin/order/edit/?id='. $Order_id;
+		$p = $this->input->get('p');
+		$data['form_url'] = '/admin/order/edit/?id='. $Order_id.'&p='.$p;
 		$data['Order']->username = $this->user_m->get_byid($data['Order']->user_id);
 
 		load_view('admin/order_edit', $data);
@@ -138,14 +139,22 @@ class Order extends A_Controller
 	public function edit()
 	{
 		$Order_id = $this->input->get('id', TRUE);
-
+		$p = $this->input->get('p');
 		$stage = $this->input->post('stage', TRUE);
 		$this->order_m->set_stage($Order_id, $stage);
 // 		$data['Order'] = $this->order_m->get($Order_id);
 // 		$data['form_url'] = '/admin/order/edit/?id='. $Order_id;
 // 		$data['Order']->username = $this->user_m->get_byid($data['Order']->user_id);
 // 		load_view('admin/order_edit', $data);
-		redirect('admin/order');
+		redirect('admin/order?p='.$p);
+	}
+	
+	public function del()
+	{
+		$p = $this->input->get('p');
+		$Order_id = $this->input->get('id', TRUE);
+		$this->order_m->del($Order_id);
+		redirect('admin/order?p='.$p);
 	}
 
 	private function _page_init($per_page, $total_row, $shop_id, $stage)

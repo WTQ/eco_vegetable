@@ -374,20 +374,13 @@ class Order_m extends MY_Model
 	/**
 	 * 删除订单，软删除
 	 */
-	public function del($order_id, $reason = NULL)
+	public function del($order_id)
 	{
-		// 删除订单子项
-		$items = $this->order_items_m->get_many_by('order_id', $order_id);
-		foreach ( $items as $item) {
-			$this -> order_items_m -> del($item->item_id);
-		}
-		// 更新订单删除原因
-		$order = array (
-			'del_reason' => $reason
-		);
-		$this->update_by('order_id', (int)$order_id, $order);
+		$this->db->where('order_id',$order_id);
 		// 删除订单
-		return $this->delete_by('order_id', (int)$order_id);
+		$data = array('order_deleted' => 1);
+		
+		return $this->db->update('yf_order',$data);;
 	}
 
 	/**
@@ -403,6 +396,7 @@ class Order_m extends MY_Model
 	public function to_excel($stage = 0, $search_input = "", $num = 0, $offset = 0)
 	{
 		$return = array();
+		$this->db->where("order_deleted",0);
 		if($stage) {
 			$this->db->where('stage', $stage);
 		}
@@ -411,6 +405,7 @@ class Order_m extends MY_Model
 		}
 
 		$this->db->order_by("order_id", "desc");
+		
 		if(!$num) {
 			$query = $this->db->get('order');
 		} else {

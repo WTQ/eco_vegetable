@@ -19,14 +19,15 @@
 							<td width="90%">产品分类：
 								<select name="stage">
 									<option value="0" <?php if($stage == 0) echo 'selected'?>>全部</option>
-									<option value="1" <?php if($stage == 1) echo 'selected'?> >特价蔬菜</option>
-									<option value="2" <?php if($stage == 2) echo 'selected'?> >时令蔬菜</option>
+									<option value="1" <?php if($stage == 1) echo 'selected'?> >田园时蔬</option>
+									<option value="2" <?php if($stage == 2) echo 'selected'?> >食用菌菇</option>
 									<option value="3" <?php if($stage == 3) echo 'selected'?> >有机蔬菜</option>
-									<option value="4" <?php if($stage == 4) echo 'selected'?> >土特产品</option>
-									<option value="5" <?php if($stage == 5) echo 'selected'?> >加工产品</option>
-									<option value="6" <?php if($stage == 6) echo 'selected'?> >进口蔬菜</option>
-									<option value="7" <?php if($stage == 7) echo 'selected'?> >其他扩展</option>
-									<option value="8" <?php if($stage == 8) echo 'selected'?> >日常用品</option>
+									<option value="4" <?php if($stage == 4) echo 'selected'?> >时鲜水果</option>
+									<option value="5" <?php if($stage == 5) echo 'selected'?> >粮油副食</option>
+									<option value="6" <?php if($stage == 6) echo 'selected'?> >南北干货</option>
+									<option value="7" <?php if($stage == 7) echo 'selected'?> >营养保健</option>
+									<option value="8" <?php if($stage == 8) echo 'selected'?> >地方特产</option>
+									<option value="9" <?php if($stage == 8) echo 'selected'?> >生活用品</option>
 								</select>
 								<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
 							</td>
@@ -65,7 +66,7 @@
 						<td style="text-align:center;"><?php if ($row->sold === '1') {
                         	echo '是'; } else {echo '否';}?>
 						</td>
-                        <td style="text-align:center;"><a href="<?php echo base_url('/admin/goods/edit_goods?goods_id=' .$row->goods_id); ?>">编辑</a>
+                        <td style="text-align:center;"><a href="<?php echo base_url('/admin/goods/edit_goods?p='.$p.'&goods_id=' .$row->goods_id); ?>">编辑</a>
                         	<a onclick="return del_alert()" href="<?php echo base_url('/admin/goods/del_goods?goods_id=' .$row->goods_id); ?>">删除</a>
                         	<a href="<?php echo base_url('/admin/goods/in_out_stock?goods_id=' .$row->goods_id); ?>">
                         	<?php if ($row->stock === '0') {
