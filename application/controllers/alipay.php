@@ -183,6 +183,12 @@ class Alipay extends U_Controller
 
 				echo "success";		// 请不要修改或删除
 			} else if ($trade_status == 'TRADE_SUCCESS') {
+				$flow     = $this->alipay_m->get_by('out_trade_no', $out_trade_no);
+				$flow_id  = $flow->flow_id;
+				$order_id = $flow->order_id;
+				$this->alipay_m->edit_flow($flow_id, 'ORDER_STAGE_PAYED', time());
+				$this->order_m->edit($order_id, array('stage'=>8));
+
 				echo "success";		// 请不要修改或删除
 			}
 		}

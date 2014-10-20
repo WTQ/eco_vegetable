@@ -60,9 +60,12 @@ class Shop extends U_Controller
 		$class_id = (int) get('class_id');
 		$p        = page_cur();				// 获取当前分页页码
 		$per_page = 10;						// 每页显示10项
+		
+		$shop = $this->shop_m->get($shop_id);
 
 		$data['goods'] = $this->goods_m->get_byclass($shop_id, $class_id, $per_page, $per_page*($p-1));
-		$this->json_out($data);
-		var_dump(data);
+		$data['low_price'] = $shop->low_price;
+		
+		return $this->json_out($data);
 	}
 }

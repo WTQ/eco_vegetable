@@ -84,8 +84,14 @@ function shop_info() {
  * 商品列表相关函数
  */
 function goods_info() {
-	shop_info();
-
+    // shop_info();
+    cart_badge();
+    localStorage['shop_id']      = 1;
+    localStorage['community_id'] = 1;
+    
+    // 清除历史panel记录
+    $.ui.clearHistory();
+    
 	if (firstLoadGoods != true) {
 		return;
 	}
@@ -103,6 +109,10 @@ function goods_info() {
 		firstLoadGoods = false;
 		var html = template.render('goods_tab', data);				// JSON数据用模板渲染
 		$('#goods_scrolling').html(html);							// 把渲染后的html代码加载到panel中
+		
+        // 将起送价本地存储
+        localStorage['low_price'] = data.low_price;
+        $("#low_price").text("订单满 " + data.low_price + " 元免费送货上门");
 		
 		goods_scrolling();
 		hide_mask();
