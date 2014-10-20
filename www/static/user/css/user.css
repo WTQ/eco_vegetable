@@ -715,6 +715,20 @@ img {
 .more_list>li a:hover {
 	background-color:#313131;
 }
+
+.more_word {
+	position:absolute;
+	top:302px;
+	bottom:0;
+	width:100%;
+	background-color:#3e454d;
+	color:#A1A7B3;
+}
+
+.more_word p {
+	padding:0 4px 2px 8px;
+}
+
 .list_text {
 	margin-right:10px;
 	margin-left:10px;
