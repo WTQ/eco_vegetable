@@ -66,7 +66,9 @@
 							<td><?php echo date('Y-m-d H:i:s', $order['add_time']);?></td>
 							<td><?php echo get_stage($order['stage']); ?></td>
 							<td style="text-align:center;">
-								<a href="<?php echo base_url('/admin/order/edit_v/?order_id=' . $order['order_id']); ?>">编辑</a>&nbsp;<a href="<?php echo base_url('/admin/order/detail?id='.$order['order_id']); ?>">打印</a>
+								<a href="<?php echo base_url('/admin/order/edit_v/?p='.$p.'&order_id=' . $order['order_id']); ?>">编辑</a>&nbsp;
+								<a href="<?php echo base_url('/admin/order/detail?id='.$order['order_id']); ?>">打印</a>
+								<a onclick="return del_alert()" href="<?php echo base_url('/admin/order/del?p='.$p.'&id='.$order['order_id'])?>">删除</a>
 							</td>
 						</tr>
 						<?php endforeach;?>

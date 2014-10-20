@@ -50,12 +50,12 @@ class login extends A_Controller
 	 */
 	private function _login() 
 	{
-		$img_check = $this->session->userdata('admin_img_check');
+		/*$img_check = $this->session->userdata('admin_img_check');
 		$this->session->unset_userdata('admin_img_check');
 		
 		if ($img_check == FALSE || $img_check != post('admin_img_check')) {
 			$this->pub_error('验证码错误');
-		}
+		}*/
 		
 		$uid = $this->admin_user_m->login(post('username'), post('password'));
 		if ($uid < 0) {
