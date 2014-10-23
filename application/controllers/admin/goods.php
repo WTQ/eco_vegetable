@@ -255,6 +255,7 @@ class Goods extends A_Controller
 		$per_page = 10;
 		$data['keywords'] = $keywords;
 		$p = (int) page_cur();
+		$data['p'] = $p;
 		$data['goods'] = $this->goods_m->order_by('goods_id', 'desc')->limit($per_page, ($p-1) * $per_page)->search_many_by($keywords);	// 获取goods表里全部记录（对象形式）
 		$data['number'] = $this->goods_m->search_many_num($keywords);
 		$data['page'] = page($data['number'], $per_page); // 分页参数

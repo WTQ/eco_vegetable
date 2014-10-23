@@ -218,6 +218,10 @@ img {
 	height:44px;
 	background:url('../image/tomato.png') no-repeat 10% center;
 }
+.oil {
+	height:44px;
+	background:url('../image/ly.png') no-repeat 10% center;
+}
 .flower {
 	height:44px;
 	background:url('../image/flower.png') no-repeat 10% center;
