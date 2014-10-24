@@ -24,12 +24,11 @@ class Word extends PHPWord {
 		
 		// Save File
 		$objWriter = PHPWord_IOFactory::createWriter($this, 'Word2007');
-		$filename = '生态蔬菜'. date("Y-m-d"). '批量打印订单'.'.docx'; //save our workbook as this file name
+		$filename = '生态蔬菜'. date("Y-m-d"). '批量打印订单'.'.doc'; //save our workbook as this file name
 		$filename = iconv("UTF-8","GB2312//IGNORE",$filename);
 		header('Content-Type: application/vnd.ms-word'); //mime type
 		header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
 		header('Cache-Control: max-age=0'); //no cache
-		
 		
 		$objWriter->save('php://output');
 	}

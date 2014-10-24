@@ -362,7 +362,6 @@ class Goods_m extends MY_Model
 	public function edit_goods($goods_id, $data)
 	{
 		$goods_id = (int) $goods_id;
-
 		return $this->update($goods_id, $data);
 	}
 

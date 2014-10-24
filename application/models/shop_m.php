@@ -27,6 +27,20 @@ class Shop_m extends MY_Model
 		
 	}
 	
+	/**
+	 * 获得店铺是否营业字段
+	 */
+	public function get_ifclose($shop_id)
+	{
+		$this->db->select('on_business');
+		$this->db->where('shop_id',$shop_id);
+		$query = $this->db->get('yf_shops');
+		if ($query) {
+			foreach ($query->result_array() as $row)
+			return $row['on_business'];
+		}
+		return false;
+	}
 	
 	public function get_name($shop_id)
 	{

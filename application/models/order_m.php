@@ -380,7 +380,19 @@ class Order_m extends MY_Model
 		// 删除订单
 		$data = array('order_deleted' => 1);
 		
-		return $this->db->update('yf_order',$data);;
+		return $this->db->update('yf_order',$data);
+	}
+	
+	/**
+	 * 批量删除订单
+	 */
+	public function del_some($order_id)
+	{
+		$this->db->where_in('order_id',$order_id);	
+		if($this->db->delete('yf_order')){
+			$this->db->where_in('order_id',$order_id);
+			return $this->db->delete('yf_order_items');
+		}
 	}
 
 	/**
@@ -399,19 +411,18 @@ class Order_m extends MY_Model
 		$this->db->where("order_deleted",0);
 		if($stage) {
 			$this->db->where('stage', $stage);
+		} else {
+			$this->db->where_in('stage', array(7,8));
 		}
 		if (strlen($search_input) != 0) {
 			$this->db->like('address', $search_input);
 		}
-
 		$this->db->order_by("order_id", "desc");
-		
 		if(!$num) {
 			$query = $this->db->get('order');
 		} else {
 			$query = $this->db->get('order', $num, $offset);
 		}
-
 		$i = 0;
 		foreach ($query->result_array() as $row) {
 			$return[$i] = $row;

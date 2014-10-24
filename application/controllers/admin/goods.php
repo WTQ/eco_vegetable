@@ -35,7 +35,7 @@ class Goods extends A_Controller
 			$data['stage'] = 0;
 		}
 		$data['keywords'] = '';
-		$data['goods'] = $this->goods_m->order_by('goods_id', 'desc')->limit($per_page, ($p-1) * $per_page)->get_bycategory($stage);	// 获取goods表里对应分类的记录（对象形式）
+		$data['goods'] = $this->goods_m->order_by(array('is_top'=>'desc','goods_id'=>'desc'))->limit($per_page, ($p-1) * $per_page)->get_bycategory($stage);	// 获取goods表里对应分类的记录（对象形式）
 		$data['number'] = sizeof($this->goods_m->order_by('goods_id', 'desc')->get_bycategory($stage));
 		$data['page'] = page($data['number'], $per_page);						// 分页参数
 		foreach ($data['goods'] as $row) {
@@ -190,9 +190,8 @@ class Goods extends A_Controller
 					'is_today'	=>	$is_today,
 					'sold'		=>	$sold,
 			);
-			
+			var_dump($data['goods']);
 			$this->goods_m->edit_goods($goods_id, $data['goods']);
-			
 			redirect('admin/goods?p='.$p);
 		} else {
 			$goods	=	$this->goods_m->get($goods_id);				// 获取goods信息
@@ -210,13 +209,24 @@ class Goods extends A_Controller
 					'pic'		=>	$this->goods_m->pic_dejson($goods->pic),		// 将JSON解码
 					'is_today'	=>	$goods->is_today,
 					'sold'		=>	$goods->sold,
-					'form_url'	=>	'admin/goods/edit_goods?p='.$p.'goods_id='.$goods_id,
+					'form_url'	=>	'admin/goods/edit_goods?p='.$p.'&goods_id='.$goods_id,
 			);
 			$data['shop']	=	$this->shop_m->get_all();		// 获取shop表全部记录用于下拉列表中的选项
 			$data['class']	=	$this->category_m->get_all();	// 获取category表全部记录用于下拉列表中的选项
 			
 			load_view('admin/goods_edit', $data);
 		}
+	}
+	
+	public function edit_top_goods()
+	{
+		$p = (int)get('p');
+		$goods_id = (int)get('goods_id');
+		$data = array(
+			'is_top'    =>  time(),
+		);
+		$this->goods_m->edit_goods($goods_id, $data);
+		redirect('admin/goods?p='.$p);
 	}
 	
 	/**
