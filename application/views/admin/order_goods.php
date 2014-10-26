@@ -23,11 +23,13 @@
 								<td width="90%">订单状态：
 									<select name="stage">
 										<option value="0">全部</option>
-										<option value="1" <?php if($stage == 1) echo 'selected'?> >已提交</option>
+										<option value="7" <?php if($stage == 7) echo 'selected'?> >在线未付款</option>
+										<option value="8" <?php if($stage == 8) echo 'selected'?> >已在线付款</option>
+										<!-- <option value="1" <?php if($stage == 1) echo 'selected'?> >已提交</option>
 										<option value="2" <?php if($stage == 2) echo 'selected'?> >已发货</option>
 										<option value="3" <?php if($stage == 3) echo 'selected'?> >已完成</option>
 										<option value="4" <?php if($stage == 4) echo 'selected'?> >已取消</option>
-										<option value="5" <?php if($stage == 5) echo 'selected'?> >已确认</option>
+										<option value="5" <?php if($stage == 5) echo 'selected'?> >已确认</option> -->
 									</select>
 									<select name="sort_stage">
 										<option value="0">全部</option>

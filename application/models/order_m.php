@@ -498,6 +498,8 @@ class Order_m extends MY_Model
 		$this->db->select('order_id');
 		if($stage) {
 			$this->db->where('stage',$stage);
+		} else {
+			$this->db->where_in('stage', array(7,8));
 		}
 		$query = $this->db->get('yf_order');
 		if ($query->num_rows() > 0) {
