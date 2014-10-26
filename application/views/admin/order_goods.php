@@ -6,7 +6,11 @@
         	</div>
         	<div class="content1 content_row">
             	<a href="<?php echo base_url('/admin/order/order_goods/'); ?>">订单商品统计</a>
-        	</div>	
+        	</div>
+        	<form class="content1" action="<?php echo base_url('admin/order/order_goods?stage='.$stage.'&sort_stage='.$sort_stage)?>" method="get" >
+            	<div class="left"><input class="search_input2" size="30" type="text" name="search" value="" onmouseover=this.focus(); onclick="value=''; this.style.color='#000'"   onBlur="if(!value){value=defaultValue; this.style.color='#999'}"style="color:#999" /></div>
+            	<div class="left"><input class="search_sub2" type="submit" name="submit" value=""/></div>
+            </form>	
         	<!--<div class="content11">
             	<a href="javascript:printme()" target="_self">打印</a>
             	<a href="javascript:;" onClick="doPrint()">打印</a> 
@@ -41,13 +45,14 @@
 						</table>
 					</form>
 				</div>
-	
+				
 				<div class="content2">
 					<table width="100%">
 						<tr>
-							<th width="33%">订单商品</th>
-							<th width="33%">商品数量</th>
-							<th>商品分类</th>
+							<th width="30%">订单商品</th>
+							<th width="30%">商品数量</th>
+							<th width="30%">商品分类</th>
+							<th width="10%">操作</th>
 						</tr>
 						<?php foreach ($orders as $order): ?>
 						<tr>							
@@ -60,12 +65,14 @@
 							<td>
 								<?php echo $order['class_name']?>
 							</td>
+							<td>
+								<a onclick="return del_alert()" href="<?php echo base_url('/admin/order/del_all?&name='.$order['name'])?>">删除</a>
+							</td>
 						</tr>
 						<?php endforeach;?>
 					</table>
 				</div>
 			<!--endprint-->
 		</div>
-	</div>
 		
 <?php load_view('admin/common/footer'); ?>

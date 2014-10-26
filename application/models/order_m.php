@@ -481,16 +481,14 @@ class Order_m extends MY_Model
 	/**
 	 * 商品订单统计
 	 */
-	public function goods_list($stage = 0, $sort_stage = 0)
+	public function goods_list($stage = 0, $sort_stage = 0, $keywords = 0)
 	{
 		$return = array();
-
+		$this->db->select('order_id');
 		if($stage) {
-			$query = $this->db->query("SELECT order_id FROM `yf_order` WHERE stage=" . $stage);
-		} else {
-			$query = $this->db->query("SELECT order_id FROM `yf_order`");
+			$this->db->where('stage',$stage);
 		}
-
+		$query = $this->db->get('yf_order');
 		if ($query->num_rows() > 0) {
 			$order_id = "(";
 			foreach ($query->result_array() as $key => $row) {
@@ -502,7 +500,11 @@ class Order_m extends MY_Model
 			}
 			$order_id = $order_id . ")";
 			// 相同商品合并数量
-			$query2 = $this->db->query("SELECT goods_id,name,SUM(quantity) FROM `yf_order_items` WHERE order_id IN " . $order_id . " GROUP BY goods_id");
+			if($keywords) {
+				$query2 = $this->db->query("SELECT goods_id,name,SUM(quantity) FROM `yf_order_items` WHERE order_id IN " . $order_id . " and `name` LIKE '%".$keywords."%' GROUP BY goods_id");
+			} else {
+				$query2 = $this->db->query("SELECT goods_id,name,SUM(quantity) FROM `yf_order_items` WHERE order_id IN " . $order_id . " GROUP BY goods_id");
+			}
 			$return = $query2->result_array();
 			// 获取分类、分类名称
 			foreach ($return as $key => $row) {
@@ -532,7 +534,23 @@ class Order_m extends MY_Model
 		} else {
 			$result = $return;
 		}
-		//var_dump($result);exit();
 		return $result;
+	}
+	/**
+	 * 删除名字为$name的所有订单
+	 * @param unknown $name
+	 */
+	public function del_all_order($name)
+	{
+		$this->db->where('name',$name);
+		$this->db->select('order_id');
+		$query = $this->db->get('yf_order_items');
+		foreach ($query->result_array() as $row) {
+			$order_id = $row['order_id'];
+			$this->db->where('order_id',$order_id);
+			$this->db->delete('yf_order');
+		}
+		$this->db->where('name',$name);
+		$this->db->delete('yf_order_items');
 	}
 }

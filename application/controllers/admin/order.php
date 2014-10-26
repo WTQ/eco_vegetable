@@ -65,10 +65,14 @@ class Order extends A_Controller
 			$sort_stage = 0;
 		}
 		
-		$data['orders'] = $this->order_m->goods_list($stage, $sort_stage);
+		$keywords = $this->input->get('search');
+		if (empty($keywords)) {
+			$keywords = 0;
+		}
+		$data['orders'] = $this->order_m->goods_list($stage, $sort_stage, $keywords);
 		$data['stage'] = $stage;
 		$data['sort_stage'] = $sort_stage;
-		//var_dump($data['orders']);exit();
+		$data['keywords'] = $keywords;
 		load_view('admin/order_goods', $data);
 	}
 
@@ -157,6 +161,12 @@ class Order extends A_Controller
 		redirect('admin/order?p='.$p);
 	}
 
+	public function del_all()
+	{
+		$name = $this->input->get('name');
+		$this->order_m->del_all_order($name);
+		redirect('admin/order/order_goods');
+	}
 	private function _page_init($per_page, $total_row, $shop_id, $stage)
 	{
 		$this->load->library('pagination');
