@@ -237,6 +237,7 @@ body {
 	margin: 30px 0;
 	display:inline-block;
 	width:33%;
+	height:80px;
 }
 .content1 a {
 	float:left;
@@ -366,4 +367,41 @@ body {
 }
 .left {
 	float:left;
+}
+
+.bulk_back {
+	margin-left:5%;
+}
+
+.bulk_back a{
+	width:50px;
+}
+
+.bulk_print{
+	margin-left:70%;
+}
+
+.bulk_print a{
+	width:80px;
+}
+
+.content1_back{
+	margin-left:5%;
+}
+
+.content1_back a{
+	width:80px;
+}
+
+.content1_print{
+	margin-left:60%;
+}
+
+.content1_print a{
+	width:110px;
+}
+
+.page{
+	text-align:center;
+	width:100%;
 }

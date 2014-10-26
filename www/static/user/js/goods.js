@@ -17,6 +17,11 @@ var firstLoadGoods = true;
 // 设置start全局参数
 var start = 0;
 
+//设置全局变量
+$.ui.ready(function() {
+	storage.set('shop_id', 1);
+});
+
 function shop_info() {
 	cart_badge();
 	var community_id = 1;
@@ -626,6 +631,19 @@ $.ui.ready(function() {
  * 2、cart_update_all()将同步后的商品信息填充到购物车中，并覆盖localStorage['cart']
  * 3、请求优惠信息
  */
+function cart_before_confirm() {
+	var get = {
+			'shop_id'	  : storage.get('shop_id'),
+		};
+	$.getJSON(url('/user/cart/shop_close'), get, function(data) {
+		if(data.shop_close == 1) {
+			load_cart();
+		} else {
+			redirect('#shop_close_notice');
+		}
+	});
+}
+
 function cart_confirm() {
 	// 从localStorage['cart']解析发送到服务器的购物车参数
 	var get = {

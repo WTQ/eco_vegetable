@@ -31,6 +31,7 @@
 <script type="text/javascript" charset="utf-8" src="js/goods.js"></script>
 <script type="text/javascript" charset="utf-8" src="js/vito.js"></script>
 <script type="text/javascript" charset="utf-8" src="js/position_search.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/storage.js"></script>
 
 </head>
 
@@ -120,7 +121,7 @@
 </script>
 
 		<!--购物车商品列表页面-->
-        <div data-ignore-slide id="account_cart" title="" class="panel" data-header="none" data-load="load_cart" data-footer="common_footer" data-tab="tab_cart" style="overflow:hidden">
+        <div data-ignore-slide id="account_cart" title="" class="panel" data-header="none" data-load="cart_before_confirm" data-footer="common_footer" data-tab="tab_cart" style="overflow:hidden">
          	<div class="h_header1"><div id="settle_goods">结算商品</div></div>
             <div class="amount">
             	<div class="total">总金额</div>
@@ -293,6 +294,16 @@
 	</div>
 </script>
 
+		<!-- 店铺系统维护中提示页面 -->
+		<div data-ignore-slide id="shop_close_notice" title="" class="panel" data-header="none" data-footer="notice_footer" style="overflow:hidden">
+        	<div class="h_header">
+            		<div>店铺维护中</div>
+            </div>
+            <div class="close_word">
+            	<p style="text-align:center;">系统维护中，请稍后下单！</p>
+            </div>
+        </div>
+	
         <!--“更多”页面-->
         <div data-ignore-slide id="more" title="" class="panel" data-header="none" data-footer="common_footer" data-tab="tab_more" style="overflow:hidden">
         	<div class="h_header">
@@ -337,6 +348,7 @@
             	<p>1.公司提供的生鲜等产品，都经过国家农药残留检测，均达到国家安全检测标准。</p>
             	<p>2.您前一天22点之前订购的商品，我们会在次日11点前到达。</p>
             	<p>3.您当天10点之前订购的商品，我们会在当天18点前到达。</p>
+            	<p>客服电话: 4008541221</p>
             </div>
         </div>
 
@@ -800,7 +812,7 @@
         <a href="#index/class_id/5"><li class="oil">粮油副食</li></a>
         <a href="#index/class_id/6"><li class="watermelon">南北干货</li></a>
         <a href="#index/class_id/7"><li class="carrot2">营养保健</li></a>
-        <a href="#index/class_id/8"><li class="flower">地方特产</li></a>
+        <a href="#index/class_id/8"><li class="tutechan">地方特产</li></a>
         <a href="#index/class_id/9"><li class="dailyuse">生活用品</li></a>
     </ul>
 </nav>
@@ -824,6 +836,12 @@
     <a href="#more" id="tab_more">
         <div class="more_image"></div>
         <div class="footer_text">更多</div>
+    </a>
+</footer>
+
+<footer data-ignore-slide id="notice_footer">
+    <a href="#index/class_id/0" id="tab_index">
+        <div style="font-size:18px!important;font-weight:bold!important;">返回</div>
     </a>
 </footer>
 <script type="text/javascript" src="cordova.js"></script>

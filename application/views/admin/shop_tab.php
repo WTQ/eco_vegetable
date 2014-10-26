@@ -26,7 +26,7 @@
                         <td><?php echo $row->phone; ?></td>
                         
                         <td><?php if ($row->shop_hours !== '') {echo ((json_decode($row->shop_hours)->start_time)), ' - ', ((json_decode($row->shop_hours)->close_time));} ?></td>
-                        <td><?php if (strtotime(date('H:i', time())) > strtotime(json_decode($row->shop_hours)->start_time) && strtotime(date('H:i', time())) < strtotime(json_decode($row->shop_hours)->close_time))
+                        <td><?php if ($row->on_business == 1)
                         	{echo '是';} else {echo '否';}?>
                         </td>
                         <td><a href="<?php echo base_url('/admin/shop/edit_shop?shop_id=' .$row->shop_id); ?>">编辑</a>

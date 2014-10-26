@@ -7,6 +7,7 @@
 <link rel=stylesheet href="<?php echo base_url('/static/ueditor/themes/default/ueditor.css'); ?>" />
 <script src="<?php echo base_url('/static/admin/js/jquery.js'); ?>"></script>
 <script src="<?php echo base_url('/static/admin/js/manager.js'); ?>"></script>
+<script src="<?php echo base_url('/static/admin/js/config.js'); ?>"></script>
 </head>
 
 <body>

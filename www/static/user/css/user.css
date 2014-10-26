@@ -252,6 +252,11 @@ img {
 	height:44px;
 	background:url('../image/papp.png') no-repeat 10% center;
 }
+.tutechan{
+	height:44px;
+	background:url('../image/alcohol.png') no-repeat 10% center;
+}
+
 .search1 {
 	float:left;
 	width:70%;
@@ -731,6 +736,33 @@ img {
 
 .more_word p {
 	padding:0 4px 2px 8px;
+}
+
+.close_word {
+	position:absolute;
+	top:48px;
+	bottom:0;
+	width:100%;
+	background-color:#3e454d;
+	color:#A1A7B3;
+}
+
+.close_word p {
+	text-align:center;
+	padding-top:200px;
+	bottom:0;
+	width:100%;
+	background-color:#3e454d;
+	color:#A1A7B3;
+	font-size:20px!important;
+}
+
+.h_header a{
+	color:#fff;
+}
+
+.h_header a:hover{
+	color:#fff;
 }
 
 .list_text {
