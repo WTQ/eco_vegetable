@@ -35,7 +35,7 @@
 									<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
 								</td>
 								<td>
-									<a href="<?php echo base_url('/admin/order/gen_excel?'.$keywords); ?>">导出</a>&nbsp;&nbsp;&nbsp;&nbsp;
+									<a href="<?php echo base_url('/admin/order/gen_excel?'.$keywords); ?>">导出表格</a>&nbsp;&nbsp;&nbsp;&nbsp;
 									<!-- <a href="<?php echo base_url('/admin/order/gen_word?'.$keywords); ?>">批量打印</a> -->
 									<a href="<?php echo base_url('/admin/order/order_bulk_print?'.$keywords); ?>">批量打印</a>
 									<a onclick="return del_some()" href="#">批量删除</a>
