@@ -34,6 +34,11 @@ function url(uri) {
 }
 
 /**
+ * Rest请求默认超时时间
+ */
+var rest_timeout = 15000;
+
+/**
  * panel跳转函数
  */
 function redirect(panel, newtab, goback) {
