@@ -1975,3 +1975,10 @@ img {
 	padding-left:13%;
 }
 
+.cart_notice{
+	margin:5px 0 0 5%;
+	font-size:14px;
+	color:gray;
+	font-weight:bold;
+	font-family: 'Microsoft Yahei';
+}
