@@ -630,7 +630,7 @@ $.ui.ready(function() {
  * 3、请求优惠信息
  */
 function cart_before_confirm() {
-	alert(localStorage['shop_id']);
+	
 	var get = {
 			'shop_id'	  : localStorage['shop_id'],
 		};
