@@ -167,7 +167,8 @@ class Excel extends PHPExcel {
     		$this->getActiveSheet(0)->setCellValue('C'.($row), $Orders[$i]['phone']);
 //    		$this->getActiveSheet(0)->setCellValue('J'.($row), $Orders[$i]['total_prices']);
     		$this->getActiveSheet(0)->setCellValue('K'.($row), $Orders[$i]['address']);
-    		$this->getActiveSheet(0)->setCellValue('L'.($row), $Orders[$i]['remarks']);
+    		//$this->getActiveSheet(0)->setCellValue('L'.($row), $Orders[$i]['remarks']);
+    		$this->getActiveSheet(0)->setCellValue('L'.($row), 0);
 //     		$this->getActiveSheet(0)->setCellValue('M'.($row), $Orders[$i]['home_delivery'] == 1? '是':'否');
     		
     		foreach($Orders[$i]['items'] as $item) {

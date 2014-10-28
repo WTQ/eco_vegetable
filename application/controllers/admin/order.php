@@ -150,6 +150,7 @@ class Order extends A_Controller
 			$Orders[$i]['username'] = $this->user_m->get_byid($key['user_id']);
 			$i++;
 		}
+		//var_dump($Orders);
 		$this->excel->index($Orders, $shop);
 		if ( $stage == 1) {
 			foreach($Orders as $Order) {
