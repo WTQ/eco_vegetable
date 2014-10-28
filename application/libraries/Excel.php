@@ -214,10 +214,7 @@ class Excel extends PHPExcel {
     	header('Pragma: public');
     	header('Expires: 0');
 		header('Cache-Control:must-revalidate, post-check=0, pre-check=0');
-    	//header('Content-Type:application/force-download');
-    	//header('Content-Type:application/download');
     	header('Content-Type:application/vnd.ms-excel'); //mime type
-    	//header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     	header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
     	//header('Cache-Control: max-age=0'); //no cache
     	// Save Excel 2007 file
