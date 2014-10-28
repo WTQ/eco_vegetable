@@ -633,7 +633,7 @@ $.ui.ready(function() {
  */
 function cart_before_confirm() {
 	var get = {
-			'shop_id'	  : storage.get('shop_id'),
+			'shop_id'	  : localStorage['shop_id'],
 		};
 	$.getJSON(url('/user/cart/shop_close'), get, function(data) {
 		if(data.shop_close == 1) {
