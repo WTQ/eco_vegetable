@@ -168,7 +168,7 @@ class Excel extends PHPExcel {
 //    		$this->getActiveSheet(0)->setCellValue('J'.($row), $Orders[$i]['total_prices']);
     		$this->getActiveSheet(0)->setCellValue('K'.($row), $Orders[$i]['address']);
     		//$this->getActiveSheet(0)->setCellValue('L'.($row), $Orders[$i]['remarks']);
-    		$this->getActiveSheet(0)->setCellValue('L'.($row), 0);
+    		$this->getActiveSheet(0)->setCellValue('L'.($row), (!empty($Orders[$i]['remarks'])) ? $Orders[$i]['remarks'] : '');
 //     		$this->getActiveSheet(0)->setCellValue('M'.($row), $Orders[$i]['home_delivery'] == 1? '是':'否');
     		
     		foreach($Orders[$i]['items'] as $item) {
@@ -209,13 +209,13 @@ class Excel extends PHPExcel {
     	$filename = '生态蔬菜'. date("Y-m-d"). '购买清单'.'.xls'; //save our workbook as this file name
     	$filename = iconv("UTF-8","GB2312//IGNORE",$filename);
     	
-    	header('Content-Type: application/octet-stream');
+    	//header('Content-Type: application/octet-stream');
     	header('Content-Transfer-Encoding:binary');
     	header('Pragma: public');
     	header('Expires: 0');
 		header('Cache-Control:must-revalidate, post-check=0, pre-check=0');
-    	header('Content-Type:application/force-download');
-    	header('Content-Type:application/download');
+    	//header('Content-Type:application/force-download');
+    	//header('Content-Type:application/download');
     	header('Content-Type:application/vnd.ms-excel'); //mime type
     	//header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     	header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
