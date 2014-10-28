@@ -18,9 +18,7 @@ var firstLoadGoods = true;
 var start = 0;
 
 //设置全局变量
-$.ui.ready(function() {
-	storage.set('shop_id', 1);
-});
+
 
 function shop_info() {
 	cart_badge();
@@ -632,8 +630,9 @@ $.ui.ready(function() {
  * 3、请求优惠信息
  */
 function cart_before_confirm() {
+	alert(localStorage['shop_id']);
 	var get = {
-			'shop_id'	  : storage.get('shop_id'),
+			'shop_id'	  : localStorage['shop_id'],
 		};
 	$.getJSON(url('/user/cart/shop_close'), get, function(data) {
 		if(data.shop_close == 1) {
