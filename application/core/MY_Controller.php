@@ -15,6 +15,7 @@ class MY_Controller extends CI_Controller
 	{
 		parent::__construct();
 		header('Content-type:text/html; charset=utf-8');
+		header('Access-Control-Allow-Origin: *');
 		date_default_timezone_set('Asia/Shanghai');
 		define('__WEB_ROOT__', rtrim(str_replace("\\", "/", FCPATH), '/'));
 		define('__TITLE__', $this->config->item('web_title'));
