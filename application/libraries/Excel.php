@@ -205,16 +205,22 @@ class Excel extends PHPExcel {
     
     public function write($shop)
     {
-    	$filename = '生态蔬菜'. date("Y-m-d"). '购买清单'.'.xlsx'; //save our workbook as this file name
+    	$filename = '生态蔬菜'. date("Y-m-d"). '购买清单'.'.xls'; //save our workbook as this file name
     	$filename = iconv("UTF-8","GB2312//IGNORE",$filename);
-    	header('Content-Type: application/vnd.ms-excel'); //mime type
+    	
     	header('Content-Type: application/octet-stream');
     	header('Content-Transfer-Encoding:binary');
+    	header('Pragma: public');
+    	header('Expires: 0');
+		header('Cache-Control:must-revalidate, post-check=0, pre-check=0');
+    	header('Content-Type:application/force-download');
+    	header('Content-Type:application/download');
+    	header('Content-Type:application/vnd.ms-excel'); //mime type
     	//header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     	header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
-    	header('Cache-Control: max-age=0'); //no cache
+    	//header('Cache-Control: max-age=0'); //no cache
     	// Save Excel 2007 file
-    	$objWriter = PHPExcel_IOFactory::createWriter($this, 'Excel2007');
+    	$objWriter = PHPExcel_IOFactory::createWriter($this, 'Excel5');
     	//$objWriter->save(str_replace('.php', '.xlsx', __FILE__));
     	$objWriter->save('php://output');
     }
@@ -222,6 +228,7 @@ class Excel extends PHPExcel {
     {
 //    	$config = new Excel_conf();
     	$excelfilename = dirname(__FILE__) . "/templates.xlsx";
+    	//$excelfilename = dirname(__FILE__);
     	$reader = PHPExcel_IOFactory::createReader('Excel2007');
     	$this->ReaderPHPExcel = $reader->load($excelfilename);
     }
