@@ -63,6 +63,7 @@ class Shop extends A_Controller
 			$address		= $this->input->post('address');
 			$phone			= $this->input->post('phone');
 			$discript		= $this->input->post('discript');
+			$on_business    = $this->input->post('on_business');
 			
 			$data['shop'] = array(
 							'community_id'	=>	$community,
@@ -71,7 +72,8 @@ class Shop extends A_Controller
 							'address'		=>	$address,
 							'phone'			=>	$phone,
 							'shop_hours'	=>	$hours,
-							'discript'		=>	$discript,		
+							'discript'		=>	$discript,	
+							'on_business'   =>  $on_business,
 			);
 			
 			$this->shop_m->add($data['shop']);
@@ -88,6 +90,7 @@ class Shop extends A_Controller
 					'phone'			=> '',
 					'shop_hours'	=> $this->shop_m->time_format(),
 					'discript'		=> '',
+					'on_business'   =>  0,
 					'form_url'		=> 'admin/shop/add_shop',
 			);
 			$data['district']	= $this->zone_district_m->get_all();
@@ -119,6 +122,7 @@ class Shop extends A_Controller
 			$address		= $this->input->post('address');
 			$phone			= $this->input->post('phone');
 			$discript		= $this->input->post('discript');
+			$on_business    = $this->input->post('on_business');
 			
 			$data['shop']	= array(
 //								'community_id'	=>	$community,
@@ -128,10 +132,10 @@ class Shop extends A_Controller
 								'phone'			=>	$phone,
 								'shop_hours'	=>	$hours,
 //								'discript'		=>	$discript,
+					            'on_business'   =>  $on_business,
 			);
 			
 			$this->shop_m->edit($shop_id, $data['shop']);
-			
 			redirect('admin/shop');
 		} else {
 			$shop		= $this->shop_m->get($shop_id);							// 获取shop信息
@@ -149,12 +153,12 @@ class Shop extends A_Controller
 					'phone'			=> $shop->phone,
 					'shop_hours'	=> $shop->shop_hours,
 					'discript'		=> $shop->discript,
+					'on_business'   => $shop->on_business,
 					'form_url'		=> 'admin/shop/edit_shop?shop_id='.$shop_id,
 			);
 //			$data['district']	= $this->zone_district_m->get_all();
 //			$data['block']		= $this->zone_block_m->get_all();
 //			$data['community']	= $this->zone_community_m->get_all();
-			
 			load_view('admin/shop_edit', $data);
 		}
 	}

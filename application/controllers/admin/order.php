@@ -40,7 +40,7 @@ class Order extends A_Controller
 		$data['page_html'] =  $this->_page_init($per_page, $total_row, $shop_id, $stage);
 		$data['shops'] = $this->shops_m->get_all();
 		if($shop_id !== FALSE) {
-			$data['keywords'] ='shop_id='.$shop_id.'&'.'stage='.$stage.'&'.'search_input='.$keywords;
+			$data['keywords'] ='shop_id='.$shop_id.'&stage='.$stage.'&search_input='.$keywords.'&p='.$p;
 
 		} else {
 			$data['keywords']='';
@@ -52,6 +52,54 @@ class Order extends A_Controller
 		load_view('admin/order', $data);
 	}
 
+	public function order_bulk_print()
+	{
+		$per_page = 20;
+		$p = (int) page_cur();
+		$data['p'] = $p;
+		$shop_id = 1;
+		$stage = $this->input->get('stage', TRUE);
+		$keywords = $this->input->get('search_input', TRUE);
+	
+		$data['orders'] = $this->order_m->to_excel($stage, $keywords, $per_page, ($p-1)*$per_page);
+		$i = 0;
+		foreach ($data['orders'] as $key) {
+			$data['orders'][$i]['username'] = $this->user_m->get_byid($key['user_id']);
+			$i++;
+		}
+		$total_row = $this->order_m->num2excel($stage);
+		//$data['page_html'] =  $this->_page_init($per_page, $total_row, $shop_id, $stage);
+		$data['shops'] = $this->shops_m->get_all();
+		if($shop_id !== FALSE) {
+			$data['keywords'] ='shop_id='.$shop_id.'&stage='.$stage.'&search_input='.$keywords.'&p='.$p;
+	
+		} else {
+			$data['keywords']='';
+		}
+		$data['shop_id'] = $shop_id;
+		$data['stage'] = $stage;
+		$data['search_input'] = $keywords;
+	
+		load_view('admin/order_bulk_print', $data);
+	}
+	
+	public function del_some()
+	{
+		$order_id = $this->input->get('order_id');
+		if($this->order_m->del_some($order_id))
+		{
+			$data = array(
+				'result' => TRUE,
+			);
+			return $this->json_out($data);
+		} else {
+			$data = array(
+					'result' => FALSE,
+			);
+			return $this->json_out($data);
+		}
+	}
+	
 	public function order_goods()
 	{
 		$per_page = 20;
@@ -65,10 +113,14 @@ class Order extends A_Controller
 			$sort_stage = 0;
 		}
 		
-		$data['orders'] = $this->order_m->goods_list($stage, $sort_stage);
+		$keywords = $this->input->get('search');
+		if (empty($keywords)) {
+			$keywords = 0;
+		}
+		$data['orders'] = $this->order_m->goods_list($stage, $sort_stage, $keywords);
 		$data['stage'] = $stage;
 		$data['sort_stage'] = $sort_stage;
-		//var_dump($data['orders']);exit();
+		$data['keywords'] = $keywords;
 		load_view('admin/order_goods', $data);
 	}
 
@@ -108,14 +160,17 @@ class Order extends A_Controller
 
 	public function gen_word()
 	{
+		$per_page = 2;
+		$p = (int) page_cur();
 		$shop_id = $this->input->get('shop_id');
 		$stage = $this->input->get('stage');
 		$this->load->library('word');
-		$Orders = $this->order_m->to_word($stage);//$this->shops_m->shop_id2char($shop_id)
+		$Orders = $this->order_m->to_word($stage,$per_page,($p-1)*$per_page);//$this->shops_m->shop_id2char($shop_id)
 		$i = 0;
 		foreach ($Orders as $key) {
 			$Orders[$i]['username'] = $this->user_m->get_byid($key['user_id']);
 			$i++;
+			//var_dump($key['items']);
 		}
 		$this->word->index($Orders);
 		if ( $stage == 1) {
@@ -157,6 +212,12 @@ class Order extends A_Controller
 		redirect('admin/order?p='.$p);
 	}
 
+	public function del_all()
+	{
+		$name = $this->input->get('name');
+		$this->order_m->del_all_order($name);
+		redirect('admin/order/order_goods');
+	}
 	private function _page_init($per_page, $total_row, $shop_id, $stage)
 	{
 		$this->load->library('pagination');

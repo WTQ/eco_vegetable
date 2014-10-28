@@ -46,6 +46,19 @@ class Cart extends U_Controller
 
 		$this->json_out($data);
 	}
+	
+	/**
+	 * 判断店铺是否在营业若是则可以下单，否则不能下单
+	 */
+	public function shop_close()
+	{
+		$shop_id = $this->input->get('shop_id');
+		$return = $this->shop_m->get_ifclose($shop_id);
+		$data = array(
+			'shop_close' => $return,
+		);
+		$this->json_out($data);
+	}
 
 	/**
 	 * 点击结算商品时的确认操作

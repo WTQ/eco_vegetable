@@ -5,11 +5,21 @@
  * @version 1.0 2014-05-18
  */
 
+/**
+ * APP版本号
+ */
+var app_version = 'v0.1.1';
+
+/**
+ * API 版本号
+ */
+var api_version = 'v0.1';//
 
 /**
  * 请求数据端的URL
  */
 var site_url = 'http://eco.te168.cn';
+//var site_url = 'http://eco';
 
 /**
  * 商品分页数
@@ -118,4 +128,50 @@ function load_mask() {
 function hide_mask() {
 	//$.ui.unblockUI();
 	$.ui.hideMask();
+}
+
+/**
+ * Rest ajax函数
+ */
+function rest_ajax(ajax_type, uri, data, success, error, timeout) {
+	var success	= arguments[3] || false;
+	var error	= arguments[4] || false;
+	// 默认15S超时时间
+	var timeout	= arguments[5] || rest_timeout;
+
+	$.ajax({
+		type		: ajax_type,
+		url			: url(uri),
+		data		: data,
+		success		: function(data) {
+			if (success != false) {
+				success(data);
+			}
+		},
+		error		: function(data) {
+			if (error != false) {
+				error(data);
+			} else {
+				// alert(data.responseText);
+				// alert(JSON.stringify(data));return;
+				alert('连接超时，请检查当前网络状况');
+			}
+		},
+		dataType	: 'json',
+		timeout		: timeout
+	});
+}
+
+/**
+ * Rest get函数
+ */
+function rest_get(uri, data, success, error, timeout) {
+	rest_ajax('get', uri, data, success, error, timeout);
+}
+
+/**
+ * Rest post函数
+ */
+function rest_post(uri, data, success, error, timeout) {
+	rest_ajax('post', uri, data, success, error, timeout);
 }

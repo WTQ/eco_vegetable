@@ -1,4 +1,5 @@
 // JavaScript Document
+
 $(document).ready(function() {
 	item_display();
 	user();
@@ -33,6 +34,26 @@ function del_alert() {
     return confirm('删除操作不可恢复，确认删除吗？');
 }
 
+function del_some() {
+	var order_id = new Array();
+	var objTable=document.getElementById("order_list");
+    if(objTable)
+    {
+       for(var i=1;i<objTable.rows.length;i++)
+       {
+    	   order_id[i-1] = objTable.rows[i].cells[0].innerText;
+       }
+    }
+    var get = {
+			'order_id'	: order_id,
+    	};
+	$.getJSON('/admin/order/del_some', get, function(data) {
+		if(data.result == true) {
+			window.location.reload();
+		}
+	});
+}
+
 function printme() {
 	document.body.innerHTML=document.getElementById('print').innerHTML;
 	window.print();
@@ -54,8 +75,6 @@ function pagesetup_null(){
 }
 
 function doPrint() { 
-	
-	
 	bdhtml=window.document.body.innerHTML; 
 	sprnstr="<!--startprint-->"; //开始打印标识字符串有17个字符
 	eprnstr="<!--endprint-->"; //结束打印标识字符串

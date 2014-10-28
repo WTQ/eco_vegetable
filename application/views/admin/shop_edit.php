@@ -60,6 +60,15 @@
 					<td class="name">商家介绍</td>
 					<td class="detail" width="91%"><textarea class="list_select" name="discript" rows="4" cols="70"><?php echo $shop['discript'];?></textarea></td>
 				</tr>
+				<tr>
+					<td class="name">是否营业</td>
+					<td class="detail" width="91%">
+						<select name="on_business">
+							<option value="1" <?php if($shop['on_business'] == 1) echo 'selected'?> >是</option>
+							<option value="0" <?php if($shop['on_business'] == 0) echo 'selected'?> >否</option>
+						</select>
+					</td>
+				</tr>
 				<!-- <tr>
 					<td class="name">商铺图片</td>
 					<td class="detail"><input name="shop_pic" type="file" class="list_select" value="" size="80" /></td>

@@ -6,7 +6,11 @@
         	</div>
         	<div class="content1 content_row">
             	<a href="<?php echo base_url('/admin/order/order_goods/'); ?>">订单商品统计</a>
-        	</div>	
+        	</div>
+        	<form class="content1" action="<?php echo base_url('admin/order/order_goods?stage='.$stage.'&sort_stage='.$sort_stage)?>" method="get" >
+            	<div class="left"><input class="search_input2" size="30" type="text" name="search" value="" onmouseover=this.focus(); onclick="value=''; this.style.color='#000'"   onBlur="if(!value){value=defaultValue; this.style.color='#999'}"style="color:#999" /></div>
+            	<div class="left"><input class="search_sub2" type="submit" name="submit" value=""/></div>
+            </form>	
         	<!--<div class="content11">
             	<a href="javascript:printme()" target="_self">打印</a>
             	<a href="javascript:;" onClick="doPrint()">打印</a> 
@@ -19,11 +23,13 @@
 								<td width="90%">订单状态：
 									<select name="stage">
 										<option value="0">全部</option>
-										<option value="1" <?php if($stage == 1) echo 'selected'?> >已提交</option>
+										<option value="7" <?php if($stage == 7) echo 'selected'?> >在线未付款</option>
+										<option value="8" <?php if($stage == 8) echo 'selected'?> >已在线付款</option>
+										<!-- <option value="1" <?php if($stage == 1) echo 'selected'?> >已提交</option>
 										<option value="2" <?php if($stage == 2) echo 'selected'?> >已发货</option>
 										<option value="3" <?php if($stage == 3) echo 'selected'?> >已完成</option>
 										<option value="4" <?php if($stage == 4) echo 'selected'?> >已取消</option>
-										<option value="5" <?php if($stage == 5) echo 'selected'?> >已确认</option>
+										<option value="5" <?php if($stage == 5) echo 'selected'?> >已确认</option> -->
 									</select>
 									<select name="sort_stage">
 										<option value="0">全部</option>
@@ -41,13 +47,14 @@
 						</table>
 					</form>
 				</div>
-	
+				
 				<div class="content2">
 					<table width="100%">
 						<tr>
-							<th width="33%">订单商品</th>
-							<th width="33%">商品数量</th>
-							<th>商品分类</th>
+							<th width="30%">订单商品</th>
+							<th width="30%">商品数量</th>
+							<th width="30%">商品分类</th>
+							<th width="10%">操作</th>
 						</tr>
 						<?php foreach ($orders as $order): ?>
 						<tr>							
@@ -60,12 +67,14 @@
 							<td>
 								<?php echo $order['class_name']?>
 							</td>
+							<td>
+								<a onclick="return del_alert()" href="<?php echo base_url('/admin/order/del_all?&name='.$order['name'])?>">删除</a>
+							</td>
 						</tr>
 						<?php endforeach;?>
 					</table>
 				</div>
 			<!--endprint-->
 		</div>
-	</div>
 		
 <?php load_view('admin/common/footer'); ?>

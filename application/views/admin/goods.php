@@ -71,6 +71,7 @@
                         	<a href="<?php echo base_url('/admin/goods/in_out_stock?goods_id=' .$row->goods_id); ?>">
                         	<?php if ($row->stock === '0') {
                         	echo '有货';} else {echo '缺货';}?></a>
+                        	<a href="<?php echo base_url('/admin/goods/edit_top_goods?p='.$p.'&goods_id=' .$row->goods_id); ?>">置顶</a>
                         </td>
                       </tr>
                       <?php endforeach;?>
