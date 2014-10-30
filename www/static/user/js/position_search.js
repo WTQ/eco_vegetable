@@ -39,7 +39,6 @@ function confirm_address() {
 	};
 
 	$.getJSON(url('/user/zone/save_community?callback=?'), get, function(data) {
-		alert(data['error']);
 		if (data['error'] === 0) {
 			// 地址提交成功，则把该地址本地存储
 			localStorage['user_address'] = user_address;

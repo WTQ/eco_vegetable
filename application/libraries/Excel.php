@@ -146,8 +146,8 @@ class Excel extends PHPExcel {
     	->setCellValue('I2', '实收金额')
     	->setCellValue('J2', '合计')
     	->setCellValue('K2', '地址')
-    	->setCellValue('L2', '买家备注')
-    	->setCellValue('M2', '是否配送');
+    	->setCellValue('L2', '配送时间')
+    	->setCellValue('M2', '买家备注');
     	$this->getActiveSheet()->getStyle('A2:M2')->getAlignment()->setWrapText(true)->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
     	$this->getActiveSheet()->getStyle('A2:M2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
     	$this->getActiveSheet()->getStyle('A1:M1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
@@ -167,8 +167,9 @@ class Excel extends PHPExcel {
     		$this->getActiveSheet(0)->setCellValue('C'.($row), $Orders[$i]['phone']);
 //    		$this->getActiveSheet(0)->setCellValue('J'.($row), $Orders[$i]['total_prices']);
     		$this->getActiveSheet(0)->setCellValue('K'.($row), $Orders[$i]['address']);
-    		$this->getActiveSheet(0)->setCellValue('L'.($row), $Orders[$i]['remarks']);
-//     		$this->getActiveSheet(0)->setCellValue('M'.($row), $Orders[$i]['home_delivery'] == 1? '是':'否');
+    		//$this->getActiveSheet(0)->setCellValue('L'.($row), $Orders[$i]['remarks']);
+    		$this->getActiveSheet(0)->setCellValue('L'.($row), (!empty($Orders[$i]['delivery_time'])) ? $Orders[$i]['delivery_time'] : '');
+     		$this->getActiveSheet(0)->setCellValue('M'.($row), (!empty($Orders[$i]['remarks'])) ? $Orders[$i]['remarks'] : '');
     		
     		foreach($Orders[$i]['items'] as $item) {
     			$this->getActiveSheet()->getRowDimension($row)->setRowHeight(20);
@@ -205,13 +206,19 @@ class Excel extends PHPExcel {
     
     public function write($shop)
     {
-    	$filename = '生态蔬菜'. date("Y-m-d"). '购买清单'.'.xlsx'; //save our workbook as this file name
+    	$filename = '生态蔬菜'. date("Y-m-d"). '购买清单'.'.xls'; //save our workbook as this file name
     	$filename = iconv("UTF-8","GB2312//IGNORE",$filename);
-    	header('Content-Type: application/vnd.ms-excel'); //mime type
+    	
+    	//header('Content-Type: application/octet-stream');
+    	header('Content-Transfer-Encoding:binary');
+    	header('Pragma: public');
+    	header('Expires: 0');
+		header('Cache-Control:must-revalidate, post-check=0, pre-check=0');
+    	header('Content-Type:application/vnd.ms-excel'); //mime type
     	header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
-    	header('Cache-Control: max-age=0'); //no cache
+    	//header('Cache-Control: max-age=0'); //no cache
     	// Save Excel 2007 file
-    	$objWriter = PHPExcel_IOFactory::createWriter($this, 'Excel2007');
+    	$objWriter = PHPExcel_IOFactory::createWriter($this, 'Excel5');
     	//$objWriter->save(str_replace('.php', '.xlsx', __FILE__));
     	$objWriter->save('php://output');
     }
@@ -219,6 +226,7 @@ class Excel extends PHPExcel {
     {
 //    	$config = new Excel_conf();
     	$excelfilename = dirname(__FILE__) . "/templates.xlsx";
+    	//$excelfilename = dirname(__FILE__);
     	$reader = PHPExcel_IOFactory::createReader('Excel2007');
     	$this->ReaderPHPExcel = $reader->load($excelfilename);
     }

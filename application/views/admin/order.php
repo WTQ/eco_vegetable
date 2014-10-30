@@ -35,7 +35,7 @@
 									<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
 								</td>
 								<td>
-									<a href="<?php echo base_url('/admin/order/gen_excel?'.$keywords); ?>">导出</a>&nbsp;&nbsp;&nbsp;&nbsp;
+									<a href="<?php echo base_url('/admin/order/gen_excel?'.$keywords); ?>">导出表格</a>&nbsp;&nbsp;&nbsp;&nbsp;
 									<!-- <a href="<?php echo base_url('/admin/order/gen_word?'.$keywords); ?>">批量打印</a> -->
 									<a href="<?php echo base_url('/admin/order/order_bulk_print?'.$keywords); ?>">批量打印</a>
 									<a onclick="return del_some()" href="#">批量删除</a>
@@ -49,9 +49,10 @@
 					<table width="100%" id="order_list">
 						<tr>
 							<th width="5%">订单号</th>
-							<th width="25%">订单商品</th>
+							<th width="20%">订单商品</th>
 							<th width="5%">联系方式</th>
-							<th width="15%">配送地址</th>
+							<th width="10%">配送地址</th>
+							<th width="10%">配送时间</th>
 							<th width="6%">订单金额</th>
 							<th width="18%">下单时间</th>
 							<th width="7%">状态</th>
@@ -67,6 +68,7 @@
 		        					</td>
 							<td><?php echo $order['phone']; ?></td>
 							<td><?php echo $order['address'];?></td>
+							<td><?php echo $order['delivery_time'];?></td>
 							<td><?php echo '￥' . $order['total_prices'];?></td>
 							<td><?php echo date('Y-m-d H:i:s', $order['add_time']);?></td>
 							<td><?php echo get_stage($order['stage']); ?></td>

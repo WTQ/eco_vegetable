@@ -476,6 +476,8 @@ class Order_m extends MY_Model
 	{
 		if($stage) {
 			$this->db->where('stage', $stage);
+		} else {
+			$this->db->where_in('stage', array(7,8));
 		}
 		return $this->db->count_all_results('order');
 	}

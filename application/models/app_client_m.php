@@ -26,8 +26,8 @@ class App_client_m extends MY_Model
 	public function init()
 	{
 		$uuid = post('uuid');
+		//$uuid = 'e7c888aaae43905b';
 		$client = $this->get_by('uuid', (string) $uuid);
-		
 		// 如果uuid在库中，则更新客户端，如uuid不在库中则新建
 		if (isset($client->client_id)) {
 			// 获取client的信息

@@ -99,25 +99,27 @@ class Order extends U_Controller
  			$this->json_out($data);
  		}
 
-		$shop_id   = (int) cookie('shop_id');
-		$phone     = $this->get_phone();
-		$user_id   = $this->user_m->phone2id($phone);
-		$address   = $this->address_m->get_default($user_id)->name;
-		$payment   = (int) get('payment');
-		$coupon_id = (int) get('coupon_id');
-		$coupon    = $this->coupon_m->deal_coupon($coupon_id);	// 查询所选的优惠券的详细内容
+		$shop_id       = (int) cookie('shop_id');
+		$phone         = $this->get_phone();
+		$user_id       = $this->user_m->phone2id($phone);
+		$address       = $this->address_m->get_default($user_id)->name;
+		$payment       = (int) get('payment');
+		$delivery_time = $this->get_delivery_time((int) get('delivery_time'));
+		$coupon_id     = (int) get('coupon_id');
+		$coupon        = $this->coupon_m->deal_coupon($coupon_id);	// 查询所选的优惠券的详细内容
 
 		$total_prices = $this->cart->total();
 
 		// 创建订单
 		$order_add = array(
-			'total_prices' => $total_prices,
-			'shop'         => $shop_id,
-			'phone'        => $phone,
-			'user_id'      => $user_id,
-			'address'      => $address,
-			'stage'        => ORDER_STAGE_SUBMIT,
-			'add_time'     => time()
+			'total_prices'  => $total_prices,
+			'shop'          => $shop_id,
+			'phone'         => $phone,
+			'user_id'       => $user_id,
+			'address'       => $address,
+			'delivery_time' => $delivery_time,
+			'stage'         => ORDER_STAGE_SUBMIT,
+			'add_time'      => time()
 		);
 		$order_id = $this->order_m->add($order_add);
 
@@ -180,6 +182,23 @@ class Order extends U_Controller
 		}
 
 		$this->json_out($out);
+	}
+	
+	/**
+	 * 获取订单的配送时间
+	 */
+	public function get_delivery_time($id)
+	{
+		$id = (int)$id;
+		switch ($id) {
+			case 1: return "8:00-10:00";  break;
+			case 2: return "10:00-12:00"; break;
+			case 3: return "12:00-14:00"; break;
+			case 4: return "14:00-16:00"; break;
+			case 5: return "16:00-18:00"; break;
+			case 6: return "18:00-20:00"; break;
+			default:return 0; break;
+		}
 	}
 
 	/**

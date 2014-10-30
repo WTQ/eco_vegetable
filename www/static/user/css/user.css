@@ -1791,24 +1791,14 @@ img {
 	background:#3D444B;
 }
 .order_info1 {
-	float:left;
-	width:26%;
+	width:100%;
 	color:#FFF;
-	font-size:11px;
-	/*height:170px;*/
-	line-height:42px;
-	text-align:center;
+	font-size:14px;
+	line-height:20px;
+	vertical-align:top;
+	padding:2px 0px 0px 15px;
 }
-.order_info2 {
-	float:left;
-	width:74%;
-	color:#A1A7B2;
-	font-size:15px;
-	/*height:170px;*/
-	line-height:42px;
-	text-align:left;
-	padding-left:11px;
-}
+
 .fav {
 	float:left;
 	width:65%;

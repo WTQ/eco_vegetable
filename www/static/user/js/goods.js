@@ -17,8 +17,6 @@ var firstLoadGoods = true;
 // 设置start全局参数
 var start = 0;
 
-//设置全局变量
-
 
 function shop_info() {
 	cart_badge();
@@ -630,11 +628,10 @@ $.ui.ready(function() {
  * 3、请求优惠信息
  */
 function cart_before_confirm() {
-	
 	var get = {
 			'shop_id'	  : localStorage['shop_id'],
 		};
-	$.getJSON(url('/user/cart/shop_close'), get, function(data) {
+	$.getJSON(url('/user/cart/shop_close?callback=?'), get, function(data) {
 		if(data.shop_close == 1) {
 			load_cart();
 		} else {
@@ -694,7 +691,7 @@ function cart_confirm() {
 			$("#confirm_type").html('<div class="confirm_order">确认订单</div>')
 			$("#user_address").text(localStorage['user_address']);
 			$("#user_phone").text(localStorage['phone']);
-			$("#total_type").text('总金额');
+			$("#total_type").text('总金额:');
 			$("#confirm_type").attr('class', 'account_goods');
 
 			var get = {
@@ -908,14 +905,16 @@ function cart_in_de() {
  */
 $.ui.ready(function() {
 	$('#account_footer').delegate('.confirm_order', 'click', function() {
-		var payment     = $('#pay').val();
-		var final_price = $('.total_price').text();
-		var coupon_id   = $('#shop_cuopons').val();
+		var payment       = $('#pay').val();
+		var final_price   = $('.total_price').text();
+		var coupon_id     = $('#shop_cuopons').val();
+		var delivery_time = $('#delivery').val();
 
 		var get = {
-			'final_price' : final_price,
-			'payment'     : payment,
-			'coupon_id'	  : 0
+			'final_price'   : final_price,
+			'payment'       : payment,
+			'delivery_time' : delivery_time,
+			'coupon_id'	    : 0
 		};
 
 		// （选择优惠后）最终总额

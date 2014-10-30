@@ -18,8 +18,6 @@ var api_version = 'v0.1';//
 /**
  * 请求数据端的URL
  */
-var site_url = 'http://eco.te168.cn';
-//var site_url = 'http://eco';
 /**
  * 商品分页数
  */
@@ -31,6 +29,11 @@ var goods_page = 10;
 function url(uri) {
 	return site_url + uri;
 }
+
+/**
+ * Rest请求默认超时时间
+ */
+var rest_timeout = 15000;
 
 /**
  * panel跳转函数

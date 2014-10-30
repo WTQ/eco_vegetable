@@ -48,7 +48,6 @@ class Order extends A_Controller
 		$data['shop_id'] = $shop_id;
 		$data['stage'] = $stage;
 		$data['search_input'] = $keywords;
-
 		load_view('admin/order', $data);
 	}
 
@@ -150,6 +149,7 @@ class Order extends A_Controller
 			$Orders[$i]['username'] = $this->user_m->get_byid($key['user_id']);
 			$i++;
 		}
+		//var_dump($Orders);
 		$this->excel->index($Orders, $shop);
 		if ( $stage == 1) {
 			foreach($Orders as $Order) {

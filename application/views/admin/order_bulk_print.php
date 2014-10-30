@@ -16,9 +16,10 @@
 				<table width="100%">
 					<tr>
 						<th width="10%">订单号</th>
-						<th width="40%">订单商品</th>
+						<th width="30%">订单商品</th>
 						<th width="5%">联系方式</th>
-						<th width="20%">配送地址</th>
+						<th width="15%">配送地址</th>
+						<th width="15%">配送时间</th>
 						<th width="5%">订单金额</th>
 						<th width="20%">下单时间</th>
 					</tr>
@@ -32,6 +33,7 @@
 	        					</td>
 						<td><?php echo $order['phone']; ?></td>
 						<td><?php echo $order['address'];?></td>
+						<td><?php echo $order['delivery_time'];?></td>
 						<td><?php echo '￥' . $order['total_prices'];?></td>
 						<td><?php echo date('Y-m-d H:i:s', $order['add_time']);?></td>
 					</tr>
