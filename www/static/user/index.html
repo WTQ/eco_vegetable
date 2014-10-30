@@ -564,12 +564,15 @@
 <% if(login == 1) { %>
 	<% for (var i = 0; i < address.length; i++) { %>
 		<% if(address[i]['default'] == 1) { %>
-		<div class="address2 address_verify">
+			<div class="address2 address_verify">
 		<% } else { %>
-		<div class="address2">
+			<div class="address2">
 		<% } %>
-    	<a href="#address/address_id/<%= address[i]['address_id'] %>"><%= address[i]['community_name'] %><br /><%= address[i]['name'] %></a>
-    	</div>
+    		<a href="#address/address_id/<%= address[i]['address_id'] %>"><%= address[i]['community_name'] %><br /><%= address[i]['name'] %></a>
+			<div class="swipe_left_user" style="display:none">
+            		<div class="swipe_left1_user" address_id="<%= address[i]['address_id'] %>">删除</div>
+        		</div>
+            </div>
 	<% } %>
 <% } else { %>
 <div class="address2 address_verify">

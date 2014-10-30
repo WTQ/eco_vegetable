@@ -1982,3 +1982,21 @@ img {
 	font-weight:bold;
 	font-family: 'Microsoft Yahei';
 }
+.swipe_left_user {
+	position:absolute;
+	top:0;
+	right:-73px;
+	width:73px;
+	height:100%;
+	z-index: 260;
+}
+.swipe_left1_user {
+	display:table;
+	width:100%;	
+	height:100%;
+	background-color:#e74c3c;
+	color:#fff;
+	text-align:center;
+	font-size:18px;
+	line-height:60px;
+}

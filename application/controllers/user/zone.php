@@ -124,18 +124,10 @@ class Zone extends U_Controller
 		$user_id		= get('user_id');
 		$community_name = '';
 		$data         = array();
-		if (empty($address_id)) {
-			if ( ($this->address_m->add_address($user_id, $community_id, $community_name, $address)) != FALSE) {
-				$data['error'] = 0;
-			} else {
-				$data['error'] = 1;
-			}
+		if ( ($this->address_m->add_address($user_id, $community_id, $community_name, $address)) != FALSE) {
+			$data['error'] = 0;
 		} else {
-			if ( ($this->address_m->update_address($address_id, $address)) != FALSE) {
-				$data['error'] = 0;
-			} else {
-				$data['error'] = 1;
-			}
+			$data['error'] = 1;
 		}
 
 		$this->json_out($data);
@@ -143,11 +135,21 @@ class Zone extends U_Controller
 
 	public function change_address()
 	{
+		if ($this->check_login() == FALSE) {
+			$data = array(
+					'status' => 10,
+					'msg'    => '用户未登录'
+			);
+		
+			return $this->json_out($data);
+		}
+		
 		$address_id   = (int) get('address_id');
 		$result       = $this->address_m->get($address_id);
 
 		$community_id = $result->community_id;
 		$shop_id      = $this->zone_community_m->get_shops($community_id);
+		$data         = array();
 
 		if ($shop_id > 0) {
 			set_cookie('address_id', $address_id, 3600 * 24 * 365);
@@ -157,17 +159,19 @@ class Zone extends U_Controller
 			$this->_change_default_address($address_id);
 
 			$data = array(
-				'shop_id'	=> $shop_id,
-				'error'		=> 0,
+				'shop_id'        => $shop_id,
+				'community_id'   => $community_id,
+				'community_name' => $result->community_name,
+				'user_address'   => $result->name,
+				'error'          => 0,
 			);
-			$this->json_out($data);
 		} else {
 			$data = array(
 				'error' => 1,
 				'msg'	=> '该地址目前没有商户',
 			);
-			$this->json_out($data);
 		}
+		$this->json_out($data);
 	}
 
 	private function _change_default_address($address_id)
@@ -181,6 +185,30 @@ class Zone extends U_Controller
 		$this->db->update('address', array('default' => 0));
 
 		$this->address_m->update($address->address_id, array('default' => 1));
+	}
+	
+	/**
+	 * 删除指定地址
+	 */
+	public function delete_address()
+	{
+		if ($this->check_login() == FALSE) {
+			$data = array(
+					'status' => 10,
+					'msg'    => '用户未登录'
+			);
+		
+			return $this->json_out($data);
+		}
+		
+		$address_id = get('address_id');
+		$this->db->where('address_id', $address_id);
+		if($this->db->delete('address')) {
+			$data['error'] = 0;
+		} else {
+			$data['error'] = 1;
+		}
+		return $this->json_out($data);
 	}
 }
 

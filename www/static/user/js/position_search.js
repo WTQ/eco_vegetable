@@ -31,16 +31,15 @@ function confirm_address() {
 	// 注意区别 shop_address
 	var user_address = $("#address_input").val();
 	var community_id = localStorage['community_id'];
-	var address_id   = localStorage['address_id'];
 	var user_id      = localStorage['user_id'];
 	var get          = {
 		'user_address' : user_address,
 		'community_id' : community_id,
-		'address_id'   : address_id,
 		'user_id'      : user_id,
 	};
 
 	$.getJSON(url('/user/zone/save_community?callback=?'), get, function(data) {
+		alert(data['error']);
 		if (data['error'] === 0) {
 			// 地址提交成功，则把该地址本地存储
 			localStorage['user_address'] = user_address;
@@ -78,9 +77,15 @@ $.ui.ready(function() {
 			'address_id' : address_id,
 		};
 		$.getJSON(url('/user/zone/change_address?callback=?'), get, function(data) {
+			hide_mask();
 			if (data.error == 0) {
+				// 切换用地址后重写相关localStorage
 				window.localStorage['shop_id'] = data.shop_id;
-				redirect('#myaccount');
+				window.localStorage['community_id'] = data.community_id;
+				window.localStorage['community_name'] = data.community_name;
+				window.localStorage['user_address'] = data.user_address;
+                redirect('#myaccount');
+				
 			} else {
 				alert(data.msg);
 			}
@@ -140,3 +145,36 @@ function load_sug() {
 		$.ui.loadContent('#more', false, false, 'fade');
 	}, 2000);
 }
+/**
+ * 我的账户panel删除地址
+ */
+$.ui.ready(function() {
+	// 向左滑动
+	$("#myaccount").delegate('.address2', 'swipeLeft', function(data) {
+		$(this).css('margin-left','-73px');
+		$('.swipe_left_user', $(this)).show();
+	});
+
+	// 向右滑动
+	$("#myaccount").delegate('.address2', 'swipeRight', function(data) {
+		$('.swipe_left_user', $(this)).hide();
+		$(this).css('margin-left', '0');
+	});
+
+	$("#myaccount").delegate('.swipe_left1_user', 'click', function(data) {
+		var address_id = $(this).attr('address_id');
+		localStorage.removeItem('user_address');
+		// 更新购物车
+		get  = {
+			'address_id' : address_id,
+		};
+		
+		load_mask();
+		$.getJSON(url('/user/zone/delete_address?callback=?'), get, function(data){
+		    hide_mask();
+			if (data['error'] === 0) {
+				my_account();
+			}
+		});
+	});
+});
