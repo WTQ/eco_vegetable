@@ -157,7 +157,7 @@ function rest_ajax(ajax_type, uri, data, success, error, timeout) {
 			} else {
 				// alert(data.responseText);
 				// alert(JSON.stringify(data));return;
-				alert('连接超时，请检查当前网络状况');
+				// alert('连接超时，请检查当前网络状况');
 			}
 		},
 		dataType	: 'json',
