@@ -146,8 +146,8 @@ class Excel extends PHPExcel {
     	->setCellValue('I2', '实收金额')
     	->setCellValue('J2', '合计')
     	->setCellValue('K2', '地址')
-    	->setCellValue('L2', '买家备注')
-    	->setCellValue('M2', '是否配送');
+    	->setCellValue('L2', '配送时间')
+    	->setCellValue('M2', '买家备注');
     	$this->getActiveSheet()->getStyle('A2:M2')->getAlignment()->setWrapText(true)->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
     	$this->getActiveSheet()->getStyle('A2:M2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
     	$this->getActiveSheet()->getStyle('A1:M1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
@@ -168,8 +168,8 @@ class Excel extends PHPExcel {
 //    		$this->getActiveSheet(0)->setCellValue('J'.($row), $Orders[$i]['total_prices']);
     		$this->getActiveSheet(0)->setCellValue('K'.($row), $Orders[$i]['address']);
     		//$this->getActiveSheet(0)->setCellValue('L'.($row), $Orders[$i]['remarks']);
-    		$this->getActiveSheet(0)->setCellValue('L'.($row), (!empty($Orders[$i]['remarks'])) ? $Orders[$i]['remarks'] : '');
-//     		$this->getActiveSheet(0)->setCellValue('M'.($row), $Orders[$i]['home_delivery'] == 1? '是':'否');
+    		$this->getActiveSheet(0)->setCellValue('L'.($row), (!empty($Orders[$i]['delivery_time'])) ? $Orders[$i]['delivery_time'] : '');
+     		$this->getActiveSheet(0)->setCellValue('M'.($row), (!empty($Orders[$i]['remarks'])) ? $Orders[$i]['remarks'] : '');
     		
     		foreach($Orders[$i]['items'] as $item) {
     			$this->getActiveSheet()->getRowDimension($row)->setRowHeight(20);
