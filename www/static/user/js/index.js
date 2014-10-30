@@ -146,29 +146,3 @@ var app = {
     }
 };
 
-function check_update()
-{
-	load_mask();
-	rest_post('/user/init', client, function(data) {
-		// 此处检查升级情况
-		if (typeof(data.upgrade_type) != 'undefined' && data.upgrade_type != 0) {
-		    // 提示升级
-		    $.ui.popup({
-                title: '升级提示',
-                message: data.upgrade_desc,
-                cancelText: "暂不升级",
-                cancelCallback: function () {
-                    
-                },
-                doneText: "升级",
-                doneCallback: function () {
-					window.open(data.upgrade_url, '_system');
-                },
-                cancelOnly: false
-            });
-		} else {
-			// 暂不需要提示
-		}
-	});
-	hide_mask();
-}
