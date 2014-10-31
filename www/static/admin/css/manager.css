@@ -240,10 +240,10 @@ body {
 	height:80px;
 }
 .content1 a {
-	float:left;
+	/*float:left;*/
 	text-align:center;
 	margin-left:30%;
-	margin-right:30%;
+	/*margin-right:30%;*/
 	display:inline-block;
 	color:#000;
 	height:40px;
@@ -254,10 +254,10 @@ body {
 	padding:0 10px 0 10px;
 }
 .content1 a:hover {
-	float:left;
+	/*float:left;*/
 	color:#fff;
 	background:#1ABC9C !important;
-	display:block;
+	/*display:block;*/
 }
 .content2 {
 	margin:0 5%;
@@ -363,7 +363,8 @@ body {
 }
 .manage form {
 	float:left;
-	width:50%;
+	width:250px;
+	margin-left:500px;
 }
 .left {
 	float:left;
@@ -387,18 +388,21 @@ body {
 
 .content1_back{
 	margin-left:5%;
+	width:100px;
 }
 
 .content1_back a{
-	width:80px;
+	width:100px;
 }
 
 .content1_print{
-	margin-left:50%;
+	margin-left:60%;
+	_margin-left:45% !importnt;
+	width:130px;
 }
 
 .content1_print a{
-	width:110px;
+	width:130px;
 }
 
 .page{

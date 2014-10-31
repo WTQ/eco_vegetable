@@ -21,7 +21,8 @@
                 <div class="content3">
 					<table width="100%">
 						<tr>
-							<th width="100%" style="padding-bottom:10px">配送地址：<?php echo $orders['address'];?></th>
+							<th width="80%" style="padding:0 0 10px 0px; text-align:left;">配送地址：<?php echo $orders['address'];?></th>
+							<th style="padding-bottom:10px">配送时间：<?php echo $orders['delivery_time'];?></th>
 						</tr>
 					</table>
 				</div>

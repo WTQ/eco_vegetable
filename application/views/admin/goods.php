@@ -2,13 +2,13 @@
 <?php load_view('admin/common/header'); ?>
 		<div class="content">
         	<div class="content1 manage">
-            	<a href="<?php echo base_url('/admin/goods/add_goods'); ?>">添加商品</a>
+            	<a class="left" href="<?php echo base_url('/admin/goods/add_goods'); ?>">添加商品</a>
             	<form action="<?php echo base_url('admin/goods/goods_search')?>" method="get" >
 	            	<div class="left"><input class="search_input2" size="30" type="text" name="search" value="<?php echo $keywords;?>" onmouseover=this.focus(); onclick="value=''; this.style.color='#000'"   onBlur="if(!value){value=defaultValue; this.style.color='#999'}"style="color:#999" /></div>
 	            	<div class="left"><input class="search_sub2" type="submit" name="submit" value=""/></div>
 	            	<div class="cl"></div>
 	            </form>
-	        <div class="cl"></div>
+	            <div class="cl"></div>
             </div>
             
             <div class="content2">
