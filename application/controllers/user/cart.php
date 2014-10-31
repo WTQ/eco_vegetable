@@ -43,6 +43,9 @@ class Cart extends U_Controller
 		}
 
 		$data = $this->_cart_data();
+		
+		$shop_id = $this->input->get('shop_id');
+		$data['shop_close'] = $this->shop_m->get_ifclose($shop_id); 
 
 		$this->json_out($data);
 	}

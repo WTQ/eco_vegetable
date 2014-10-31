@@ -621,25 +621,6 @@ $.ui.ready(function() {
 	});
 });
 
-/**
- * 提交订单
- * 1、cart_http_param()将localStorage['cart']提交到服务器，检查缺货下架并同步商品信息
- * 2、cart_update_all()将同步后的商品信息填充到购物车中，并覆盖localStorage['cart']
- * 3、请求优惠信息
- */
-function cart_before_confirm() {
-	var get = {
-			'shop_id'	  : localStorage['shop_id'],
-		};
-	$.getJSON(url('/user/cart/shop_close?callback=?'), get, function(data) {
-		if(data.shop_close == 1) {
-			load_cart();
-		} else {
-			redirect('#shop_close_notice');
-		}
-	});
-}
-
 function cart_confirm() {
 	// 从localStorage['cart']解析发送到服务器的购物车参数
 	var get = {
@@ -650,6 +631,10 @@ function cart_confirm() {
 
 	load_mask();
 	$.getJSON(url('/user/cart?callback=?'), get, function(data) {
+		if(data.shop_close != 1) {
+			redirect('#shop_close_notice');
+		}
+
 		// 清除同步服务器之前的购物车本地存储
 		// cart_destroy();
 		//localStorage.removeItem('coupon');

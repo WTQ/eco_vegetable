@@ -121,7 +121,7 @@
 </script>
 
 		<!--购物车商品列表页面-->
-        <div data-ignore-slide id="account_cart" title="" class="panel" data-header="none" data-load="cart_before_confirm" data-footer="common_footer" data-tab="tab_cart" style="overflow:hidden">
+        <div data-ignore-slide id="account_cart" title="" class="panel" data-header="none" data-load="load_cart" data-footer="common_footer" data-tab="tab_cart" style="overflow:hidden">
          	<div class="h_header1"><div id="settle_goods">结算商品</div></div>
             <div class="amount">
             	<div class="total">总金额</div>
@@ -322,7 +322,8 @@
 		<!-- 店铺系统维护中提示页面 -->
 		<div data-ignore-slide id="shop_close_notice" title="" class="panel" data-header="none" data-footer="notice_footer" style="overflow:hidden">
         	<div class="h_header">
-            		<div>店铺维护中</div>
+        		<a class="backButton" onClick="redirect('#cart');"></a>
+            	<div>店铺维护中</div>
             </div>
             <div class="close_word">
             	<p style="text-align:center;">系统维护中，请稍后下单！</p>
