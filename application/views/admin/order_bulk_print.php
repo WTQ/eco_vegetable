@@ -13,7 +13,7 @@
  
         	<!--startprint-->
 			<div class="content2">
-				<table width="100%">
+				<table width="100%" class="print_table1">
 					<tr>
 						<th width="10%">订单号</th>
 						<th width="30%">订单商品</th>

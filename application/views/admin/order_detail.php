@@ -28,7 +28,7 @@
 				</div>
 	
 				<div class="content2">
-					<table width="100%">
+					<table width="100%" class="print_table1">
 						<tr>
 							<th width="8%">商品编号</th>
 							<th width="56%">商品名称</th>
