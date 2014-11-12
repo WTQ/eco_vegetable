@@ -35,7 +35,7 @@ class Goods extends A_Controller
 			$data['stage'] = 0;
 		}
 		$data['keywords'] = '';
-		$data['goods'] = $this->goods_m->order_by(array('is_top'=>'desc','goods_id'=>'desc'))->limit($per_page, ($p-1) * $per_page)->get_bycategory($stage);	// 获取goods表里对应分类的记录（对象形式）
+		$data['goods'] = $this->goods_m->limit($per_page, ($p-1) * $per_page)->get_bycategory($stage);	// 获取goods表里对应分类的记录（对象形式）
 		$data['number'] = sizeof($this->goods_m->order_by('goods_id', 'desc')->get_bycategory($stage));
 		$data['page'] = page($data['number'], $per_page);						// 分页参数
 		foreach ($data['goods'] as $row) {
@@ -218,13 +218,46 @@ class Goods extends A_Controller
 		}
 	}
 	
+	/**
+	 * 商品在首页置顶
+	 */
 	public function edit_top_goods()
 	{
 		$p = (int)get('p');
 		$goods_id = (int)get('goods_id');
-		$data = array(
-			'is_top'    =>  time(),
-		);
+		$is_top = $this->goods_m->get_top($goods_id);
+		var_dump($is_top);
+		if ($is_top == '0') {
+			$data = array(
+					'is_top'    =>  time(),
+			);
+		} else {
+			$data = array(
+					'is_top'    =>  '0',
+			);
+		}
+		$this->goods_m->edit_goods($goods_id, $data);
+		redirect('admin/goods?p='.$p);
+	}
+	
+	/**
+	 * 商品在所选分类中置顶
+	 */
+	public function edit_parttop_goods()
+	{
+		$p = (int)get('p');
+		$goods_id = (int)get('goods_id');
+		$is_parttop = $this->goods_m->get_parttop($goods_id);
+		var_dump($is_parttop);
+		if ($is_parttop == '0') {
+			$data = array(
+					'is_parttop'    =>  time(),
+			);
+		} else {
+			$data = array(
+					'is_parttop'    =>  '0',
+			);
+		}
 		$this->goods_m->edit_goods($goods_id, $data);
 		redirect('admin/goods?p='.$p);
 	}

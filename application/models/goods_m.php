@@ -103,9 +103,9 @@ class Goods_m extends MY_Model
 		$class_id = (int) $class_id;
 
 		if ($class_id == 0 || $class_id == NULL) {
-			return $this->order_by('goods_id', 'desc')->limit($num, $offset)->get_many_by('shop_id', $shop_id);	// class_id = 0，查询该商店中全部商品
+			return $this->order_by(array('is_top'=>'desc','goods_id'=>'desc'))->limit($num, $offset)->get_many_by('shop_id', $shop_id);	// class_id = 0，查询该商店中全部商品
 		} else {
-			return $this->order_by('goods_id', 'desc')->limit($num, $offset)->get_many_by(array(	// class_id != 0,查询该商店中指定分类的商品
+			return $this->order_by(array('is_parttop'=>'desc','goods_id'=>'desc'))->limit($num, $offset)->get_many_by(array(	// class_id != 0,查询该商店中指定分类的商品
 					'shop_id'  => $shop_id,
 					'class_id' => $class_id
 			));
@@ -219,9 +219,9 @@ class Goods_m extends MY_Model
 		$category = (int)$category;
 		if ($shop_id == 0) {
 			if ($category == 0) {
-				return $this->get_all();
+				return $this->order_by(array('is_top'=>'desc','goods_id'=>'desc'))->get_all();
 			} else {
-				return $this->get_many_by('class_id', $category);
+				return $this->order_by(array('is_parttop'=>'desc','goods_id'=>'desc'))->get_many_by('class_id', $category);
 			}
 		}
 		else {
@@ -363,6 +363,26 @@ class Goods_m extends MY_Model
 	{
 		$goods_id = (int) $goods_id;
 		return $this->update($goods_id, $data);
+	}
+	
+	/**
+	 * 获取商品首页置顶信息
+	 */
+	public function get_top($goods_id)
+	{
+		$goods_id = (int) $goods_id;
+		$query = $this->get($goods_id);
+		return $query->is_top;
+	}
+	
+	/**
+	 * 获取商品部分置顶信息
+	 */
+	public function get_parttop($goods_id)
+	{
+		$goods_id = (int) $goods_id;
+		$query = $this->get($goods_id);
+		return $query->is_parttop;
 	}
 
 	/**

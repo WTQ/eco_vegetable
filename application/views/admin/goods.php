@@ -70,8 +70,11 @@
                         	<a onclick="return del_alert()" href="<?php echo base_url('/admin/goods/del_goods?goods_id=' .$row->goods_id); ?>">删除</a>
                         	<a href="<?php echo base_url('/admin/goods/in_out_stock?goods_id=' .$row->goods_id); ?>">
                         	<?php if ($row->stock === '0') {
-                        	echo '有货';} else {echo '缺货';}?></a>
-                        	<a href="<?php echo base_url('/admin/goods/edit_top_goods?p='.$p.'&goods_id=' .$row->goods_id); ?>">置顶</a>
+                        	echo '有货';} else {echo '缺货';}?></a></br>
+                        	<a href="<?php echo base_url('/admin/goods/edit_top_goods?p='.$p.'&goods_id=' .$row->goods_id); ?>"><?php if ($row->is_top === '0') {
+                        	echo '置顶';} else {echo '取消置顶';}?></a>
+                        	<a href="<?php echo base_url('/admin/goods/edit_parttop_goods?p='.$p.'&goods_id=' .$row->goods_id); ?>"><?php if ($row->is_parttop === '0') {
+                        	echo '分类置顶';} else {echo '取消分类置顶';}?></a>
                         </td>
                       </tr>
                       <?php endforeach;?>

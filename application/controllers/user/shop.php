@@ -63,7 +63,7 @@ class Shop extends U_Controller
 		
 		$shop = $this->shop_m->get($shop_id);
 
-		$data['goods'] = $this->goods_m->order_by(array('is_top'=>'desc','goods_id'=>'desc'))->get_byclass($shop_id, $class_id, $per_page, $per_page*($p-1));
+		$data['goods'] = $this->goods_m->get_byclass($shop_id, $class_id, $per_page, $per_page*($p-1));
 		$data['low_price'] = $shop->low_price;
 		return $this->json_out($data);
 	}
