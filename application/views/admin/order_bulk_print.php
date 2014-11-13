@@ -1,4 +1,4 @@
-<!-- 订单管理页面 -->
+<!-- 订单批量打印页面 -->
 <?php load_view('admin/common/header'); ?>	
 		<div class="content">
 			<div class="content1" style="width:100%!important;height:50px!important;">
