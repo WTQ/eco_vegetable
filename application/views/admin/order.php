@@ -2,9 +2,6 @@
 <?php load_view('admin/common/header'); ?>
 		<div class="content">
 			<div class="content1" style="width:100%!important;height:50px!important;">
-				<div class="left content1_back">
-					<a href="<?php echo base_url('/admin/order/'); ?>">订单统计</a>
-				</div>
 				<div class="left content1_print">
 					<a href="<?php echo base_url('/admin/order/order_goods/'); ?>">订单商品统计</a>
 				</div>

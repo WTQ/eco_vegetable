@@ -113,13 +113,19 @@ class Order extends A_Controller
 		}
 		
 		$keywords = $this->input->get('search');
+		$type = $this->input->get('type');
 		if (empty($keywords)) {
 			$keywords = 0;
 		}
-		$data['orders'] = $this->order_m->goods_list($stage, $sort_stage, $keywords);
+		if($type == '0') {
+			$data['orders'] = $this->order_m->goods_list($stage, $sort_stage, $keywords);
+		} else {
+			$data['orders'] = $this->order_m->goods_list_address($stage, $sort_stage, $keywords);
+		}
 		$data['stage'] = $stage;
 		$data['sort_stage'] = $sort_stage;
 		$data['keywords'] = $keywords;
+		$data['type'] = $type;
 		load_view('admin/order_goods', $data);
 	}
 

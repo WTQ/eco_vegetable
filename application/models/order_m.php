@@ -516,11 +516,12 @@ class Order_m extends MY_Model
 			$order_id = $order_id . ")";
 			// 相同商品合并数量
 			if($keywords) {
-				$query2 = $this->db->query("SELECT goods_id,name,SUM(quantity) FROM `yf_order_items` WHERE order_id IN " . $order_id . " and `name` LIKE '%".$keywords."%' GROUP BY goods_id");
+				$query2 = $this->db->query("SELECT goods_id,name,SUM(quantity) as quantity FROM `yf_order_items` WHERE order_id IN " . $order_id . " and `name` LIKE '%".$keywords."%' GROUP BY goods_id");
 			} else {
-				$query2 = $this->db->query("SELECT goods_id,name,SUM(quantity) FROM `yf_order_items` WHERE order_id IN " . $order_id . " GROUP BY goods_id");
+				$query2 = $this->db->query("SELECT goods_id,name,SUM(quantity) as quantity FROM `yf_order_items` WHERE order_id IN " . $order_id . " GROUP BY goods_id");
 			}
 			$return = $query2->result_array();
+			
 			// 获取分类、分类名称
 			foreach ($return as $key => $row) {
 				$query_tempid = $this->db->query("SELECT class_id FROM `yf_goods` WHERE goods_id=" . $row['goods_id'])->result_array();
@@ -549,7 +550,52 @@ class Order_m extends MY_Model
 		} else {
 			$result = $return;
 		}
+		
 		return $result;
+	}
+	/**
+	 *按照地址统计订单
+	 */
+	public function goods_list_address($stage = 0, $sort_stage = 0, $address)
+	{
+		$sql_order = 'WHERE ';
+		if($stage) {
+			$sql_order = $sql_order.'a.stage IN (7,8)';
+		}
+		if($sort_stage) {
+			if($stage) {
+				$sql_order = $sql_order.' AND ';
+			}
+			$sql_order = $sql_order.'c.class_id='.$sort_stage;
+		}
+		if($address) {
+			if($stage||$sort_stage) {
+				$sql_order = $sql_order.' AND ';
+			}
+			$sql_order = $sql_order."b.address LIKE '%".$address."%'";
+		}
+		if(!($stage||$sort_stage||$address)) {
+			$sql_order = ' ';
+		}
+		$sql = "SELECT a.goods_id as goods_id,a.name as name,SUM(quantity) as quantity,class_name FROM yf_order_items AS a 
+				INNER JOIN yf_order AS b ON a.order_id = b.order_id 
+				INNER JOIN yf_goods AS c ON a.goods_id = c.goods_id 
+				INNER JOIN yf_category AS d ON c.class_id = d.class_id 
+				".$sql_order." GROUP BY a.goods_id";
+		$query = $this->db->query($sql);
+		$i = 0;
+		if($query->num_rows()) {
+			foreach ($query->result_array() as $row) {
+				$return[$i]['goods_id']   = $row['goods_id'];
+				$return[$i]['name']       = $row['name'];
+				$return[$i]['quantity']   = $row['quantity'];
+				$return[$i]['class_name'] = $row['class_name'];
+				$i++;
+			}
+		} else {
+			$return = '';
+		}
+		return $return;
 	}
 	/**
 	 * 删除名字为$name的所有订单

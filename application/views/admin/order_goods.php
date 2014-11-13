@@ -1,16 +1,20 @@
 <!-- 订单商品统计页面 -->
 <?php load_view('admin/common/header'); ?>
 		<div class="content">
-			<div class="content1 content_row">
-            	<a href="<?php echo base_url('/admin/order/'); ?>">订单统计</a>
+			<div class="content1" style="width:100%;">
+            	<div class="left content1_print"><a href="<?php echo base_url('/admin/order/'); ?>">订单统计</a></div>
+            	<form class="left form_1" action="<?php echo base_url('admin/order/order_goods?stage='.$stage.'&sort_stage='.$sort_stage)?>" method="get" >
+            		<select name="type" class="left list_select">
+            			<option value="0" <?php if($type=='0'): echo 'selected'; endif;?>>按商品名搜索</option>
+            			<option value="1" <?php if($type=='1'): echo 'selected'; endif;?>>按地址搜索</option>
+            		</select>
+            		<div class="left"><input class="search_input2" size="30" type="text" name="search" value="<?php if($keywords): echo $keywords; endif;?>" onmouseover=this.focus(); onclick="value=''; this.style.color='#000'"   onBlur="if(!value){value=defaultValue; this.style.color='#999'}"style="color:#999" /></div>
+            		<div class="left"><input class="search_sub2" type="submit" name="submit" value=""/></div>
+            		<div class="cl"></div>
+            	</form>	
+            	<div class="cl"></div>
         	</div>
-        	<div class="content1 content_row">
-            	<a href="<?php echo base_url('/admin/order/order_goods/'); ?>">订单商品统计</a>
-        	</div>
-        	<form class="content1" action="<?php echo base_url('admin/order/order_goods?stage='.$stage.'&sort_stage='.$sort_stage)?>" method="get" >
-            	<div class="left"><input class="search_input2" size="30" type="text" name="search" value="" onmouseover=this.focus(); onclick="value=''; this.style.color='#000'"   onBlur="if(!value){value=defaultValue; this.style.color='#999'}"style="color:#999" /></div>
-            	<div class="left"><input class="search_sub2" type="submit" name="submit" value=""/></div>
-            </form>	
+        	
         	<!--<div class="content11">
             	<a href="javascript:printme()" target="_self">打印</a>
             	<a href="javascript:;" onClick="doPrint()">打印</a> 
@@ -32,14 +36,16 @@
 										<option value="5" <?php if($stage == 5) echo 'selected'?> >已确认</option> -->
 									</select>
 									<select name="sort_stage">
-										<option value="0">全部</option>
-										<option value="1" <?php if($sort_stage == 1) echo 'selected'?> >特价蔬菜</option>
-										<option value="2" <?php if($sort_stage == 2) echo 'selected'?> >时令蔬菜</option>
+										<option value="0" <?php if($sort_stage == 0) echo 'selected'?>>全部</option>
+										<option value="1" <?php if($sort_stage == 1) echo 'selected'?> >田园时蔬</option>
+										<option value="2" <?php if($sort_stage == 2) echo 'selected'?> >食用菌菇</option>
 										<option value="3" <?php if($sort_stage == 3) echo 'selected'?> >有机蔬菜</option>
-										<option value="4" <?php if($sort_stage == 4) echo 'selected'?> >土特产品</option>
-										<option value="5" <?php if($sort_stage == 5) echo 'selected'?> >加工产品</option>
-										<option value="6" <?php if($sort_stage == 6) echo 'selected'?> >进口蔬菜</option>
-										<option value="7" <?php if($sort_stage == 7) echo 'selected'?> >其他扩展</option>
+										<option value="4" <?php if($sort_stage == 4) echo 'selected'?> >时鲜水果</option>
+										<option value="5" <?php if($sort_stage == 5) echo 'selected'?> >粮油副食</option>
+										<option value="6" <?php if($sort_stage == 6) echo 'selected'?> >南北干货</option>
+										<option value="7" <?php if($sort_stage == 7) echo 'selected'?> >营养保健</option>
+										<option value="8" <?php if($sort_stage == 8) echo 'selected'?> >地方特产</option>
+										<option value="9" <?php if($sort_stage == 8) echo 'selected'?> >生活用品</option>
 									</select>
 									<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
 								</td>
@@ -56,13 +62,14 @@
 							<th width="30%">商品分类</th>
 							<th width="10%">操作</th>
 						</tr>
+						<?php if(!empty($orders)):?>
 						<?php foreach ($orders as $order): ?>
 						<tr>							
 							<td>									
 			        			<?php echo $order['name']?><br />				
 		        			</td>
 							<td>
-								<?php echo $order['SUM(quantity)']?>
+								<?php echo $order['quantity']?>
 							</td>
 							<td>
 								<?php echo $order['class_name']?>
@@ -72,6 +79,7 @@
 							</td>
 						</tr>
 						<?php endforeach;?>
+						<?php endif;?>
 					</table>
 				</div>
 			<!--endprint-->
