@@ -102,6 +102,7 @@ class Order extends A_Controller
 	public function order_goods()
 	{
 		$per_page = 20;
+		$p = (int) page_cur();
 		$stage = $this->input->get('stage', TRUE);
 		if (empty($stage)) {
 			$stage = 0;
@@ -127,6 +128,34 @@ class Order extends A_Controller
 		$data['keywords'] = $keywords;
 		$data['type'] = $type;
 		load_view('admin/order_goods', $data);
+	}
+	
+	/**
+	 * 订单商品统计打印
+	 */
+	public function goods_statistic_print()
+	{
+		$per_page = 20;
+		$p = (int) page_cur();
+		$stage = $this->input->get('stage', TRUE);
+		if (empty($stage)) {
+			$stage = 0;
+		}
+	
+		$sort_stage = $this->input->get('sort_stage', TRUE);
+		if (empty($sort_stage)) {
+			$sort_stage = 0;
+		}
+	
+		$keywords = $this->input->get('search');
+		if (empty($keywords)) {
+			$keywords = 0;
+		}
+		$data['orders'] = $this->order_m->goods_list($stage, $sort_stage, $keywords);
+		$data['stage'] = $stage;
+		$data['sort_stage'] = $sort_stage;
+		$data['keywords'] = $keywords;
+		load_view('admin/order_goods_print', $data);
 	}
 
 	public function detail()
@@ -155,13 +184,40 @@ class Order extends A_Controller
 			$Orders[$i]['username'] = $this->user_m->get_byid($key['user_id']);
 			$i++;
 		}
-		//var_dump($Orders);
 		$this->excel->index($Orders, $shop);
 		if ( $stage == 1) {
 			foreach($Orders as $Order) {
 	 			$this->order_m->set_stage($Order['order_id'], 5);
 	 		}
 		}
+	}
+	
+	public function goods_excel()
+	{
+		$shop_id = 1;
+		if($shop_id == FALSE) {
+			$shop['shop_name'] = '全部店铺';
+		} else {
+			$shop = $this->shops_m->get($shop_id);
+		}
+		$stage = $this->input->get('stage', TRUE);
+		if (empty($stage)) {
+			$stage = 0;
+		}
+		
+		$sort_stage = $this->input->get('sort_stage', TRUE);
+		if (empty($sort_stage)) {
+			$sort_stage = 0;
+		}
+		
+		$keywords = $this->input->get('search');
+		if (empty($keywords)) {
+			$keywords = 0;
+		}
+		$Orders = $this->order_m->goods_list($stage, $sort_stage, $keywords);
+// 		var_dump($Orders);
+		$this->load->library('order_goods_excel');
+		$this->order_goods_excel->index($Orders, $shop);
 	}
 
 	public function gen_word()
