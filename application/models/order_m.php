@@ -560,22 +560,18 @@ class Order_m extends MY_Model
 	{
 		$sql_order = 'WHERE ';
 		if($stage) {
-			$sql_order = $sql_order.'a.stage IN (7,8)';
+			$sql_order = $sql_order.'b.stage='.$stage;
+		} else {
+			$sql_order = $sql_order.'b.stage IN (7,8) ';
 		}
 		if($sort_stage) {
-			if($stage) {
-				$sql_order = $sql_order.' AND ';
-			}
-			$sql_order = $sql_order.'c.class_id='.$sort_stage;
+			$sql_order = $sql_order.'AND c.class_id='.$sort_stage;
 		}
 		if($address) {
-			if($stage||$sort_stage) {
+			if(!$sort_stage) {
 				$sql_order = $sql_order.' AND ';
 			}
 			$sql_order = $sql_order."b.address LIKE '%".$address."%'";
-		}
-		if(!($stage||$sort_stage||$address)) {
-			$sql_order = ' ';
 		}
 		$sql = "SELECT a.goods_id as goods_id,a.name as name,SUM(quantity) as quantity,class_name FROM yf_order_items AS a 
 				INNER JOIN yf_order AS b ON a.order_id = b.order_id 

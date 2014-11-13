@@ -86,7 +86,6 @@
 						<?php endif;?>
 					</table>
 				</div>
-			<!--endprint-->
 		</div>
 		
 <?php load_view('admin/common/footer'); ?>
