@@ -118,15 +118,21 @@ class Order extends A_Controller
 		if (empty($keywords)) {
 			$keywords = 0;
 		}
+		
+		$month = (int)get ('month');
+		if (empty($month)) {
+			$month = 0;
+		}
 		if($type == '0') {
-			$data['orders'] = $this->order_m->goods_list($stage, $sort_stage, $keywords);
+			$data['orders'] = $this->order_m->goods_list($stage, $sort_stage, $month, $keywords);
 		} else {
-			$data['orders'] = $this->order_m->goods_list_address($stage, $sort_stage, $keywords);
+			$data['orders'] = $this->order_m->goods_list_address($stage, $sort_stage, $month ,$keywords);
 		}
 		$data['stage'] = $stage;
 		$data['sort_stage'] = $sort_stage;
 		$data['keywords'] = $keywords;
 		$data['type'] = $type;
+		$data['month'] = $month;
 		load_view('admin/order_goods', $data);
 	}
 	

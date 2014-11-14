@@ -46,7 +46,22 @@
 										<option value="7" <?php if($sort_stage == 7) echo 'selected'?> >营养保健</option>
 										<option value="8" <?php if($sort_stage == 8) echo 'selected'?> >地方特产</option>
 										<option value="9" <?php if($sort_stage == 8) echo 'selected'?> >生活用品</option>
-									</select>
+								</select>
+								<select name="month">
+										<option value="0" <?php if($month == 0) echo 'selected'?>>全部</option>
+										<option value="1" <?php if($month == 1) echo 'selected'?> >一月</option>
+										<option value="2" <?php if($month == 2) echo 'selected'?> >二月</option>
+										<option value="3" <?php if($month == 3) echo 'selected'?> >三月</option>
+										<option value="4" <?php if($month == 4) echo 'selected'?> >四月</option>
+										<option value="5" <?php if($month == 5) echo 'selected'?> >五月</option>
+										<option value="6" <?php if($month == 6) echo 'selected'?> >六月</option>
+										<option value="7" <?php if($month == 7) echo 'selected'?> >七月</option>
+										<option value="8" <?php if($month == 8) echo 'selected'?> >八月</option>
+										<option value="9" <?php if($month == 9) echo 'selected'?> >九月</option>
+										<option value="10" <?php if($month == 10) echo 'selected'?>>十月</option>
+										<option value="11" <?php if($month == 11) echo 'selected'?>>十一月</option>
+										<option value="12" <?php if($month == 12) echo 'selected'?>>十二月</option>
+								</select>
 								<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
 							</td>
 							<td>

@@ -494,10 +494,17 @@ class Order_m extends MY_Model
 	/**
 	 * 商品订单统计
 	 */
-	public function goods_list($stage = 0, $sort_stage = 0, $keywords = 0)
+	public function goods_list($stage = 0, $sort_stage = 0, $month = 0,$keywords = 0)
 	{
 		$return = array();
 		$this->db->select('order_id');
+		if($month) {
+			$y     = date("Y",time());
+			$time1 = mktime(0,0,0,$month,1,$y);
+			$time2 = mktime(0,0,0,$month+1,1,$y);
+			$this->db->where("add_time >=",$time1);
+			$this->db->where("add_time <=",$time2);
+		}
 		if($stage) {
 			$this->db->where('stage',$stage);
 		} else {
