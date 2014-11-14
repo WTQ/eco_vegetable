@@ -25,7 +25,7 @@
 			        			<?php echo $order['name']?><br />				
 		        			</td>
 							<td>
-								<?php echo $order['SUM(quantity)']?>
+								<?php echo $order['quantity']?>
 							</td>
 							<td>
 								<?php echo $order['class_name']?>

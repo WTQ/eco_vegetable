@@ -114,7 +114,7 @@ class Order_goods_excel extends PHPExcel {
     		$row = 3;
     	foreach($Orders as $order ){
     		$this->getActiveSheet(0)->setCellValue('A'.($row), $order['name']);
-     		$this->getActiveSheet(0)->setCellValue('B'.($row), $order['SUM(quantity)']);
+     		$this->getActiveSheet(0)->setCellValue('B'.($row), $order['quantity']);
     		$this->getActiveSheet(0)->setCellValue('C'.($row), $order['class_name']);
     		$this->getActiveSheet()->getStyle('A'.($row).':C'.($row))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
     		$this->getActiveSheet()->getStyle('A'.($row).':C'.($row))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
