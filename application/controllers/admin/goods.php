@@ -42,7 +42,6 @@ class Goods extends A_Controller
 				$data['shop'][$row->shop_id] = $this->shop_m->get($row->shop_id);			// 获取shop信息
 				$data['category'][$row->class_id] = $this->category_m->get($row->class_id);	// 获取category信息
 		}
-		
 		load_view('admin/goods', $data);
 	}
 	
@@ -134,8 +133,8 @@ class Goods extends A_Controller
 	{
 		$goods_id = (int) get('goods_id');
 		$p        = (int) get('p');
-		$goods		= $this->goods_m->get($goods_id);				// 获取goods信息
-		$old		= $this->goods_m->pic_dejson($goods->pic);		// 把原来的图片路径解码
+		$goods	  = $this->goods_m->get($goods_id);				// 获取goods信息
+		$old	  = $this->goods_m->pic_dejson($goods->pic);		// 把原来的图片路径解码
 		$old_array	= array(
 				'pic1'	=>	$old->default,
 				'pic2'	=>	$old->more->pic1,
@@ -143,7 +142,7 @@ class Goods extends A_Controller
 				'pic4'	=>	$old->more->pic3,
 				'pic5'	=>	$old->more->pic4,
 		);
-		
+		$stage  = (int) get('stage');    
 		if (is_post()) {
 			$shop_id	=	$this->input->post('shop_id');
 			$class_id	=	$this->input->post('class_id');
@@ -190,9 +189,8 @@ class Goods extends A_Controller
 					'is_today'	=>	$is_today,
 					'sold'		=>	$sold,
 			);
-			var_dump($data['goods']);
 			$this->goods_m->edit_goods($goods_id, $data['goods']);
-			redirect('admin/goods?p='.$p);
+			redirect('admin/goods?p='.$p.'&stage='.$stage);
 		} else {
 			$goods	=	$this->goods_m->get($goods_id);				// 获取goods信息
 			$shop	=	$this->shop_m->get($goods->shop_id);		// 获取shop信息
@@ -209,11 +207,12 @@ class Goods extends A_Controller
 					'pic'		=>	$this->goods_m->pic_dejson($goods->pic),		// 将JSON解码
 					'is_today'	=>	$goods->is_today,
 					'sold'		=>	$goods->sold,
-					'form_url'	=>	'admin/goods/edit_goods?p='.$p.'&goods_id='.$goods_id,
+					'form_url'	=>	'admin/goods/edit_goods?p='.$p.'&goods_id='.$goods_id.'&stage='.$stage,
 			);
 			$data['shop']	=	$this->shop_m->get_all();		// 获取shop表全部记录用于下拉列表中的选项
 			$data['class']	=	$this->category_m->get_all();	// 获取category表全部记录用于下拉列表中的选项
-			
+			$data['p']      =   $p;
+			$data['stage']  =   $stage;
 			load_view('admin/goods_edit', $data);
 		}
 	}
@@ -226,7 +225,7 @@ class Goods extends A_Controller
 		$p = (int)get('p');
 		$goods_id = (int)get('goods_id');
 		$is_top = $this->goods_m->get_top($goods_id);
-		var_dump($is_top);
+		$stage  = (int) get('stage');
 		if ($is_top == '0') {
 			$data = array(
 					'is_top'    =>  time(),
@@ -237,7 +236,7 @@ class Goods extends A_Controller
 			);
 		}
 		$this->goods_m->edit_goods($goods_id, $data);
-		redirect('admin/goods?p='.$p);
+		redirect('admin/goods?p='.$p.'&stage='.$stage);
 	}
 	
 	/**
@@ -248,7 +247,7 @@ class Goods extends A_Controller
 		$p = (int)get('p');
 		$goods_id = (int)get('goods_id');
 		$is_parttop = $this->goods_m->get_parttop($goods_id);
-		var_dump($is_parttop);
+		$stage  = (int) get('stage');
 		if ($is_parttop == '0') {
 			$data = array(
 					'is_parttop'    =>  time(),
@@ -259,7 +258,7 @@ class Goods extends A_Controller
 			);
 		}
 		$this->goods_m->edit_goods($goods_id, $data);
-		redirect('admin/goods?p='.$p);
+		redirect('admin/goods?p='.$p.'&stage='.$stage);
 	}
 	
 	/**
@@ -268,10 +267,12 @@ class Goods extends A_Controller
 	public function del_goods()
 	{
 		$goods_id = (int) get('goods_id');
+		$p = (int)get ('p');
+		$stage = (int)get ('stage');
 		
 		$this->goods_m->del_goods($goods_id);
 		
-		redirect('admin/goods');
+		redirect('admin/goods?p='.$p.'&stage='.$stage);
 	}
 	
 	/**
@@ -283,10 +284,11 @@ class Goods extends A_Controller
 		$goods		= $this->goods_m->get($goods_id);				// 获取goods信息
 		$stock		= $goods->stock;
 		$stock		= !$stock;
-		
+		$p        = (int) get('p');
+		$stage  = (int) get('stage');
 		$this->goods_m->mark_stock($goods_id, $stock);
 		
-		redirect('admin/goods');
+		redirect('admin/goods?p='.$p.'&stage='.$stage);
 	}
 	/**
 	 * 按照商品名称搜索

@@ -8,7 +8,7 @@
 
 <div class="content">
 	<div class="content1">
-		<a href="<?php echo base_url('admin/goods'); ?>">返回</a>
+		<a href="<?php echo base_url('admin/goods?p='.$p.'&stage='.$stage); ?>">返回</a>
 	</div>
         <div class="content2">
         <?php echo form_open_multipart($goods['form_url']); ?>
