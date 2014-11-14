@@ -267,22 +267,12 @@ class Goods extends A_Controller
 	public function del_goods()
 	{
 		$goods_id = (int) get('goods_id');
-<<<<<<< .mine
 		$p = (int)get ('p');
 		$stage = (int)get ('stage');
-		
-=======
-		$p = (int) get('p');
 
-
->>>>>>> .theirs
 		$this->goods_m->del_goods($goods_id);
 		
-<<<<<<< .mine
 		redirect('admin/goods?p='.$p.'&stage='.$stage);
-=======
-		redirect('admin/goods?p='.$p);
->>>>>>> .theirs
 	}
 	
 	/**
