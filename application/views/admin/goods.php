@@ -67,7 +67,7 @@
                         	echo '是'; } else {echo '否';}?>
 						</td>
                         <td style="text-align:center;"><a href="<?php echo base_url('/admin/goods/edit_goods?p='.$p.'&goods_id=' .$row->goods_id.'&stage='.$stage); ?>">编辑</a>
-                        	<a onclick="return del_alert()" href="<?php echo base_url('/admin/goods/del_goods?goods_id=' .$row->goods_id.'p='.$p.'&stage='.$stage); ?>">删除</a>
+                        	<a onclick="return del_alert()" href="<?php echo base_url('/admin/goods/del_goods?goods_id=' .$row->goods_id.'&p='.$p.'&stage='.$stage); ?>">删除</a>
                         	<a href="<?php echo base_url('/admin/goods/in_out_stock?goods_id=' .$row->goods_id.'&p='.$p.'&stage='.$stage); ?>">
                         	<?php if ($row->stock === '0') {
                         	echo '有货';} else {echo '缺货';}?></a></br>
