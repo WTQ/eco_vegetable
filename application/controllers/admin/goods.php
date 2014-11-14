@@ -121,7 +121,8 @@ class Goods extends A_Controller
 			);
 			$data['shop']	=	$this->shop_m->get_all();		// 获取shop表全部记录用于下拉列表中的选项
 			$data['class']	=	$this->category_m->get_all();	// 获取category表全部记录用于下拉列表中的选项
-			
+			$data['p'] = 0;
+			$data['stage'] = 0;
 			load_view('admin/goods_edit', $data);
 		}
 	}
