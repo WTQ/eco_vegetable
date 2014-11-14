@@ -213,6 +213,7 @@ class Goods extends A_Controller
 			);
 			$data['shop']	=	$this->shop_m->get_all();		// 获取shop表全部记录用于下拉列表中的选项
 			$data['class']	=	$this->category_m->get_all();	// 获取category表全部记录用于下拉列表中的选项
+			$data['p'] = $p;
 			
 			load_view('admin/goods_edit', $data);
 		}
@@ -268,10 +269,10 @@ class Goods extends A_Controller
 	public function del_goods()
 	{
 		$goods_id = (int) get('goods_id');
-		
+		$p = (int) get('p');
 		$this->goods_m->del_goods($goods_id);
 		
-		redirect('admin/goods');
+		redirect('admin/goods?p='.$p);
 	}
 	
 	/**
