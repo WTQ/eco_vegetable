@@ -191,6 +191,7 @@ class Goods extends A_Controller
 					'sold'		=>	$sold,
 			);
 			$this->goods_m->edit_goods($goods_id, $data['goods']);
+			$this->goods_m->deldir($goods_id);
 			redirect('admin/goods?p='.$p.'&stage='.$stage);
 		} else {
 			$goods	=	$this->goods_m->get($goods_id);				// 获取goods信息
