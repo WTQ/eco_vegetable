@@ -252,6 +252,14 @@ img {
 	height:44px;
 	background:url('../image/papp.png') no-repeat 10% center;
 }
+.milk {
+	height:44px;
+	background:url('../image/milk.png') no-repeat 10% center;
+}
+.candy {
+	height:44px;
+	background:url('../image/candy.png') no-repeat 10% center;
+}
 .tutechan{
 	height:44px;
 	background:url('../image/alcohol.png') no-repeat 10% center;
