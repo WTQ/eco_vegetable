@@ -25,9 +25,11 @@
 									<option value="4" <?php if($stage == 4) echo 'selected'?> >时鲜水果</option>
 									<option value="5" <?php if($stage == 5) echo 'selected'?> >粮油副食</option>
 									<option value="6" <?php if($stage == 6) echo 'selected'?> >南北干货</option>
+									<option value="10" <?php if($stage == 10) echo 'selected'?> >牛奶乳品</option>
 									<option value="7" <?php if($stage == 7) echo 'selected'?> >营养保健</option>
 									<option value="8" <?php if($stage == 8) echo 'selected'?> >地方特产</option>
-									<option value="9" <?php if($stage == 8) echo 'selected'?> >生活用品</option>
+									<option value="11" <?php if($stage == 11) echo 'selected'?> >母婴用品</option>
+									<option value="9" <?php if($stage == 9) echo 'selected'?> >生活用品</option>
 								</select>
 								<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
 							</td>

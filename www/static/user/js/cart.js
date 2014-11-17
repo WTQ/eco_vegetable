@@ -269,7 +269,7 @@ function cart_dejson(all) {
 }
 
 /**
- * 更新footer中的购物撤items和总金额
+ * 更新footer中的购物车items和总金额
  */
 function cart_badge() {
     localStorage['total_price'] = cart_total_price();

@@ -52,7 +52,8 @@ function shop_info() {
 			// 将起送价本地存储
 			localStorage['low_price'] = low_price;
 			localStorage['shop_address'] = data.shop['address'];
-			$("#low_price").text("订单满 " + low_price + " 元免费送货上门");
+			//$("#low_price").text("订单满 " + low_price + " 元免费送货上门");
+			$("#low_price").text("果蔬类60天满300元送精品暖宝");
 
 			// 显示小区名+店铺名
 			$('#shop_name').text( data.community['name'] + ' - ' + data.shop['name'] );
@@ -82,20 +83,28 @@ function shop_info() {
 }
 
 /**
- * 商品列表相关函数
+ * 获取商品列表函数
  */
 function goods_info() {
+    var class_id = get_param("class_id");
+	if (firstLoadGoods != true && class_id == null) {
+		return;
+	}
+
+	goods_sort_change();
+	$.ui.toggleSideMenu();
+}
+
+/**
+ * 商品列表相关函数
+ */
+function goods_sort_change() {
     // shop_info();
     cart_badge();
     localStorage['shop_id']      = 1;
     localStorage['community_id'] = 1;
-    
     // 清除历史panel记录
-    $.ui.clearHistory();
-    
-	if (firstLoadGoods != true) {
-		return;
-	}
+//    $.ui.clearHistory();
 	var class_id = get_param("class_id");							// 取得分类id
 	if (class_id == null) {
 		class_id = 0;
@@ -105,18 +114,22 @@ function goods_info() {
 		'class_id' : class_id
 	};
 
+	// 重建滚动层
+	$('#goods_wrap').html('<div id="goods_all"><div id="goods_scrolling"></div></div>');
+	
 	load_mask();
 	$.getJSON( url('/user/shop/list_goods?&callback=?'), get, function(data) {
-		firstLoadGoods = false;
+		hide_mask();
+		
 		var html = template.render('goods_tab', data);				// JSON数据用模板渲染
 		$('#goods_scrolling').html(html);							// 把渲染后的html代码加载到panel中
-		
         // 将起送价本地存储
         localStorage['low_price'] = data.low_price;
-        $("#low_price").text("订单满 " + data.low_price + " 元免费送货上门");
-		
+        //$("#low_price").text("订单满 " + data.low_price + " 元免费送货上门");
+        $("#low_price").text("果蔬类60天满300元送精品暖宝");
 		goods_scrolling();
-		hide_mask();
+		
+		firstLoadGoods = false;
 	});
 }
 
@@ -272,11 +285,13 @@ function goods_scrolling() {
 
     	if ($('.infinite').length < 1) {
     		$('#goods_scrolling').append('<div class="infinite" id="infinite" style="height:90px;line-height:60px;text-align:center;font-weight:bold">正在加载...</div>');
+    		myScroller.scrollToBottom();
     	}
 	};
 	
 	function infinite_scroll_end() {
 		if (is_scrolling == true) {
+			this.clearInfinite();
         	return ;
         } else {
         	this.clearInfinite();
