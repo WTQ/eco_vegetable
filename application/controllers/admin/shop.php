@@ -15,7 +15,7 @@ class Shop extends A_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		load_model( array('admin_user_m', 'shop_m', 'zone_community_m', 'zone_block_m', 'zone_district_m', 'zone_province_m'));
+		load_model( array('admin_user_m', 'shop_m','user_m', 'zone_community_m', 'zone_block_m', 'zone_district_m', 'zone_province_m'));
 		load_helper('page');
 	}
 	
@@ -29,12 +29,7 @@ class Shop extends A_Controller
 		
 		$data['shop']	=	$this->shop_m->limit($per_page, ($p-1) * $per_page)->get_all();
 		$data['page']	=	page($this->shop_m->count_all(), $per_page); 
-		
-		/*foreach ($data['shop'] as $row) {
-			$data['community'][$row->community_id] = $this->zone_community_m->get($row->community_id);	// 查询community信息
-			$data['block'][$row->community_id] = $this->zone_block_m->get($data['community'][$row->community_id]->block_id);	// 查询block信息
-			$data['district'][$row->community_id] = $this->zone_district_m->get($data['block'][$row->community_id]->district_id);	// 查询district信息
-		}*/
+		$data['user_number'] = $this->user_m->count();
 		if ($data !== NULL) {
 			load_view('admin/shop_tab', $data);
 		} else {

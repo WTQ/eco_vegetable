@@ -494,7 +494,7 @@ class Order_m extends MY_Model
 	/**
 	 * 商品订单统计
 	 */
-	public function goods_list($stage = 0, $sort_stage = 0, $month = 0,$keywords = 0)
+	public function goods_list($sort_stage = 0, $month = 0,$keywords = 0)
 	{
 		$return = array();
 		$this->db->select('order_id');
@@ -505,11 +505,12 @@ class Order_m extends MY_Model
 			$this->db->where("add_time >=",$time1);
 			$this->db->where("add_time <=",$time2);
 		}
-		if($stage) {
+		/*if($stage) {
 			$this->db->where('stage',$stage);
 		} else {
 			$this->db->where_in('stage', array(7,8));
-		}
+		}*/
+		$this->db->where('stage', 8);
 		$query = $this->db->get('yf_order');
 		if ($query->num_rows() > 0) {
 			$order_id = "(";
@@ -563,14 +564,15 @@ class Order_m extends MY_Model
 	/**
 	 *按照地址统计订单
 	 */
-	public function goods_list_address($stage = 0, $sort_stage = 0, $address)
+	public function goods_list_address($sort_stage = 0, $address)
 	{
 		$sql_order = 'WHERE ';
-		if($stage) {
+		/*if($stage) {
 			$sql_order = $sql_order.'b.stage='.$stage;
 		} else {
 			$sql_order = $sql_order.'b.stage IN (7,8) ';
-		}
+		}*/
+		$sql_order = $sql_order.'b.stage = 8 ';
 		if($sort_stage) {
 			$sql_order = $sql_order.'AND c.class_id='.$sort_stage;
 		}

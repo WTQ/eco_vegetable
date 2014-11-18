@@ -3,7 +3,7 @@
 		<div class="content">
 			<div class="content1" style="width:100%;">
             	<div class="left content1_print"><a href="<?php echo base_url('/admin/order/'); ?>">订单统计</a></div>
-            	<form class="left form_1" action="<?php echo base_url('admin/order/order_goods?stage='.$stage.'&sort_stage='.$sort_stage)?>" method="get" >
+            	<form class="left form_1" action="<?php echo base_url('admin/order/order_goods?sort_stage='.$sort_stage)?>" method="get" >
             		<select name="type" class="left list_select">
             			<option value="0" <?php if($type=='0'): echo 'selected'; endif;?>>按商品名搜索</option>
             			<option value="1" <?php if($type=='1'): echo 'selected'; endif;?>>按地址搜索</option>
@@ -25,16 +25,16 @@
 					<table width="100%">
 						<tr>
 							<td width="80%">订单状态：
-								<select name="stage">
+								<!--<select name="stage">
 									<option value="0">全部</option>
-									<option value="7" <?php if($stage == 7) echo 'selected'?> >在线未付款</option>
-									<option value="8" <?php if($stage == 8) echo 'selected'?> >已在线付款</option>
-									<!-- <option value="1" <?php if($stage == 1) echo 'selected'?> >已提交</option>
-									<option value="2" <?php if($stage == 2) echo 'selected'?> >已发货</option>
-									<option value="3" <?php if($stage == 3) echo 'selected'?> >已完成</option>
-									<option value="4" <?php if($stage == 4) echo 'selected'?> >已取消</option>
-									<option value="5" <?php if($stage == 5) echo 'selected'?> >已确认</option> -->
-								</select>
+									<option value="7" <?php //if($stage == 7) echo 'selected'?> >在线未付款</option>
+									<option value="8" <?php //if($stage == 8) echo 'selected'?> >已在线付款</option>
+									 <option value="1" <?php //if($stage == 1) echo 'selected'?> >已提交</option>
+									<option value="2" <?php //if($stage == 2) echo 'selected'?> >已发货</option>
+									<option value="3" <?php //if($stage == 3) echo 'selected'?> >已完成</option>
+									<option value="4" <?php //if($stage == 4) echo 'selected'?> >已取消</option>
+									<option value="5" <?php //if($stage == 5) echo 'selected'?> >已确认</option>
+								</select> -->
 								<select name="sort_stage">
 										<option value="0" <?php if($sort_stage == 0) echo 'selected'?>>全部</option>
 										<option value="1" <?php if($sort_stage == 1) echo 'selected'?> >田园时蔬</option>

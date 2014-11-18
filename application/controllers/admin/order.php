@@ -103,10 +103,10 @@ class Order extends A_Controller
 	{
 		$per_page = 20;
 		$p = (int) page_cur();
-		$stage = $this->input->get('stage', TRUE);
+		/*$stage = $this->input->get('stage', TRUE);
 		if (empty($stage)) {
 			$stage = 0;
-		}
+		}*/
 		
 		$sort_stage = $this->input->get('sort_stage', TRUE);
 		if (empty($sort_stage)) {
@@ -124,11 +124,11 @@ class Order extends A_Controller
 			$month = 0;
 		}
 		if($type == '0') {
-			$data['orders'] = $this->order_m->goods_list($stage, $sort_stage, $month, $keywords);
+			$data['orders'] = $this->order_m->goods_list($sort_stage, $month, $keywords);
 		} else {
-			$data['orders'] = $this->order_m->goods_list_address($stage, $sort_stage, $month ,$keywords);
+			$data['orders'] = $this->order_m->goods_list_address($sort_stage, $month ,$keywords);
 		}
-		$data['stage'] = $stage;
+		//$data['stage'] = $stage;
 		$data['sort_stage'] = $sort_stage;
 		$data['keywords'] = $keywords;
 		$data['type'] = $type;
