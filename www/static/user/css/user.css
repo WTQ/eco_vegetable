@@ -1996,3 +1996,10 @@ img {
 	font-size:18px;
 	line-height:60px;
 }
+.logout_button {
+	color:#FFF !important;
+}
+#logout {
+	float:right;
+	padding-right:5%;
+}

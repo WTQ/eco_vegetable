@@ -62,7 +62,13 @@ function my_account() {
 		hide_mask();
 
 		var myScroller = $('#scroller_address').scroller();
+		if (data.login == 1) {
+		    $('.logout_button').show();
+		} else {
+		    $('.logout_button').hide();
+		}
 	});
+	
 }
 
 
@@ -177,3 +183,27 @@ $.ui.ready(function() {
 		});
 	});
 });
+
+/**
+ * 我的账户页面判断是否切换账户
+ */
+function logout() {
+	$.ui.popup ({
+		title:"警告",
+		message:"确定要切换账户吗？",
+		cancelText:"取消",
+		doneText:"确认",
+		doneCallback: function() {
+			localStorage.removeItem('phone');
+			localStorage.removeItem('user_id');
+			localStorage.removeItem('user_address');
+			
+			load_mask();
+			$.getJSON(url('/user/logout?callback=?'), function(data) {
+			    hide_mask();
+                redirect('#sign');
+			});
+		},
+		cancelOnly:false
+	});
+}
