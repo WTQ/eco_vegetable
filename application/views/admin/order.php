@@ -3,7 +3,7 @@
 		<div class="content">
 			<div class="content1" style="width:100%!important;height:50px!important;">
 				<div class="left content1_print">
-					<a href="<?php echo base_url('/admin/order/order_goods/'); ?>">订单商品统计</a>
+					<a href="<?php echo base_url('/admin/order/order_goods'); ?>">订单商品统计</a>
 				</div>
 				<div class="cl"></div>
         	</div>	
@@ -29,12 +29,19 @@
 										<option value="8" <?php if($stage == 8) echo 'selected'?> >已在线付款</option>
 									</select>
 									<input autocomplete="off" id="search_input" name="search_input" type="search" placeholder="可输入配送地址" value = "<?php echo $search_input; ?>">
+									&nbsp;&nbsp;&nbsp;&nbsp;
+									<select name="date_type">
+										<option value="0" <?php if($date_type == 0) echo 'selected'?> >0:00~24：00</option>
+										<option value="1" <?php if($date_type == 1) echo 'selected'?> >11:00~23:00</option>
+										<option value="2" <?php if($date_type == 2) echo 'selected'?> >昨23：00~今11:00</option>
+									</select>
+									<input class="Wdate" name="date" placeholder="选择日期" value="<?php echo $date; ?>" onClick="WdatePicker()">
 									<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
 								</td>
 								<td>
 									<a href="<?php echo base_url('/admin/order/gen_excel?'.$keywords); ?>">导出表格</a>&nbsp;&nbsp;&nbsp;&nbsp;
 									<!-- <a href="<?php echo base_url('/admin/order/gen_word?'.$keywords); ?>">批量打印</a> -->
-									<a href="<?php echo base_url('/admin/order/order_bulk_print?'.$keywords); ?>">批量打印</a>
+									<a href="<?php echo base_url('/admin/order?print=1&'.$keywords); ?>">批量打印</a>
 									<a onclick="return del_some()" href="#">批量删除</a>
 								</td>
 							</tr>

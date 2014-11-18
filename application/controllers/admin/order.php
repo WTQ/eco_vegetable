@@ -27,31 +27,39 @@ class Order extends A_Controller
 		$p = (int) page_cur();
 		$data['p'] = $p;
 		$shop_id = 1;
-		$stage = $this->input->get('stage', TRUE);
-		$keywords = $this->input->get('search_input', TRUE);
-
-		$data['orders'] = $this->order_m->to_excel($stage, $keywords, $per_page, ($p-1)*$per_page);
+		$print     = $this->input->get('print',TRUE);
+		$stage     = $this->input->get('stage', TRUE);
+		$date_type = $this->input->get('date_type', TRUE);
+		$date      = $this->input->get('date', TRUE);
+		$keywords  = $this->input->get('search_input', TRUE);
+		$data['orders'] = $this->order_m->to_excel($stage, $keywords,$date_type,$date, $per_page, ($p-1)*$per_page);
 		$i = 0;
 		foreach ($data['orders'] as $key) {
 			$data['orders'][$i]['username'] = $this->user_m->get_byid($key['user_id']);
 			$i++;
 		}
-		$total_row = $this->order_m->num2excel($stage);
+		$total_row = $this->order_m->num2excel($stage, $keywords,$date_type,$date);
 		$data['page_html'] =  $this->_page_init($per_page, $total_row, $shop_id, $stage);
 		$data['shops'] = $this->shops_m->get_all();
 		if($shop_id !== FALSE) {
-			$data['keywords'] ='shop_id='.$shop_id.'&stage='.$stage.'&search_input='.$keywords.'&p='.$p;
+			$data['keywords'] ='shop_id='.$shop_id.'&stage='.$stage.'&search_input='.$keywords.'&date_type='.$date_type.'&date='.$date.'&p='.$p;
 
 		} else {
 			$data['keywords']='';
 		}
 		$data['shop_id'] = $shop_id;
 		$data['stage'] = $stage;
+		$data['date_type'] = $date_type;
+		$data['date'] = $date;
 		$data['search_input'] = $keywords;
-		load_view('admin/order', $data);
+		if ($print == 1) {
+			load_view('admin/order_bulk_print', $data);
+		} else {
+			load_view('admin/order', $data);
+		}
 	}
 
-	public function order_bulk_print()
+/*	public function order_bulk_print()
 	{
 		$per_page = 20;
 		$p = (int) page_cur();
@@ -80,7 +88,7 @@ class Order extends A_Controller
 		$data['search_input'] = $keywords;
 	
 		load_view('admin/order_bulk_print', $data);
-	}
+	}*/
 	
 	public function del_some()
 	{
@@ -103,43 +111,50 @@ class Order extends A_Controller
 	{
 		$per_page = 20;
 		$p = (int) page_cur();
-		$stage = $this->input->get('stage', TRUE);
+		$print      = $this->input->get('print',TRUE);
+		$stage      = $this->input->get('stage', TRUE);
+		$sort_stage = $this->input->get('sort_stage', TRUE);
+		$date_type  = $this->input->get('date_type', TRUE);
+		$date       = $this->input->get('date',TRUE);
+		$keywords   = $this->input->get('search');
+		$type       = $this->input->get('type');
+		$month      = (int)get ('month');
 		if (empty($stage)) {
 			$stage = 0;
 		}
-		
-		$sort_stage = $this->input->get('sort_stage', TRUE);
 		if (empty($sort_stage)) {
 			$sort_stage = 0;
 		}
-		
-		$keywords = $this->input->get('search');
-		$type = $this->input->get('type');
 		if (empty($keywords)) {
 			$keywords = 0;
 		}
-		
-		$month = (int)get ('month');
 		if (empty($month)) {
 			$month = 0;
 		}
 		if($type == '0') {
-			$data['orders'] = $this->order_m->goods_list($stage, $sort_stage, $month, $keywords);
+			$data['orders'] = $this->order_m->goods_list($stage, $sort_stage, $month,$date_type,$date, $keywords);
 		} else {
-			$data['orders'] = $this->order_m->goods_list_address($stage, $sort_stage, $month ,$keywords);
+			$data['orders'] = $this->order_m->goods_list_address($stage, $sort_stage, $month,$date_type,$date,$keywords);
 		}
 		$data['stage'] = $stage;
 		$data['sort_stage'] = $sort_stage;
-		$data['keywords'] = $keywords;
+		$data['search_keywords'] = $keywords;
+		$data['keywords'] = 'sort_stage='.$sort_stage.'&stage='.$stage.'&search='.$keywords.'&month='.$month.'&type='.$type.'&date_type='.$date_type.'&date='.$date.'&p='.$p;
 		$data['type'] = $type;
 		$data['month'] = $month;
-		load_view('admin/order_goods', $data);
+		$data['date_type'] = $date_type;
+		$data['date'] = $date;
+		if ($print == 1) {
+			load_view('admin/order_goods_print', $data);
+		} else {
+			load_view('admin/order_goods', $data);
+		}
 	}
 	
 	/**
 	 * 订单商品统计打印
 	 */
-	public function goods_statistic_print()
+/*	public function goods_statistic_print()
 	{
 		$per_page = 20;
 		$p = (int) page_cur();
@@ -152,17 +167,26 @@ class Order extends A_Controller
 		if (empty($sort_stage)) {
 			$sort_stage = 0;
 		}
-	
+		$type = $this->input->get('type');
+		$month = (int)get ('month');
+		if (empty($month)) {
+			$month = 0;
+		}
+		
 		$keywords = $this->input->get('search');
 		if (empty($keywords)) {
 			$keywords = 0;
 		}
-		$data['orders'] = $this->order_m->goods_list($stage, $sort_stage, $keywords);
+		if($type == '0') {
+			$data['orders'] = $this->order_m->goods_list($stage, $sort_stage, $month, $keywords);
+		} else {
+			$data['orders'] = $this->order_m->goods_list_address($stage, $sort_stage, $month ,$keywords);
+		}
 		$data['stage'] = $stage;
 		$data['sort_stage'] = $sort_stage;
 		$data['keywords'] = $keywords;
 		load_view('admin/order_goods_print', $data);
-	}
+	}*/
 
 	public function detail()
 	{

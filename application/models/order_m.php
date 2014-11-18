@@ -402,10 +402,38 @@ class Order_m extends MY_Model
 	{
 		return (isset($this->order_config[$stage])) ? $this->order_config[$stage] : '';
 	}
+	
+	/**
+	 * 按日期和时间段删选时间生成函数
+	 */
+	private function make_date($date_type, $date)
+	{
+		$date_type = (int)$date_type;
+		$time00 = strtotime($date."00:00:00");
+		$time24 = strtotime($date."23:59:59");
+		$time11 = strtotime($date."11:00:00");
+		$time23 = strtotime($date."23:00:00");
+		$time_y23 = $time00-60*60*1;     //前一天23:00的时间戳
+		switch ($date_type)
+		{
+			case 0: $this->db->where('add_time >=',$time00);
+					$this->db->where('add_time <=',$time24);
+					break;
+			case 1: $this->db->where('add_time >=',$time11);
+					$this->db->where('add_time <=',$time23);
+					break;
+			case 2: $this->db->where('add_time >=',$time_y23);
+					$this->db->where('add_time <=',$time11);
+					break;
+			default:break;
+					
+		}
+	}
+	
 	/**
 	 * 订单管理模块
 	 */
-	public function to_excel($stage = 0, $search_input = "", $num = 0, $offset = 0)
+	public function to_excel($stage = 0, $search_input = "",$date_type, $date, $num = 0, $offset = 0)
 	{
 		$return = array();
 		$this->db->where("order_deleted",0);
@@ -417,6 +445,9 @@ class Order_m extends MY_Model
 		if (strlen($search_input) != 0) {
 			$this->db->like('address', $search_input);
 		}
+		if (!empty($date)) {
+			$this->make_date($date_type, $date);
+		}		
 		$this->db->order_by("order_id", "desc");
 		if(!$num) {
 			$query = $this->db->get('order');
@@ -430,6 +461,23 @@ class Order_m extends MY_Model
 			$i++;
 		}
 		return $return;
+	}
+	
+	public function num2excel($stage = 0,$search_input = "",$date_type, $date)
+	{
+		$this->db->where("order_deleted",0);
+		if($stage) {
+			$this->db->where('stage', $stage);
+		} else {
+			$this->db->where_in('stage', array(7,8));
+		}
+		if (strlen($search_input) != 0) {
+			$this->db->like('address', $search_input);
+		}
+		if (!empty($date)) {
+			$this->make_date($date_type, $date);
+		}
+		return $this->db->count_all_results('order');
 	}
 
 	public function to_word($stage = 0, $num=0, $offset=0)
@@ -472,16 +520,6 @@ class Order_m extends MY_Model
 		return $return;
 	}
 
-	public function num2excel($stage = 0)
-	{
-		if($stage) {
-			$this->db->where('stage', $stage);
-		} else {
-			$this->db->where_in('stage', array(7,8));
-		}
-		return $this->db->count_all_results('order');
-	}
-
 	public function set_stage($order_id, $stage)
 	{
 		$data = array('stage'=>$stage);
@@ -494,7 +532,7 @@ class Order_m extends MY_Model
 	/**
 	 * 商品订单统计
 	 */
-	public function goods_list($stage = 0, $sort_stage = 0, $month = 0,$keywords = 0)
+	public function goods_list($stage = 0, $sort_stage = 0, $month = 0,$date_type,$date,$keywords = 0)
 	{
 		$return = array();
 		$this->db->select('order_id');
@@ -504,6 +542,10 @@ class Order_m extends MY_Model
 			$time2 = mktime(0,0,0,$month+1,1,$y);
 			$this->db->where("add_time >=",$time1);
 			$this->db->where("add_time <=",$time2);
+		} else {
+			if (!empty($date)) {
+				$this->make_date($date_type, $date);
+			}
 		}
 		if($stage) {
 			$this->db->where('stage',$stage);
@@ -560,19 +602,55 @@ class Order_m extends MY_Model
 		
 		return $result;
 	}
+	
+	/**
+	 * 按日期和时间段删选时间生成函数
+	 */
+	private function make_date_sql($date_type, $date,$sql_order)
+	{
+		$date_type = (int)$date_type;
+		$time00 = strtotime($date."00:00:00");
+		$time24 = strtotime($date."23:59:59");
+		$time11 = strtotime($date."11:00:00");
+		$time23 = strtotime($date."23:00:00");
+		$time_y23 = $time00-60*60*1;     //前一天23:00的时间戳
+		switch ($date_type)
+		{
+			case 0: $sql_order = $sql_order.' AND b.add_time >= '.$time00.' AND b.add_time <= '.$time24 ;
+					break;
+			case 1: $sql_order = $sql_order.' AND b.add_time >= '.$time11.' AND b.add_time <= '.$time23 ;
+					break;
+			case 2: $sql_order = $sql_order.' AND b.add_time >= '.$time_y23.' AND b.add_time <= '.$time11 ;
+					break;
+			default:break;
+				
+		}
+		return $sql_order;
+	}
+	
 	/**
 	 *按照地址统计订单
 	 */
-	public function goods_list_address($stage = 0, $sort_stage = 0, $address)
+	public function goods_list_address($stage = 0, $sort_stage = 0,$month = 0,$date_type,$date, $address)
 	{
-		$sql_order = 'WHERE ';
-		if($stage) {
-			$sql_order = $sql_order.'b.stage='.$stage;
+		$sql_order = 'WHERE b.order_id != 0 ';
+		if($month) {
+			$y     = date("Y",time());
+			$time1 = mktime(0,0,0,$month,1,$y);
+			$time2 = mktime(0,0,0,$month+1,1,$y);
+			$sql_order = $sql_order.' AND b.add_time >= '.$time1.' AND b.add_time <= '.$time2 ;
 		} else {
-			$sql_order = $sql_order.'b.stage IN (7,8) ';
+			if (!empty($date)) {
+				$sql_order = $this->make_date_sql($date_type, $date,$sql_order);
+			}
+		}
+		if($stage) {
+			$sql_order = $sql_order.' AND b.stage='.$stage;
+		} else {
+			$sql_order = $sql_order.' AND b.stage IN (7,8) ';
 		}
 		if($sort_stage) {
-			$sql_order = $sql_order.'AND c.class_id='.$sort_stage;
+			$sql_order = $sql_order.' AND c.class_id='.$sort_stage;
 		}
 		if($address) {
 			if(!$sort_stage) {
