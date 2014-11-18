@@ -112,16 +112,16 @@ class Order extends A_Controller
 		$per_page = 20;
 		$p = (int) page_cur();
 		$print      = $this->input->get('print',TRUE);
-		$stage      = $this->input->get('stage', TRUE);
+		//$stage      = $this->input->get('stage', TRUE);
 		$sort_stage = $this->input->get('sort_stage', TRUE);
 		$date_type  = $this->input->get('date_type', TRUE);
 		$date       = $this->input->get('date',TRUE);
 		$keywords   = $this->input->get('search');
 		$type       = $this->input->get('type');
 		$month      = (int)get ('month');
-		if (empty($stage)) {
+		/*if (empty($stage)) {
 			$stage = 0;
-		}
+		}*/
 		if (empty($sort_stage)) {
 			$sort_stage = 0;
 		}
@@ -132,11 +132,11 @@ class Order extends A_Controller
 			$month = 0;
 		}
 		if($type == '0') {
-			$data['orders'] = $this->order_m->goods_list($stage, $sort_stage, $month,$date_type,$date, $keywords);
+			$data['orders'] = $this->order_m->goods_list($sort_stage, $month,$date_type,$date, $keywords);
 		} else {
-			$data['orders'] = $this->order_m->goods_list_address($stage, $sort_stage, $month,$date_type,$date,$keywords);
+			$data['orders'] = $this->order_m->goods_list_address($sort_stage, $month,$date_type,$date,$keywords);
 		}
-		$data['stage'] = $stage;
+		//$data['stage'] = $stage;
 		$data['sort_stage'] = $sort_stage;
 		$data['search_keywords'] = $keywords;
 		$data['keywords'] = 'sort_stage='.$sort_stage.'&stage='.$stage.'&search='.$keywords.'&month='.$month.'&type='.$type.'&date_type='.$date_type.'&date='.$date.'&p='.$p;
