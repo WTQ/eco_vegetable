@@ -139,7 +139,7 @@ class Order extends A_Controller
 		//$data['stage'] = $stage;
 		$data['sort_stage'] = $sort_stage;
 		$data['search_keywords'] = $keywords;
-		$data['keywords'] = 'sort_stage='.$sort_stage.'&stage='.$stage.'&search='.$keywords.'&month='.$month.'&type='.$type.'&date_type='.$date_type.'&date='.$date.'&p='.$p;
+		$data['keywords'] = 'sort_stage='.$sort_stage.'&search='.$keywords.'&month='.$month.'&type='.$type.'&date_type='.$date_type.'&date='.$date.'&p='.$p;
 		$data['type'] = $type;
 		$data['month'] = $month;
 		$data['date_type'] = $date_type;

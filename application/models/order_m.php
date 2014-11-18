@@ -650,7 +650,7 @@ class Order_m extends MY_Model
 		} else {
 			$sql_order = $sql_order.' AND b.stage IN (7,8) ';
 		}*/
-		$sql_order = $sql_order.'b.stage = 8 ';
+		$sql_order = $sql_order.' AND b.stage = 8 ';
 		if($sort_stage) {
 			$sql_order = $sql_order.' AND c.class_id='.$sort_stage;
 		}

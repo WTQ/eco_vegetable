@@ -3,7 +3,7 @@
 		<div class="content">
 			<div class="content1" style="width:100%;">
             	<div class="left content1_print"><a href="<?php echo base_url('/admin/order/'); ?>">订单统计</a></div>
-            	<form class="left form_1" action="<?php echo base_url('admin/order/order_goods?print=0&stage='.$stage.'&sort_stage='.$sort_stage)?>" method="get" >
+            	<form class="left form_1" action="<?php echo base_url('admin/order/order_goods?print=0&sort_stage='.$sort_stage)?>" method="get" >
             		<select name="type" class="left list_select">
             			<option value="0" <?php if($type=='0'): echo 'selected'; endif;?>>按商品名搜索</option>
             			<option value="1" <?php if($type=='1'): echo 'selected'; endif;?>>按地址搜索</option>
