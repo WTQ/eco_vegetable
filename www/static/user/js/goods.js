@@ -909,12 +909,13 @@ $.ui.ready(function() {
 		var final_price   = $('.total_price').text();
 		var coupon_id     = $('#shop_cuopons').val();
 		var delivery_time = $('#delivery').val();
-
+		var total_items = cart_total_items();
 		var get = {
 			'final_price'   : final_price,
 			'payment'       : payment,
 			'delivery_time' : delivery_time,
-			'coupon_id'	    : 0
+			'coupon_id'	    : 0,
+			'total_items'   :total_items
 		};
 
 		// （选择优惠后）最终总额

@@ -91,6 +91,7 @@ class Order extends U_Controller
 
 		// 购物车无物品时执行操作，直接跳转至首页
 		if($this->cart->total_items() < 1) {
+		//if((int)get('total_items') < 1) {
  			$data = array(
  				'status' => 2,
  				'msg'    => '购物车为空'
