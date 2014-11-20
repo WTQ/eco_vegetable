@@ -39,11 +39,11 @@ $config['ali_public_key_path'] = APPPATH.'key/alipay_public_key.pem';
 // TODO 卖家支付宝账号
 $config['seller_email']  = 'eco_vegetable@163.com';
 // 页面跳转同步通知页面路径
-$config['call_back_url'] = 'http://eco.te168.cn/alipay/callback';
+$config['call_back_url'] = 'http://121.41.50.149/alipay/callback';
 // 服务器异步通知页面路径
-$config['notify_url']    = 'http://eco.te168.cn/alipay/notify';
+$config['notify_url']    = 'http://121.41.50.149/alipay/notify';
 // 操作中断返回地址
-$config['merchant_url']  = 'http://eco.te168.cn/alipay/close';
+$config['merchant_url']  = 'http://121.41.50.149/alipay/close';
 
 
 //签名方式 不需修改
