@@ -1,20 +1,20 @@
-/*! User¶Ëgoods²¿·ÖµÄJS´úÂë */
+/*! Userç«¯goodséƒ¨åˆ†çš„JSä»£ç  */
 
 /**
  * @package		o2o_supermarket
  * @author 		lp1900
- * @copyright	Copyright (c) 2014. ÔÆ·«¹¤×÷ÊÒ.
+ * @copyright	Copyright (c) 2014. äº‘å¸†å·¥ä½œå®¤.
  * @version		Version 1.0
  * @since		2014.5.18
  */
 
 
 /**
- * ÉÌµêÊ×Ò³Ïà¹Øº¯Êı
+ * å•†åº—é¦–é¡µç›¸å…³å‡½æ•°
  */
 var firstLoadShop  = true;
 var firstLoadGoods = true;
-// ÉèÖÃstartÈ«¾Ö²ÎÊı
+// è®¾ç½®startå…¨å±€å‚æ•°
 var start = 0;
 
 
@@ -29,7 +29,7 @@ function shop_info() {
 	localStorage['shop_id']      = shop_id;
 	localStorage['community_id'] = community_id;
 
-	// Çå³ıÀúÊ·panel¼ÇÂ¼
+	// æ¸…é™¤å†å²panelè®°å½•
 	$.ui.clearHistory();
 
 	if (firstLoadShop != true) {
@@ -49,31 +49,31 @@ function shop_info() {
 			$('#shop_scrolling').html('<div id="body1_image"></div>');
 
 			var low_price = data.low_price;
-			// ½«ÆğËÍ¼Û±¾µØ´æ´¢
+			// å°†èµ·é€ä»·æœ¬åœ°å­˜å‚¨
 			localStorage['low_price'] = low_price;
 			localStorage['shop_address'] = data.shop['address'];
-			//$("#low_price").text("¶©µ¥Âú " + low_price + " ÔªÃâ·ÑËÍ»õÉÏÃÅ");
-			$("#low_price").text("¹ûÊßÀà60ÌìÂú300ÔªËÍ¾«Æ·Å¯±¦");
+			//$("#low_price").text("è®¢å•æ»¡ " + low_price + " å…ƒå…è´¹é€è´§ä¸Šé—¨");
+			$("#low_price").text("æœè”¬ç±»60å¤©æ»¡300å…ƒé€ç²¾å“æš–å®");
 			
-			// ÏÔÊ¾Ğ¡ÇøÃû+µêÆÌÃû
+			// æ˜¾ç¤ºå°åŒºå+åº—é“ºå
 			$('#shop_name').text(data.shop['name'] );
 			
-			// ÅĞ¶ÏÊÇ·ñÔÚÓªÒµÊ±¼ä
+			// åˆ¤æ–­æ˜¯å¦åœ¨è¥ä¸šæ—¶é—´
 			if (data.time) {
 				$("#shop_open").attr("class", "open");
-				$('#shop_open').text('ÓªÒµÖĞ');
+				$('#shop_open').text('è¥ä¸šä¸­');
 			} else {
 				$("#shop_open").attr("class", "close");
-				$('#shop_open').text('ÒÑ´òìÈ');
+				$('#shop_open').text('å·²æ‰“çƒŠ');
 			}
 			
-			// ÏÔÊ¾µêÆÌÓªÒµÊ±¼ä
+			// æ˜¾ç¤ºåº—é“ºè¥ä¸šæ—¶é—´
 			$('#shop_time').text( data.shop_hours['start_time'] + ' - ' + data.shop_hours['close_time']);
 
-			// ½«shop_ad×Ö¶ÎÖĞµÄhtml´úÂëÇ¶Èëµ½Ö¸¶¨µÄ¿éÖĞ
+			// å°†shop_adå­—æ®µä¸­çš„htmlä»£ç åµŒå…¥åˆ°æŒ‡å®šçš„å—ä¸­
 			$('#body1_image').html(data.shop['shop_ad']);
 
-			// µ÷ÓÃÊÇË¢ĞÂ´úÂë
+			// è°ƒç”¨æ˜¯åˆ·æ–°ä»£ç 
 			shop_scrolling();
 		} else {
 			redirect('#position');
@@ -83,7 +83,7 @@ function shop_info() {
 }
 
 /**
- * »ñÈ¡ÉÌÆ·ÁĞ±íº¯Êı
+ * è·å–å•†å“åˆ—è¡¨å‡½æ•°
  */
 function goods_info() {
     var class_id = get_param("class_id");
@@ -96,16 +96,16 @@ function goods_info() {
 }
 
 /**
- * ÉÌÆ·ÁĞ±íÏà¹Øº¯Êı
+ * å•†å“åˆ—è¡¨ç›¸å…³å‡½æ•°
  */
 function goods_sort_change() {
     // shop_info();
     cart_badge();
     localStorage['shop_id']      = 1;
     localStorage['community_id'] = 1;
-    // Çå³ıÀúÊ·panel¼ÇÂ¼
+    // æ¸…é™¤å†å²panelè®°å½•
 //    $.ui.clearHistory();
-	var class_id = get_param("class_id");							// È¡µÃ·ÖÀàid
+	var class_id = get_param("class_id");							// å–å¾—åˆ†ç±»id
 	if (class_id == null) {
 		class_id = 0;
 	}
@@ -114,19 +114,19 @@ function goods_sort_change() {
 		'class_id' : class_id
 	};
 
-	// ÖØ½¨¹ö¶¯²ã
+	// é‡å»ºæ»šåŠ¨å±‚
 	$('#goods_wrap').html('<div id="goods_all"><div id="goods_scrolling"></div></div>');
 	
 	load_mask();
 	$.getJSON( url('/user/shop/list_goods?&callback=?'), get, function(data) {
 		hide_mask();
 		
-		var html = template.render('goods_tab', data);				// JSONÊı¾İÓÃÄ£°åäÖÈ¾
-		$('#goods_scrolling').html(html);							// °ÑäÖÈ¾ºóµÄhtml´úÂë¼ÓÔØµ½panelÖĞ
-        // ½«ÆğËÍ¼Û±¾µØ´æ´¢
+		var html = template.render('goods_tab', data);				// JSONæ•°æ®ç”¨æ¨¡æ¿æ¸²æŸ“
+		$('#goods_scrolling').html(html);							// æŠŠæ¸²æŸ“åçš„htmlä»£ç åŠ è½½åˆ°panelä¸­
+        // å°†èµ·é€ä»·æœ¬åœ°å­˜å‚¨
         localStorage['low_price'] = data.low_price;
-        //$("#low_price").text("¶©µ¥Âú " + data.low_price + " ÔªÃâ·ÑËÍ»õÉÏÃÅ");
-        $("#low_price").text("¹ûÊßÀà60ÌìÂú300ÔªËÍ¾«Æ·Å¯±¦");
+        //$("#low_price").text("è®¢å•æ»¡ " + data.low_price + " å…ƒå…è´¹é€è´§ä¸Šé—¨");
+        $("#low_price").text("æœè”¬ç±»60å¤©æ»¡300å…ƒé€ç²¾å“æš–å®");
 		goods_scrolling();
 		
 		firstLoadGoods = false;
@@ -134,7 +134,7 @@ function goods_sort_change() {
 }
 
 /**
- * ÉÌÆ··ÖÀàÇĞ»»
+ * å•†å“åˆ†ç±»åˆ‡æ¢
  */
 function sort_change() {
 	var class_id = get_param("class_id");
@@ -149,16 +149,16 @@ function sort_change() {
 	load_mask();
 
 	$.getJSON( url('/user/shop/list_goods?callback=?'), get, function(data) {
-		var html = template.render('goods_tab', data);				// JSONÊı¾İÓÃÄ£°åäÖÈ¾
+		var html = template.render('goods_tab', data);				// JSONæ•°æ®ç”¨æ¨¡æ¿æ¸²æŸ“
 
-		// ÖØ½¨¹ö¶¯²ã
+		// é‡å»ºæ»šåŠ¨å±‚
 		var myScroller = $('#goods_all').scroller();
 		myScroller.disable();
 
-		$('#goods_all').remove();									// ÖØĞÂ¹¹½¨ goods_all ¹ö¶¯²ã
+		$('#goods_all').remove();									// é‡æ–°æ„å»º goods_all æ»šåŠ¨å±‚
 		$('#goods_wrap').html('<div id="goods_all"><div id="goods_scrolling"></div></div>');
 
-		$('#goods_scrolling').html(html);							// °ÑäÖÈ¾ºóµÄhtml´úÂë¼ÓÔØµ½panelÖĞ
+		$('#goods_scrolling').html(html);							// æŠŠæ¸²æŸ“åçš„htmlä»£ç åŠ è½½åˆ°panelä¸­
 
 		goods_scrolling();
 		hide_mask();
@@ -166,10 +166,10 @@ function sort_change() {
 }
 
 /**
- * ÏÂÀ­Ë¢ĞÂº¯Êı
+ * ä¸‹æ‹‰åˆ·æ–°å‡½æ•°
  */
 function shop_scrolling() {
-	var trigger = false;			// ×÷ÎªÅĞ¶ÏÊÇ·ñÇëÇó·şÎñÆ÷Êı¾İµÄ±êÖ¾
+	var trigger = false;			// ä½œä¸ºåˆ¤æ–­æ˜¯å¦è¯·æ±‚æœåŠ¡å™¨æ•°æ®çš„æ ‡å¿—
 	var myScroller;
 	bind_scrolling();
 
@@ -188,11 +188,11 @@ function shop_scrolling() {
 
     function scrollstart() {
     	trigger = false;
-        myScroller.setRefreshContent('ÏÂÀ­Ë¢ĞÂ');
+        myScroller.setRefreshContent('ä¸‹æ‹‰åˆ·æ–°');
     }
 
     function scrollend() {
-    	myScroller.setRefreshContent('ÏÂÀ­Ë¢ĞÂ');
+    	myScroller.setRefreshContent('ä¸‹æ‹‰åˆ·æ–°');
     	if (trigger == false) {
     		this.hideRefresh();
     	}
@@ -201,38 +201,38 @@ function shop_scrolling() {
     function refresh_trigger() {
     	// console.log("refresh_trigger");
     	trigger = true;
-    	this.setRefreshContent('ÊÍ·ÅÁ¢¼´Ë¢ĞÂ');
+    	this.setRefreshContent('é‡Šæ”¾ç«‹å³åˆ·æ–°');
     }
 
     var hideClose;
     function refresh_release() {
     	console.log("refresh_release");
-    	this.setRefreshContent('ÏÂÀ­Ë¢ĞÂ');
+    	this.setRefreshContent('ä¸‹æ‹‰åˆ·æ–°');
         var that = this;
     	if (trigger == true) {
-        	this.setRefreshContent('ÕıÔÚË¢ĞÂ¡­¡­');
+        	this.setRefreshContent('æ­£åœ¨åˆ·æ–°â€¦â€¦');
             clearTimeout(hideClose);
             hideClose = setTimeout(function () {
             	var get = {
             		'shop_id' : localStorage['shop_id']
             	};
-    	        // ÏÂÀ­Ë¢ĞÂ´úÂë
+    	        // ä¸‹æ‹‰åˆ·æ–°ä»£ç 
             	$.getJSON(url('/user/shop?callback=?'), get, function(data) {
                 	that.hideRefresh();
                 	myScroller.disable();
 
-                	// ÖØĞÂ¹¹½¨body1_image¹ö¶¯²ã
+                	// é‡æ–°æ„å»ºbody1_imageæ»šåŠ¨å±‚
                 	$('#body1_image').remove();
                 	$('#shop_scrolling').html('<div id="body1_image"></div>');
-            		// ½«shop_ad×Ö¶ÎÖĞµÄhtml´úÂëÇ¶Èëµ½Ö¸¶¨µÄ¿éÖĞ
+            		// å°†shop_adå­—æ®µä¸­çš„htmlä»£ç åµŒå…¥åˆ°æŒ‡å®šçš„å—ä¸­
             		$('#body1_image').html(data.shop['shop_ad']);
 
-            		// ÖØĞÂ°ó¶¨ÊÂ¼ş
+            		// é‡æ–°ç»‘å®šäº‹ä»¶
         			bind_scrolling();
             	});
             }, 500);
     	} else {
-    		this.setRefreshContent('ÒÑÈ¡Ïû');
+    		this.setRefreshContent('å·²å–æ¶ˆ');
     		clearTimeout(hideClose);
     		hideClose = setTimeout(function () {
     			that.hideRefresh();
@@ -245,7 +245,7 @@ function shop_scrolling() {
     function refresh_cancel() {
     	console.log("refresh_cancel");
     	trigger = false;
-        myScroller.setRefreshContent('ÏÂÀ­Ë¢ĞÂ');
+        myScroller.setRefreshContent('ä¸‹æ‹‰åˆ·æ–°');
         clearTimeout(hideClose);
     }
 
@@ -255,14 +255,14 @@ function shop_scrolling() {
 }
 
 /**
- * ÉÏÀ­Ë¢ĞÂº¯Êı
+ * ä¸Šæ‹‰åˆ·æ–°å‡½æ•°
  */
 function goods_scrolling() {
 	var p = 1;
 	var myScroller;
 	var is_scrolling = false;
 	bind_scrolling();
-	// °ó¶¨Ïà¹Ø»¬¶¯ÊÂ¼ş
+	// ç»‘å®šç›¸å…³æ»‘åŠ¨äº‹ä»¶
     function bind_scrolling() {
     	myScroller = $('#goods_all').scroller();
     	myScroller.addInfinite();
@@ -271,20 +271,20 @@ function goods_scrolling() {
 		$.bind(myScroller, "infinite-scroll-end", infinite_scroll_end);
 	    myScroller.enable();
 
-	    // °ó¶¨Ìí¼Ó¹ºÎï³µ°´Å¥
+	    // ç»‘å®šæ·»åŠ è´­ç‰©è½¦æŒ‰é’®
 	    add2cart();
     }
 
     function infinite_scroll() {
     	// console.log("infinite-scroll");
-    	// ÅĞ¶ÏĞè²»ĞèÒªÏÂÀ­Ë¢ĞÂ£¬Èç¹ûÊı¾İ²»¹»Ò»¸ö·ÖÒ³Êı¾İ£¬Ö±½Ó·µ»Ø
+    	// åˆ¤æ–­éœ€ä¸éœ€è¦ä¸‹æ‹‰åˆ·æ–°ï¼Œå¦‚æœæ•°æ®ä¸å¤Ÿä¸€ä¸ªåˆ†é¡µæ•°æ®ï¼Œç›´æ¥è¿”å›
     	if ($('#goods_scrolling .goods').length < goods_page) {
     		this.clearInfinite();
     		return false;
     	}
 
     	if ($('.infinite').length < 1) {
-    		$('#goods_scrolling').append('<div class="infinite" id="infinite" style="height:90px;line-height:60px;text-align:center;font-weight:bold">ÕıÔÚ¼ÓÔØ...</div>');
+    		$('#goods_scrolling').append('<div class="infinite" id="infinite" style="height:90px;line-height:60px;text-align:center;font-weight:bold">æ­£åœ¨åŠ è½½...</div>');
     		myScroller.scrollToBottom();
     	}
 	};
@@ -304,17 +304,17 @@ function goods_scrolling() {
 			class_id = (class_id == null)? 0 : class_id;
 			var get = {
 				'shop_id'	: localStorage['shop_id'],
-				'class_id'	: class_id,					// »ñÈ¡Á´½ÓÖĞµÄ·ÖÀàidºÅ
+				'class_id'	: class_id,					// è·å–é“¾æ¥ä¸­çš„åˆ†ç±»idå·
 				'p'			: p + 1,
 			};
 
-			// µ÷ÓÃ¿ØÖÆÆ÷»ñÈ¡Êı¾İ
+			// è°ƒç”¨æ§åˆ¶å™¨è·å–æ•°æ®
 			$.getJSON( url('/user/shop/list_goods?callback=?'), get, function(data) {
-				var html = template.render('goods_tab', data);			// ÇëÇóµ½µÄJSONÊı¾İÓÃ htmlÄ£°åäÖÈ¾
+				var html = template.render('goods_tab', data);			// è¯·æ±‚åˆ°çš„JSONæ•°æ®ç”¨ htmlæ¨¡æ¿æ¸²æŸ“
 
-				$('#goods_scrolling').append(html);						// °ÑäÖÈ¾ºóµÄhtml´úÂëÌí¼Óµ½div¿éÖĞ
+				$('#goods_scrolling').append(html);						// æŠŠæ¸²æŸ“åçš„htmlä»£ç æ·»åŠ åˆ°divå—ä¸­
 
-				// °ó¶¨Ìí¼Ó¹ºÎï³µ°´Å¥
+				// ç»‘å®šæ·»åŠ è´­ç‰©è½¦æŒ‰é’®
 				add2cart();
 
 				$('.infinite').remove();
@@ -337,7 +337,7 @@ function goods_scrolling() {
 }
 
 /**
- * ËÑË÷¿ò°ó¶¨ÊÂ¼ş
+ * æœç´¢æ¡†ç»‘å®šäº‹ä»¶
  */
 $.ui.ready(function() {
 	$('#search_form').submit(function() {
@@ -347,18 +347,18 @@ $.ui.ready(function() {
 			'keyword' : keyword,
 		};
 
-		// ÏÔÊ¾ËÑË÷²ã
+		// æ˜¾ç¤ºæœç´¢å±‚
 		$("#search_content").addClass("search_change");
 		$('#search_input')[0].blur();
 
-		// ÉèÖÃËÑË÷ÀúÊ·
+		// è®¾ç½®æœç´¢å†å²
 		set_keyword(keyword);
 		update_keyowrd();
 
 		load_mask();
 		$.getJSON(url('/user/goods/search?callback=?'), get, function(data) {
-			var html = template.render('goods_tab', data);				// JSONÊı¾İÓÃÄ£°åäÖÈ¾
-			$('#search_results').html(html);							// °ÑäÖÈ¾ºóµÄhtml´úÂë¼ÓÔØµ½search_results¿éÖĞ
+			var html = template.render('goods_tab', data);				// JSONæ•°æ®ç”¨æ¨¡æ¿æ¸²æŸ“
+			$('#search_results').html(html);							// æŠŠæ¸²æŸ“åçš„htmlä»£ç åŠ è½½åˆ°search_resultså—ä¸­
 
 			search_scrolling();
 			hide_mask();
@@ -369,20 +369,20 @@ $.ui.ready(function() {
 });
 
 /**
- * ËÑË÷Ò³Ãæ
+ * æœç´¢é¡µé¢
  */
 function goods_search() {
-	// ½¹µã·ÅÖÃÓÚËÑË÷¿ò
+	// ç„¦ç‚¹æ”¾ç½®äºæœç´¢æ¡†
 	$('#search_input').val('');
 	$('#search_input')[0].focus();
 	$("#search_content").removeClass('search_change');
 
-	// ¸üĞÂËÑË÷ÀúÊ·¼ÇÂ¼
+	// æ›´æ–°æœç´¢å†å²è®°å½•
 	update_keyowrd();
 }
 
 /**
- * ÉèÖÃËÑË÷µÄ¹Ø¼ü´Ê
+ * è®¾ç½®æœç´¢çš„å…³é”®è¯
  */
 function set_keyword(keyword) {
 	var all = new Array;
@@ -390,7 +390,7 @@ function set_keyword(keyword) {
 	if (ls !== null) {
 		all = $.parseJSON(ls);
 
-		// ·ÀÖ¹ÏàÍ¬µÄ¹Ø¼ü´Ê±»¼ÓÈë
+		// é˜²æ­¢ç›¸åŒçš„å…³é”®è¯è¢«åŠ å…¥
 		for (var i = 0; i < all.length; ++i) {
 		    if (all[i] == keyword) {
 		        all.splice(i, 1);
@@ -398,7 +398,7 @@ function set_keyword(keyword) {
 		}
 		all.unshift(keyword);
 
-		//  ±£³Ö¹Ø¼ü´ÊµÄ¸öÊı
+		//  ä¿æŒå…³é”®è¯çš„ä¸ªæ•°
 		if (all.length > 5) {
 			all.splice(5, 1);
 		}
@@ -409,7 +409,7 @@ function set_keyword(keyword) {
 }
 
 /**
- * »ñÈ¡ËÑË÷¹Ø¼ü´Ê
+ * è·å–æœç´¢å…³é”®è¯
  */
 function get_keyword() {
 	var all = new Array;
@@ -421,14 +421,14 @@ function get_keyword() {
 }
 
 /**
- * Çå³ı¹Ø¼ü×ÖÀúÊ·¼ÇÂ¼
+ * æ¸…é™¤å…³é”®å­—å†å²è®°å½•
  */
 function clear_keyword() {
 	localStorage.removeItem('keyword');
 }
 
 /**
- * ¸üĞÂ¹Ø¼ü×ÖÁĞ±í
+ * æ›´æ–°å…³é”®å­—åˆ—è¡¨
  */
 function update_keyowrd() {
 	var data = {
@@ -437,7 +437,7 @@ function update_keyowrd() {
 	var html = template.render('tmp_search_hist', data);
 	$('#search_history_list').html(html);
 
-	// °ó¶¨µã»÷²Ù×÷
+	// ç»‘å®šç‚¹å‡»æ“ä½œ
 	$('#search_history_list a').unbind('click');
 	$('#search_history_list li').click(function() {
 		keyword = $(this).text();
@@ -447,7 +447,7 @@ function update_keyowrd() {
 }
 
 /**
- * ÊäÈë¿òµÄÈ¡Ïû°´Å¥
+ * è¾“å…¥æ¡†çš„å–æ¶ˆæŒ‰é’®
  */
 function input_cancel(s_input) {
 	document.getElementById(s_input).blur();
@@ -455,14 +455,14 @@ function input_cancel(s_input) {
 }
 
 /**
- * ËÑË÷½á¹ûÒ³ÃæÉÏÀ­Ë¢ĞÂº¯Êı
+ * æœç´¢ç»“æœé¡µé¢ä¸Šæ‹‰åˆ·æ–°å‡½æ•°
  */
 function search_scrolling() {
 	var p = 1;
 	var myScroller;
 	bind_scrolling();
 
-	// °ó¶¨ÉÏÀ­»¬¶¯ÊÂ¼ş
+	// ç»‘å®šä¸Šæ‹‰æ»‘åŠ¨äº‹ä»¶
     function bind_scrolling() {
     	myScroller = $('#search_wrap').scroller();
     	myScroller.addInfinite();
@@ -470,13 +470,13 @@ function search_scrolling() {
 	    $.bind(myScroller, "infinite-scroll", infinite_scroll);
 	    myScroller.enable();
 
-		// °ó¶¨Ìí¼Ó¹ºÎï³µ°´Å¥
+		// ç»‘å®šæ·»åŠ è´­ç‰©è½¦æŒ‰é’®
 	    add2cart();
     }
 
     function infinite_scroll() {
     	console.log("infinite-scroll");
-    	// Èç¹ûËÑË÷½á¹û²»¹»Ò»¸ö·ÖÒ³Êı¾İ10£¬Ö±½Ó·µ»Ø
+    	// å¦‚æœæœç´¢ç»“æœä¸å¤Ÿä¸€ä¸ªåˆ†é¡µæ•°æ®10ï¼Œç›´æ¥è¿”å›
     	if ($('#search_results .goods').length < goods_page) {
     		this.clearInfinite();
     		return false;
@@ -487,7 +487,7 @@ function search_scrolling() {
 
     	var self = this;
 
-    	$('#search_results').append('<div id="infinite" style="height:90px;line-height:60px;text-align:center;font-weight:bold">ÕıÔÚ¼ÓÔØ...</div>');
+    	$('#search_results').append('<div id="infinite" style="height:90px;line-height:60px;text-align:center;font-weight:bold">æ­£åœ¨åŠ è½½...</div>');
     	this.scrollToBottom();
 
     	$.bind(myScroller, "infinite-scroll-end", function () {
@@ -498,16 +498,16 @@ function search_scrolling() {
             	self.clearInfinite();
             	var get = {
 					'shop_id'	: localStorage['shop_id'],
-            		'keyword'	: $('#search_input').val(),						// »ñÈ¡ËÑË÷¿òµÄÊäÈëÄÚÈİ
+            		'keyword'	: $('#search_input').val(),						// è·å–æœç´¢æ¡†çš„è¾“å…¥å†…å®¹
             		'p'			: p + 1,
             	};
             	$.getJSON(url('/user/goods/search?callback=?'), get, function(data) {
-            		var html = template.render('goods_tab', data);				// JSONÊı¾İÓÃÄ£°åäÖÈ¾
+            		var html = template.render('goods_tab', data);				// JSONæ•°æ®ç”¨æ¨¡æ¿æ¸²æŸ“
 
-            		$('#search_results').append(html);							// °ÑäÖÈ¾ºóµÄhtml´úÂëÌí¼Óµ½search_results¿éÖĞ
+            		$('#search_results').append(html);							// æŠŠæ¸²æŸ“åçš„htmlä»£ç æ·»åŠ åˆ°search_resultså—ä¸­
             		$('#infinite').remove();
 
-        			// °ó¶¨Ìí¼Ó¹ºÎï³µ°´Å¥
+        			// ç»‘å®šæ·»åŠ è´­ç‰©è½¦æŒ‰é’®
         		    add2cart();
 
             		var goods_num = data.goods.length;
@@ -528,10 +528,10 @@ function search_scrolling() {
 }
 
 /**
- * µ¥Æ·ÏêÇéÒ³Ãæº¯Êı
+ * å•å“è¯¦æƒ…é¡µé¢å‡½æ•°
  */
 function load_goods_detail() {
-	var goods_id = get_param("goods_id");		// ½âÎöÁ´½ÓÖĞµÄgoods_id
+	var goods_id = get_param("goods_id");		// è§£æé“¾æ¥ä¸­çš„goods_id
 	var get      = {
 		'goods_id' : goods_id
 	};
@@ -543,18 +543,18 @@ function load_goods_detail() {
 		$.getJSON(url('/user/goods/info?callback=?'), get, function(data) {
 			var html = template.render('tmp_goods_index', data);
 			$('#goods_info_scrolling').html(html);
-			// ÔÚadd_cart±êÇ©ÖĞÌí¼ÓÉÌÆ·ĞÅÏ¢ÊôĞÔ
+			// åœ¨add_cartæ ‡ç­¾ä¸­æ·»åŠ å•†å“ä¿¡æ¯å±æ€§
 			$(".add_cart").attr('goods_id', goods_id);
 			$(".add_cart").attr('price', data.goods.price);
 			$(".add_cart").attr('name', data.goods.name);
-			// µ±ÉÌÆ·È±»õÊ±
+			// å½“å•†å“ç¼ºè´§æ—¶
 			if (data.goods['stock'] == 0) {
 				$("#goods_add_wrap").addClass('change_add_cart');
 			} else {
 				$("#goods_add_wrap").removeClass('change_add_cart');
 			}
 
-			// Æô¶¯¹ö¶¯²ã
+			// å¯åŠ¨æ»šåŠ¨å±‚
 			$('#goods_info_scrolling').scroller();
 
 			hide_mask();
@@ -563,81 +563,81 @@ function load_goods_detail() {
 }
 
 /**
- * ÉÌÆ·ÁĞ±íÒ³ÃæÌí¼Óµ½¹ºÎï³µ
+ * å•†å“åˆ—è¡¨é¡µé¢æ·»åŠ åˆ°è´­ç‰©è½¦
  */
 function add2cart() {
-	// °ó¶¨Ìí¼Ó°´Å¥ÊÂ¼ş
+	// ç»‘å®šæ·»åŠ æŒ‰é’®äº‹ä»¶
 	$(".add").unbind('click');
 	$(".add").click(function(n) {
 		n.stopPropagation();
 		var goods_id   = $(this).attr('goods_id');
 		var price      = $(this).attr('price');
 		var name       = $(this).attr('name');
-		var qty        = 1;	// Ìí¼Óµ½¹ºÎï³µÊ±Ä¬ÈÏÎªÊıÁ¿Îª 1
+		var qty        = 1;	// æ·»åŠ åˆ°è´­ç‰©è½¦æ—¶é»˜è®¤ä¸ºæ•°é‡ä¸º 1
 		var goods_info = {
 			'goods_id' : goods_id,
        		'price'    : price,
   			'name'     : name,
        		'qty'      : qty
 		};
-		// ½«ÉÌÆ·Ìí¼Óµ½¹ºÎï³µ£¬²¢´æ´¢µ½±¾µØ
+		// å°†å•†å“æ·»åŠ åˆ°è´­ç‰©è½¦ï¼Œå¹¶å­˜å‚¨åˆ°æœ¬åœ°
 		cart_add(goods_info);
-		// »ñÈ¡¹ºÎï³µÖĞÉÌÆ·¼şÊı£¬ÔÚfooterÏÔÊ¾
+		// è·å–è´­ç‰©è½¦ä¸­å•†å“ä»¶æ•°ï¼Œåœ¨footeræ˜¾ç¤º
 		var total_items = cart_total_items();
 		$.ui.updateBadge("#total_items", total_items, 'tr', '#FFF');
-		// ×Ü½ğ¶î±ä»¯ÊµÊ±ÏÔÊ¾
-		$(".total_price").text(cart_total_price() + " Ôª");
+		// æ€»é‡‘é¢å˜åŒ–å®æ—¶æ˜¾ç¤º
+		$(".total_price").text(cart_total_price() + " å…ƒ");
 
 		return false;
 	});
 }
 
 /**
- * ½áËãÉÌÆ·Ò³ÃæÖĞÔØÈë¹ºÎï³µĞÅÏ¢
+ * ç»“ç®—å•†å“é¡µé¢ä¸­è½½å…¥è´­ç‰©è½¦ä¿¡æ¯
  */
 function load_cart() {
 
 	$('#cart_goods_scrolling').html('<div id="cartgoods_all"></div>');
 
 	var data = new Array;
-	// »ñÈ¡cartÀïÈ«²¿ÉÌÆ·£¬°üÀ¨settle=0
+	// è·å–carté‡Œå…¨éƒ¨å•†å“ï¼ŒåŒ…æ‹¬settle=0
 	data['cart'] = cart_dejson(true);
-	// ½«±¾µØ´æ´¢µÄ¹ºÎï³µĞÅÏ¢äÖÈ¾µ½HTMLÄ£°æ
+	// å°†æœ¬åœ°å­˜å‚¨çš„è´­ç‰©è½¦ä¿¡æ¯æ¸²æŸ“åˆ°HTMLæ¨¡ç‰ˆ
 	var html = template.render('tmp_my_cart', data);
-	// ½«¹ºÎï³µ×Ü¶î´æ´¢ÔÚ±¾µØ
+	// å°†è´­ç‰©è½¦æ€»é¢å­˜å‚¨åœ¨æœ¬åœ°
 	localStorage['total_price'] = cart_total_price();
 
 	$('#cartgoods_all').html(html);
-	$('.total_price').text(localStorage['total_price'] + ' Ôª');
+	$('.total_price').text(localStorage['total_price'] + ' å…ƒ');
 	cart_in_de();
 	var low_price = localStorage['low_price'];
-	// ¸ødiv²ãÌí¼Ó¹ö¶¯Ğ§¹û
+	// ç»™divå±‚æ·»åŠ æ»šåŠ¨æ•ˆæœ
 	var myScroller = $('#cartgoods_all').scroller();
 }
 
 /**
- * µã»÷¡°½áËãÉÌÆ·¡±°´Å¥µÄ²Ù×÷
+ * ç‚¹å‡»â€œç»“ç®—å•†å“â€æŒ‰é’®çš„æ“ä½œ
  */
 $.ui.ready(function() {
 	$('#settle_goods').click(function() {
-	// ÅĞ¶ÏÊÇ·ñµÇÂ¼×´Ì¬
+	// åˆ¤æ–­æ˜¯å¦ç™»å½•çŠ¶æ€
 	if (typeof(localStorage['phone']) == 'undefined') {
 		localStorage['back2cart'] = 1;
-		// Ã»¼ì²âµ½±¾µØ´æ´¢µÄPhone£¬Ìø×ªµ½×¢²áÒ³Ãæ
+		// æ²¡æ£€æµ‹åˆ°æœ¬åœ°å­˜å‚¨çš„Phoneï¼Œè·³è½¬åˆ°æ³¨å†Œé¡µé¢
 		redirect("#register");
 	} else if ((typeof(localStorage['phone']) != 'undefined') && (typeof(localStorage['user_address']) == 'undefined')) {
 		localStorage['back2cart'] = 1;
-		// ¼ì²âµ½ÓÃ»§ÒÑ×¢²áµ«ÉĞÎ´ÌîĞ´ÅäËÍµØÖ·£¬Ìø×ªµ½µØÖ·ÌîĞ´Ò³
+		// æ£€æµ‹åˆ°ç”¨æˆ·å·²æ³¨å†Œä½†å°šæœªå¡«å†™é…é€åœ°å€ï¼Œè·³è½¬åˆ°åœ°å€å¡«å†™é¡µ
 		redirect("#position_input");
 	} else {
-		// ÓÃ»§ÒÑµÇÂ¼
+		// ç”¨æˆ·å·²ç™»å½•
 		redirect("#cart");
 	}
 	});
 });
 
 function cart_confirm() {
-	// ´ÓlocalStorage['cart']½âÎö·¢ËÍµ½·şÎñÆ÷µÄ¹ºÎï³µ²ÎÊı
+	// ä»localStorage['cart']è§£æå‘é€åˆ°æœåŠ¡å™¨çš„è´­ç‰©è½¦å‚æ•°
 	var get = {
 		'cart'		  : decodeURI(cart_http_param()),	// [{"goods_id": ,"qty": }]
 		'shop_id'	  : localStorage['shop_id'],
@@ -650,53 +650,53 @@ function cart_confirm() {
 			redirect('#shop_close_notice');
 		}
 
-		// Çå³ıÍ¬²½·şÎñÆ÷Ö®Ç°µÄ¹ºÎï³µ±¾µØ´æ´¢
+		// æ¸…é™¤åŒæ­¥æœåŠ¡å™¨ä¹‹å‰çš„è´­ç‰©è½¦æœ¬åœ°å­˜å‚¨
 		// cart_destroy();
 		//localStorage.removeItem('coupon');
-		// ½«Í¬²½ºóµÄcartĞÅÏ¢ÖØĞÂ±¾µØ´æ´¢
+		// å°†åŒæ­¥åçš„cartä¿¡æ¯é‡æ–°æœ¬åœ°å­˜å‚¨
 		var cart = cart_update_all(data.items);
 
-		// TODO Òì²½ÇëÇóµÄÒş»¼
+		// TODO å¼‚æ­¥è¯·æ±‚çš„éšæ‚£
 
 		$('#cart_goods_scrolling_2').html('<div id="cartgoods_all_2"></div>');
-		// ½«±¾µØ´æ´¢µÄcartĞÅÏ¢½âÂë³ÉÊı×é
+		// å°†æœ¬åœ°å­˜å‚¨çš„cartä¿¡æ¯è§£ç æˆæ•°ç»„
 		var cart_data = {
 			'cart' : cart_dejson()
 		};
 		var html     = template.render('tmp_my_cart', cart_data);
-		// ½«¹ºÎï³µ×Ü¶î´æ´¢ÔÚ±¾µØ
+		// å°†è´­ç‰©è½¦æ€»é¢å­˜å‚¨åœ¨æœ¬åœ°
 		localStorage['total_price'] = cart_total_price();
 
 		$('#cartgoods_all_2').html(html);
-		// ¸øÉÌÆ·ÁĞ±í²ãÌí¼Ó¹ö¶¯Ğ§¹û
+		// ç»™å•†å“åˆ—è¡¨å±‚æ·»åŠ æ»šåŠ¨æ•ˆæœ
 		var myScroller = $('#cartgoods_all_2').scroller();
 
 
-		// TODO ºóÆÚĞèÒª½«ÓÅ»İĞÅÏ¢ÇëÇóºÏ²¢µ½ cart/indexÖĞ
+		// TODO åæœŸéœ€è¦å°†ä¼˜æƒ ä¿¡æ¯è¯·æ±‚åˆå¹¶åˆ° cart/indexä¸­
 		// cart_in_de();
-		// ÅĞ¶ÏÊÇ·ñÂú×ãÆğËÍ¶î
+		// åˆ¤æ–­æ˜¯å¦æ»¡è¶³èµ·é€é¢
 		if (localStorage['total_price'] * 10000 < localStorage['low_price'] * 10000) {
-			// ²»×ã¶îÊ±
+			// ä¸è¶³é¢æ—¶
 			$("#user_address").text(localStorage['user_address']);
 			$("#user_phone").text(localStorage['phone']);
-			$("#total_type").text('¾àÀëÆğËÍ½ğ¶î»¹²î');
-			// È·ÈÏ¶©µ¥°´Å¥Îª»ÒÉ«
+			$("#total_type").text('è·ç¦»èµ·é€é‡‘é¢è¿˜å·®');
+			// ç¡®è®¤è®¢å•æŒ‰é’®ä¸ºç°è‰²
 			$("#confirm_type").attr('class', 'account_goods order_shortage');
-			$("#confirm_type").html('<div class="unconfirm_order">È·ÈÏ¶©µ¥</div>')
+			$("#confirm_type").html('<div class="unconfirm_order">ç¡®è®¤è®¢å•</div>')
 			var subtract = (localStorage['low_price'] * 10000 - localStorage['total_price'] * 10000) / 10000;
-			// footerÏÔÊ¾¡°¾àÀëÆğËÍ½ğ¶î»¹²îxxÔª¡±
-			$(".total_price").text(subtract + ' Ôª');
+			// footeræ˜¾ç¤ºâ€œè·ç¦»èµ·é€é‡‘é¢è¿˜å·®xxå…ƒâ€
+			$(".total_price").text(subtract + ' å…ƒ');
 		} else {
-			// ×ã¶îÊ±
-			$("#confirm_type").html('<div class="confirm_order">È·ÈÏ¶©µ¥</div>')
+			// è¶³é¢æ—¶
+			$("#confirm_type").html('<div class="confirm_order">ç¡®è®¤è®¢å•</div>')
 			$("#user_address").text(localStorage['user_address']);
 			$("#user_phone").text(localStorage['phone']);
-			$("#total_type").text('×Ü½ğ¶î:');
+			$("#total_type").text('æ€»é‡‘é¢:');
 			$("#confirm_type").attr('class', 'account_goods');
 
 			var get = {
 				'shop_id'     : localStorage['shop_id'],
-				'total_price' : localStorage['total_price']		// ×Ü¶îÓÃÓÚÅĞ¶ÏÊÇ·ñÂú×ãÓÅ»İÌõ¼ş
+				'total_price' : localStorage['total_price']		// æ€»é¢ç”¨äºåˆ¤æ–­æ˜¯å¦æ»¡è¶³ä¼˜æƒ æ¡ä»¶
 			};
 
 			/*$.getJSON(url('/user/coupon?callback=?'), get, function(data) {
@@ -711,29 +711,29 @@ function cart_confirm() {
 }
 
 /**
- * µ¥Æ·ÏêÇéÒ³ÃæÌí¼Óµ½¹ºÎï³µ
+ * å•å“è¯¦æƒ…é¡µé¢æ·»åŠ åˆ°è´­ç‰©è½¦
  */
 $.ui.ready(function() {
-	// µã»÷¡°¼ÓÈë¹ºÎï³µ¡±°´Å¥ÊÂ¼ş
+	// ç‚¹å‡»â€œåŠ å…¥è´­ç‰©è½¦â€æŒ‰é’®äº‹ä»¶
 	$(".add_cart").click(function(n) {
 		n.stopPropagation();
-		// »ñÈ¡div±êÇ©ÀïµÄÉÌÆ·ĞÅÏ¢ÊôĞÔ
+		// è·å–divæ ‡ç­¾é‡Œçš„å•†å“ä¿¡æ¯å±æ€§
 		var goods_id	= $(this).attr('goods_id');
 		var price		= $(this).attr('price');
 		var name		= $(this).attr('name');
-		var qty			= 1;	// Ìí¼Óµ½¹ºÎï³µÊ±Ä¬ÈÏÊıÁ¿Îª 1
+		var qty			= 1;	// æ·»åŠ åˆ°è´­ç‰©è½¦æ—¶é»˜è®¤æ•°é‡ä¸º 1
 		var goods_info	= {
 			'goods_id'  : goods_id,
        		'price'     : price,
   			'name'      : name,
        		'qty'       : qty,
 		};
-		// ½«ÉÌÆ·Ìí¼Óµ½¹ºÎï³µ£¬²¢´æ´¢µ½±¾µØ
+		// å°†å•†å“æ·»åŠ åˆ°è´­ç‰©è½¦ï¼Œå¹¶å­˜å‚¨åˆ°æœ¬åœ°
 		cart_add(goods_info);
-		// ¸üĞÂ¹ºÎï³µÖĞÉÌÆ·¼şÊı£¬ÔÚfooterÏÔÊ¾
+		// æ›´æ–°è´­ç‰©è½¦ä¸­å•†å“ä»¶æ•°ï¼Œåœ¨footeræ˜¾ç¤º
 		var total_items = cart_total_items();
 		$.ui.updateBadge("#total_items", total_items, 'tr', '#FFF');
-		// Ìø×ªµ½¹ºÎï³µÒ³Ãæ
+		// è·³è½¬åˆ°è´­ç‰©è½¦é¡µé¢
 		redirect('#account_cart');
 
 		return false;
@@ -741,10 +741,10 @@ $.ui.ready(function() {
 });
 
 /**
- * ¹ºÎï³µÉÌÆ·ÊıÁ¿¸Ä±äÊ±×Ü¶î¡¢ÓÅ»İµÈĞÅÏ¢ÊµÊ±¸üĞÂ
+ * è´­ç‰©è½¦å•†å“æ•°é‡æ”¹å˜æ—¶æ€»é¢ã€ä¼˜æƒ ç­‰ä¿¡æ¯å®æ—¶æ›´æ–°
  */
 /*function cart_num_update(id, qty, index) {
-	// »ñÈ¡±¾µØ´æ´¢µÄÆğËÍ¼Û
+	// è·å–æœ¬åœ°å­˜å‚¨çš„èµ·é€ä»·
 	var low_price = window.localStorage['low_price'];
 	var get = {
 		'id'	: id,
@@ -752,38 +752,38 @@ $.ui.ready(function() {
 	};
 	$.getJSON(url('/user/cart/update?callback=?'), get, function(data){
 		var t = $(".number");
-		window.localStorage['total_price'] = data['total_prices'];		// ×Ü½ğ¶î±¾µØ´æ´¢
+		window.localStorage['total_price'] = data['total_prices'];		// æ€»é‡‘é¢æœ¬åœ°å­˜å‚¨
 		$(t[index]).text(data['items'][index]['qty']);
-		$('.total_price').text(window.localStorage['total_price'] + ' Ôª');
+		$('.total_price').text(window.localStorage['total_price'] + ' å…ƒ');
 		$.ui.updateBadge("#total_items", data.total_items, 'tr', '#FFF');
 		if (window.localStorage['total_price'] * 100 < low_price * 100) {
-			// ²î¶î
+			// å·®é¢
 			var subtract = (low_price * 100 - window.localStorage['total_price'] * 100) / 100;
-			// ²»Âú¶îÊ±footerÎª»ÒÉ«²»ÄÜµã»÷
-			$("#if_full").html('<div class="underfull">»¹²î' + subtract + 'Ôª¿ÉËÍ</div>');
-			// $(".confirm_order").text("»¹²î" + subtract + "Ôª¿ÉËÍ");
+			// ä¸æ»¡é¢æ—¶footerä¸ºç°è‰²ä¸èƒ½ç‚¹å‡»
+			$("#if_full").html('<div class="underfull">è¿˜å·®' + subtract + 'å…ƒå¯é€</div>');
+			// $(".confirm_order").text("è¿˜å·®" + subtract + "å…ƒå¯é€");
 		} else {
-			// Âú¶îÊ±footer¿Éµã»÷Ìá½»
-			$("#if_full").html('<div class="confirm_order">½áËãÉÌÆ·</div>');
+			// æ»¡é¢æ—¶footerå¯ç‚¹å‡»æäº¤
+			$("#if_full").html('<div class="confirm_order">ç»“ç®—å•†å“</div>');
 			var get = {
-				'total_price'	: window.localStorage['total_price'],	// ´«µİ¶©µ¥×Ü¶î
+				'total_price'	: window.localStorage['total_price'],	// ä¼ é€’è®¢å•æ€»é¢
 			};
 			$.getJSON(url('/user/coupon?callback=?'), get, function(data) {
 				data.total_price = window.localStorage['total_price'];
-				var html = template.render('available_coupons', data);	// JSONÊı¾İÓÃÄ£°åäÖÈ¾
-				$('#shop_cuopons').html(html);							// Ç¶Èëµ½ÍøÒ³ÖĞ
+				var html = template.render('available_coupons', data);	// JSONæ•°æ®ç”¨æ¨¡æ¿æ¸²æŸ“
+				$('#shop_cuopons').html(html);							// åµŒå…¥åˆ°ç½‘é¡µä¸­
 			});
 			bind_confirm_order();
-			// $(".confirm_order").text("½áËãÉÌÆ·");
+			// $(".confirm_order").text("ç»“ç®—å•†å“");
 		}
 	});
 }*/
 
 /**
- * ÊµÊ±»ñÈ¡ÓÃ»§Ñ¡ÔñµÄÓÅ»İÈ¯id
+ * å®æ—¶è·å–ç”¨æˆ·é€‰æ‹©çš„ä¼˜æƒ åˆ¸id
  */
 $.ui.ready(function() {
-	// Ñ¡¶¨ÓÅ»İÈ¯Ê±ÊµÊ±¸Ä±ä×Ü¶î
+	// é€‰å®šä¼˜æƒ åˆ¸æ—¶å®æ—¶æ”¹å˜æ€»é¢
 	$('#shop_cuopons').change(function() {
 		var coupon_id   = $('#shop_cuopons').val();
 		var total_price = localStorage['total_price'];
@@ -798,45 +798,45 @@ $.ui.ready(function() {
 				case '1':
 					reduce = data['reduce'];
 					var price_coupon = (total_price * 10000 - reduce * 10000) / 10000;
-					$('.total_price').text(price_coupon + ' Ôª');
+					$('.total_price').text(price_coupon + ' å…ƒ');
 					break;
 				case '2':
 					present = data['present'];
-					$('.total_price').text(total_price + ' Ôª');
+					$('.total_price').text(total_price + ' å…ƒ');
 					break;
 				case '3':
 					discount = data['discount'];
 					var price_coupon = (total_price * 10000) * discount / 100000;
-					$('.total_price').text(price_coupon + ' Ôª');
+					$('.total_price').text(price_coupon + ' å…ƒ');
 					break;
 				default:
-					$('.total_price').text(total_price + ' Ôª');
+					$('.total_price').text(total_price + ' å…ƒ');
 					break;
 			}
 		});
-		// ÓÅ»İºóµÄ×Ü¼Û
+		// ä¼˜æƒ åçš„æ€»ä»·
 		var price_coupon = (total_price * 100 - reduce * 10000) * discount / 10000;
-		$('.total_price').text(price_coupon + ' Ôª');
+		$('.total_price').text(price_coupon + ' å…ƒ');
 
 		return false;
 	});
 });
 
 /**
- * ¹ºÎï³µÒ³ÃæÉÌÆ·ÊıÁ¿Ôö¼õº¯Êı
+ * è´­ç‰©è½¦é¡µé¢å•†å“æ•°é‡å¢å‡å‡½æ•°
  */
 function cart_in_de() {
-	// + °´Å¥ÊÂ¼ş
+	// + æŒ‰é’®äº‹ä»¶
 	$(".increase").click(function(n) {
-		n.stopPropagation();	// ×èÖ¹Ã°Åİ
+		n.stopPropagation();	// é˜»æ­¢å†’æ³¡
 
-		// »ñÈ¡¹ºÎï³µÖĞ¸÷ÉÌÆ·ĞÅÏ¢DOM¶ÔÏó
+		// è·å–è´­ç‰©è½¦ä¸­å„å•†å“ä¿¡æ¯DOMå¯¹è±¡
 		var cart_goods = $(".cart_goods");
-		// »ñÈ¡¹ºÎï³µÖĞ¸÷ÉÌÆ·ÊıÁ¿DOM¶ÔÏó
+		// è·å–è´­ç‰©è½¦ä¸­å„å•†å“æ•°é‡DOMå¯¹è±¡
 		var goods_num  = $(".number");
-		// ²éÑ¯ÊÇµÚ¼¸¸öincrease°´Å¥
+		// æŸ¥è¯¢æ˜¯ç¬¬å‡ ä¸ªincreaseæŒ‰é’®
 		var i          = $(".increase").index($(this));
-		// »ñÈ¡¸Ãincrease°´Å¥ËùÊôµÄÉÌÆ·ĞÅÏ¢
+		// è·å–è¯¥increaseæŒ‰é’®æ‰€å±çš„å•†å“ä¿¡æ¯
 		var goods_id   = $(cart_goods[i]).attr('goods_id');
 		var price      = $(cart_goods[i]).attr('price');
 		var name       = $(cart_goods[i]).attr('name');
@@ -846,30 +846,30 @@ function cart_in_de() {
 			'name'	   : name,
 			'qty'	   : 1,
 		};
-		// ¸üĞÂ±¾µØcart
+		// æ›´æ–°æœ¬åœ°cart
 		cart_add(goods_info);
-		// ¸üĞÂÉÌÆ·ÊıÁ¿ºÍ×Ü½ğ¶îÏÔÊ¾
+		// æ›´æ–°å•†å“æ•°é‡å’Œæ€»é‡‘é¢æ˜¾ç¤º
 		var n = cart_item(goods_id);
 		$(goods_num[i]).text(($.parseJSON(localStorage['cart'])[n].qty));
 
-		// È¥µôÏÂ´Î¹ºÂòÒõÓ°²ã
+		// å»æ‰ä¸‹æ¬¡è´­ä¹°é˜´å½±å±‚
 		unsettle_hide_mask(i);
-		// ¸üĞÂ¹ºÎï³µ
+		// æ›´æ–°è´­ç‰©è½¦
 		cart_badge();
 	});
 
-	// - °´Å¥ÊÂ¼ş
+	// - æŒ‰é’®äº‹ä»¶
 	$(".decrease").click(function(n){
-		n.stopPropagation();	// ×èÖ¹Ã°Åİ
+		n.stopPropagation();	// é˜»æ­¢å†’æ³¡
 
-		// »ñÈ¡¹ºÎï³µÖĞ¸÷ÉÌÆ·ĞÅÏ¢DOM¶ÔÏó
+		// è·å–è´­ç‰©è½¦ä¸­å„å•†å“ä¿¡æ¯DOMå¯¹è±¡
 		var cart_goods = $(".cart_goods");
-		// »ñÈ¡¹ºÎï³µÖĞ¸÷ÉÌÆ·ÊıÁ¿DOM¶ÔÏó
+		// è·å–è´­ç‰©è½¦ä¸­å„å•†å“æ•°é‡DOMå¯¹è±¡
 		var goods_num  = $(".number");
-		// ²éÑ¯ÊÇµÚ¼¸¸öincrease°´Å¥
+		// æŸ¥è¯¢æ˜¯ç¬¬å‡ ä¸ªincreaseæŒ‰é’®
 		var i          = $(".decrease").index($(this));
 
-		// ÅĞ¶ÏÊıÁ¿ÊÇ²»ÊÇÎª1ÁË£¬Èç¹ûÎª1£¬Ó¦¸Ã»¬³öÓÒ±ßµÄÉ¾³ı²¿·Ö
+		// åˆ¤æ–­æ•°é‡æ˜¯ä¸æ˜¯ä¸º1äº†ï¼Œå¦‚æœä¸º1ï¼Œåº”è¯¥æ»‘å‡ºå³è¾¹çš„åˆ é™¤éƒ¨åˆ†
 		var old_num	   = $(goods_num[i]).text();
 		if (old_num == 1) {
 			$('#account_cart .cart_goods').eq(i).css('margin-left','-146px');
@@ -877,7 +877,7 @@ function cart_in_de() {
 			return ;
 		}
 
-		// »ñÈ¡¸Ãincrease°´Å¥ËùÊôµÄÉÌÆ·ĞÅÏ¢
+		// è·å–è¯¥increaseæŒ‰é’®æ‰€å±çš„å•†å“ä¿¡æ¯
 		var goods_id   = $(cart_goods[i]).attr('goods_id');
 		var price      = $(cart_goods[i]).attr('price');
 		var name       = $(cart_goods[i]).attr('name');
@@ -887,21 +887,21 @@ function cart_in_de() {
 			'name'	   : name,
 			'qty'	   : -1,
 		};
-		// ¸üĞÂ±¾µØcart
+		// æ›´æ–°æœ¬åœ°cart
 		cart_add(goods_info);
-		// ¸üĞÂÉÌÆ·ÊıÁ¿ºÍ×Ü½ğ¶îÏÔÊ¾
+		// æ›´æ–°å•†å“æ•°é‡å’Œæ€»é‡‘é¢æ˜¾ç¤º
 		var n = cart_item(goods_id);
 		$(goods_num[i]).text(($.parseJSON(localStorage['cart'])[n].qty));
 
-		// È¥µôÏÂ´Î¹ºÂòÒõÓ°²ã
+		// å»æ‰ä¸‹æ¬¡è´­ä¹°é˜´å½±å±‚
 		unsettle_hide_mask(i);
-		// ¸üĞÂ¹ºÎï³µ
+		// æ›´æ–°è´­ç‰©è½¦
 		cart_badge();
 	});
 }
 
 /**
- * ¶©µ¥×îÖÕÈ·ÈÏÌá½»
+ * è®¢å•æœ€ç»ˆç¡®è®¤æäº¤
  */
 $.ui.ready(function() {
 	$('#account_footer').delegate('.confirm_order', 'click', function() {
@@ -918,7 +918,7 @@ $.ui.ready(function() {
 			'total_items'   :total_items
 		};
 
-		// £¨Ñ¡ÔñÓÅ»İºó£©×îÖÕ×Ü¶î
+		// ï¼ˆé€‰æ‹©ä¼˜æƒ åï¼‰æœ€ç»ˆæ€»é¢
 		localStorage['total_price'] = get.final_price;
 
 
@@ -926,7 +926,7 @@ $.ui.ready(function() {
 		$.getJSON(url('/user/order/submit?callback=?'), get, function(data) {
 			hide_mask();
 			if (data.status == 0) {
-				// ½«¡°ÏÂ´Î¹ºÂò¡±ÉÌÆ·ÉèÖÃsettle=1
+				// å°†â€œä¸‹æ¬¡è´­ä¹°â€å•†å“è®¾ç½®settle=1
 				cart_destroy();
 				cart_set_settle();
 
@@ -957,8 +957,8 @@ $.ui.ready(function() {
 			} else if (data.status == 1){
 				$.ui.popup({
                     message: data.msg,
-                    cancelText: "È¡Ïû",
-                    doneText: "µÇÂ¼",
+                    cancelText: "å–æ¶ˆ",
+                    doneText: "ç™»å½•",
                     doneCallback: function () {
                         redirect('#sign');
                     },
@@ -967,7 +967,7 @@ $.ui.ready(function() {
 			} else {
 				$.ui.popup({
 					message	: data.msg,
-	                cancelText: "È·ÈÏ",
+	                cancelText: "ç¡®è®¤",
 	                cancelOnly: true
 				});
 			}
@@ -977,10 +977,10 @@ $.ui.ready(function() {
 
 function load_verify() {
 	var flag = 0;
-	// ¶©µ¥Ìá½»³É¹¦ºó»Ö¸´¹ºÎï³µ³õÊ¼Í¼±ê
+	// è®¢å•æäº¤æˆåŠŸåæ¢å¤è´­ç‰©è½¦åˆå§‹å›¾æ ‡
 	$.ui.removeBadge("#total_items");
 	// $.ui.updateBadge("#total_items", 0, 'tr', '#FFF');
-	// Ìí¼Ó·µ»ØÖ÷½çÃæ°´Å¥
+	// æ·»åŠ è¿”å›ä¸»ç•Œé¢æŒ‰é’®
 	$("#verify_click").click(function() {
 		$.ui.loadContent('#index', false, false, 'fade');
 		flag = 1;
@@ -993,19 +993,19 @@ function load_verify() {
 }
 
 /**
- * ÓÃ»§µÇÂ¼³É¹¦ÌáÊ¾Ò³Ãæ
+ * ç”¨æˆ·ç™»å½•æˆåŠŸæç¤ºé¡µé¢
  */
 function login_success() {
-	// Èç¹ûÊÇ´Ó¹ºÎï³µÒ³ÃæÌø×ª½øÀ´
+	// å¦‚æœæ˜¯ä»è´­ç‰©è½¦é¡µé¢è·³è½¬è¿›æ¥
 	if (localStorage['back2cart'] == 1) {
 		localStorage['back2cart'] = 0;
-		// Ìø×ª»Ø¹ºÎï³µÒ³Ãæ
+		// è·³è½¬å›è´­ç‰©è½¦é¡µé¢
 		setTimeout(function() {
 			$.ui.loadContent('#account_cart', false, false, 'fade');
 		}, 3000);
 	} else {
-		// Èç¹ûÊÇ´ÓĞ¡ÇøÑ¡ÔñÒ³ÃæÌø×ª½øÀ´
-		// Ìø×ª»ØÉÌ¼ÒÊ×Ò³
+		// å¦‚æœæ˜¯ä»å°åŒºé€‰æ‹©é¡µé¢è·³è½¬è¿›æ¥
+		// è·³è½¬å›å•†å®¶é¦–é¡µ
 		setTimeout(function() {
 			$.ui.loadContent('#index', false, false, 'fade');
 		}, 3000);
@@ -1020,22 +1020,22 @@ $.ui.ready(function() {
 });
 
 /**
- * ÊÖ»ú×¢²á²½Öè 1
+ * æ‰‹æœºæ³¨å†Œæ­¥éª¤ 1
  */
 $.ui.ready(function() {
 	bind_send_verify();
 
-	// ÑéÖ¤Âëµ¹¼ÆÊ±
+	// éªŒè¯ç å€’è®¡æ—¶
 	var cnt = 60;
 	var curcnt;
 	var timeobj;
 	function set_Time() {
-		// ¼ÆÊı
+		// è®¡æ•°
 		curcnt--;
-		$(".send_verifycode").text('ÖØĞÂ»ñÈ¡(' + curcnt + ')');
+		$(".send_verifycode").text('é‡æ–°è·å–(' + curcnt + ')');
 		if (curcnt < 1 ) {
-			clearInterval(timeobj); // Í£Ö¹¼ÆÊ±Æ÷
-			$(".send_verifycode").text('ÖØĞÂ»ñÈ¡');
+			clearInterval(timeobj); // åœæ­¢è®¡æ—¶å™¨
+			$(".send_verifycode").text('é‡æ–°è·å–');
 			$(".send_verifycode").css('background-color','#6AAB37');
 			bind_send_verify();
 		}
@@ -1045,9 +1045,9 @@ $.ui.ready(function() {
 		$(".send_verifycode").click(function() {
 			var phone	= $(".phone_left").val();
 			var reg		= /^1[3|4|5|8]\d{9}$/;
-			// ÑéÖ¤ÊÖ»úºÅ¸ñÊ½
+			// éªŒè¯æ‰‹æœºå·æ ¼å¼
 			if (!reg.test(phone)) {
-				$("#phone_error").text("ÄúÊäÈëµÄºÅÂë¸ñÊ½ÓĞÎó");
+				$("#phone_error").text("æ‚¨è¾“å…¥çš„å·ç æ ¼å¼æœ‰è¯¯");
 				return;
 			}
 
@@ -1056,10 +1056,10 @@ $.ui.ready(function() {
 				'phone'	: phone,
 			};
 
-			// ·¢ËÍÑéÖ¤Âë
+			// å‘é€éªŒè¯ç 
 			$.getJSON(url('/user/phone/verify?callback=?'), get, function(data) {
 				if (data.error != 0) {
-					$("#phone_error").text("ÑéÖ¤Âë·¢ËÍÊ§°Ü");
+					$("#phone_error").text("éªŒè¯ç å‘é€å¤±è´¥");
 				}
 			});
 
@@ -1067,11 +1067,11 @@ $.ui.ready(function() {
 			timeobj = setInterval(set_Time, 1000);
 
 			$(".send_verifycode").css('background-color','#a1a7b2');
-			$(".send_verifycode").text("ÖØĞÂ»ñÈ¡(" + 60 + ")");
+			$(".send_verifycode").text("é‡æ–°è·å–(" + 60 + ")");
 		});
 	}
 
-	// ½ÓÊÕÑéÖ¤Âë
+	// æ¥æ”¶éªŒè¯ç 
 	$("#verify1").click(function() {
 		var verify = $(".verifycode_input").val();
 		var get = {
@@ -1079,14 +1079,14 @@ $.ui.ready(function() {
 		};
 
 		if (get.verify == '') {
-			$("#phone_error").text("ÄúÊäÈëµÄÑéÖ¤ÂëÓĞÎó");
+			$("#phone_error").text("æ‚¨è¾“å…¥çš„éªŒè¯ç æœ‰è¯¯");
 			return false;
 		}
 		$.getJSON(url('/user/phone/check_verify?callback=?'), get, function(data) {
 			if (data.check_verify == false) {
-				$("#phone_error").text("ÄúÊäÈëµÄÑéÖ¤ÂëÓĞÎó");
+				$("#phone_error").text("æ‚¨è¾“å…¥çš„éªŒè¯ç æœ‰è¯¯");
 			} else {
-				// Ìø×ªµ½ºóĞøÑéÖ¤²½Öè
+				// è·³è½¬åˆ°åç»­éªŒè¯æ­¥éª¤
 				$.ui.loadContent('#verifyphone', false, false, 'fade');
 			}
 		});
@@ -1097,56 +1097,56 @@ $.ui.ready(function() {
 		$(".verify2").show();
 	});
 
-	// µã»÷XÇå¿ÕÑéÖ¤ÂëÀ¸
+	// ç‚¹å‡»Xæ¸…ç©ºéªŒè¯ç æ 
 	$(".verify2").click(function() {
 		$(".verifycode_input").empty();
 	});
 });
 
 /**
- * ÑéÖ¤ÊÖ»úºóÊäÈëÃÜÂë
+ * éªŒè¯æ‰‹æœºåè¾“å…¥å¯†ç 
  */
 $.ui.ready(function() {
-	// ¼ì²éÃÜÂë
+	// æ£€æŸ¥å¯†ç 
 	$(".confirm_code").click(function() {
-		var pwd_1 = $("#pwd_1").val();			// »ñÈ¡Ê×´ÎÊäÈëµÄÃÜÂë
-		var pwd_2 = $("#pwd_2").val();			// »ñÈ¡ÖØ¸´ÊäÈëµÄÃÜÂë
+		var pwd_1 = $("#pwd_1").val();			// è·å–é¦–æ¬¡è¾“å…¥çš„å¯†ç 
+		var pwd_2 = $("#pwd_2").val();			// è·å–é‡å¤è¾“å…¥çš„å¯†ç 
 
 		if (pwd_1 === pwd_2) {
-			// ÃÜÂëÊäÈëÒ»ÖÂÊ±£¬ÇëÇó·şÎñÆ÷
+			// å¯†ç è¾“å…¥ä¸€è‡´æ—¶ï¼Œè¯·æ±‚æœåŠ¡å™¨
 			var get = {
 				'phone'		   : $(".phone_left").val(),
 				'password'	   : pwd_1,
 				'community_id' : localStorage['community_id']
 			};
 			$.getJSON(url('/user/user/add_user?callback=?'), get, function(data) {
-				// µÇÂ¼³É¹¦£¬Ìø×ªµ½Ê×Ò³
+				// ç™»å½•æˆåŠŸï¼Œè·³è½¬åˆ°é¦–é¡µ
 				if (data.error == 1) {
-					$("#pwd_error").text("¸ÃÊÖ»úÓÃ»§ÒÑ×¢²á");
+					$("#pwd_error").text("è¯¥æ‰‹æœºç”¨æˆ·å·²æ³¨å†Œ");
 				} else {
-					// ±¾µØ´æ´¢ÓÃ»§ÊÖ»úºÅºÍÓÃ»§ËùÔÚĞ¡ÇøÃû
+					// æœ¬åœ°å­˜å‚¨ç”¨æˆ·æ‰‹æœºå·å’Œç”¨æˆ·æ‰€åœ¨å°åŒºå
 					localStorage['phone']          = data.phone;
 					localStorage['community_name'] = data.community_name;
-					// Éèaddress_idÊÇÎªÁË·½±ãÖ®ºóµ¥¶ÀÌí¼ÓÓÃ»§µØÖ·
+					// è®¾address_idæ˜¯ä¸ºäº†æ–¹ä¾¿ä¹‹åå•ç‹¬æ·»åŠ ç”¨æˆ·åœ°å€
 					localStorage['address_id']     = data.address_id;
-					// ĞÂ×¢²áÓÃ»§¼ÌĞøÍê³ÉµØÖ·ÌîĞ´
+					// æ–°æ³¨å†Œç”¨æˆ·ç»§ç»­å®Œæˆåœ°å€å¡«å†™
 					redirect("#position_input");
 				}
 			});
 		} else {
-			// ÃÜÂëÊäÈë²»Ò»ÖÂ£¬ÏÔÊ¾´íÎóÌáÊ¾
-			$("#pwd_error").text("Á½´ÎÊäÈëµÄÃÜÂë²»Ò»ÖÂ");
+			// å¯†ç è¾“å…¥ä¸ä¸€è‡´ï¼Œæ˜¾ç¤ºé”™è¯¯æç¤º
+			$("#pwd_error").text("ä¸¤æ¬¡è¾“å…¥çš„å¯†ç ä¸ä¸€è‡´");
 		}
 	});
 });
 
 function load_verifyphone() {
-	// Ìî³äÊÖ»úºÅ
+	// å¡«å……æ‰‹æœºå·
 	$(".phonenumber").text($(".phone_left").val());
 }
 
 /**
- * ÊÖ»úÑéÖ¤²½Öè 2
+ * æ‰‹æœºéªŒè¯æ­¥éª¤ 2
  */
 $.ui.ready(function() {
 	$(".secretcode_input").focus(function(){
@@ -1155,7 +1155,7 @@ $.ui.ready(function() {
 });
 
 /**
- * µÇÂ¼Ò³Ãæ
+ * ç™»å½•é¡µé¢
  */
 $.ui.ready(function() {
 	$(".signin").click(function() {
@@ -1166,39 +1166,39 @@ $.ui.ready(function() {
 			'password' : password,
 		};
 		$.getJSON(url('/user/login?callback=?'), get, function(data) {
-			// ÓÃ»§ÑéÖ¤³É¹¦
+			// ç”¨æˆ·éªŒè¯æˆåŠŸ
 			if (data.login == 1) {
-				// Èç¹ûÊÇ´Ó¹ºÎï³µÒ³ÃæµÇÂ¼
+				// å¦‚æœæ˜¯ä»è´­ç‰©è½¦é¡µé¢ç™»å½•
 				if (localStorage['back2cart'] == 1) {
 					localStorage['back2cart']    = 0;
 					localStorage['shop_id']      = data.shop_id;
 					localStorage['community_id'] = data.community_id;
-					localStorage['user_address'] = data.address;		// Çø±ğÉÌ¼ÒµØÖ·shop_address
+					localStorage['user_address'] = data.address;		// åŒºåˆ«å•†å®¶åœ°å€shop_address
 					localStorage['phone']        = data.phone;
 					localStorage['user_id']      = data.user_id;
 					redirect('#verify_suc');
 				} else {
-					// Èç¹ûÊÇ´Ó¡°ÎÒµÄÕË»§¡±Ò³ÃæµÇÂ¼
+					// å¦‚æœæ˜¯ä»â€œæˆ‘çš„è´¦æˆ·â€é¡µé¢ç™»å½•
 					localStorage['shop_id']      = data.shop_id;
 					localStorage['community_id'] = data.community_id;
-					localStorage['user_address'] = data.address;		// Çø±ğÉÌ¼ÒµØÖ·shop_address
+					localStorage['user_address'] = data.address;		// åŒºåˆ«å•†å®¶åœ°å€shop_address
 					localStorage['phone']        = data.phone;
 					localStorage['user_id']      = data.user_id;
-					// Ìø×ªµ½ÓÃ»§ÑéÖ¤³É¹¦Ò³Ãæ
+					// è·³è½¬åˆ°ç”¨æˆ·éªŒè¯æˆåŠŸé¡µé¢
 					redirect('#verify_suc');
 				}
 			} else {
-				$("#login_error").text("ÓÃ»§Ãû»òÃÜÂë´íÎó");
+				$("#login_error").text("ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯");
 			}
 		});
 	});
 });
 
 /**
- * ÎÒµÄÓÅ»İÈ¯ÁĞ±íÏà¹Øº¯Êı
+ * æˆ‘çš„ä¼˜æƒ åˆ¸åˆ—è¡¨ç›¸å…³å‡½æ•°
  */
 function coupon_list() {
-	// ¶ÁÈ¡±¾µØ´æ´¢µÄ shop_id
+	// è¯»å–æœ¬åœ°å­˜å‚¨çš„ shop_id
 	var shop_id = localStorage['shop_id'];
 	var get = {
 		'shop_id' : shop_id
@@ -1212,7 +1212,7 @@ function coupon_list() {
 }
 
 /**
- * ÓÅ»İÈ¯ÏêÇéÕ¹¿ª
+ * ä¼˜æƒ åˆ¸è¯¦æƒ…å±•å¼€
  */
 function coupon_details() {
 	$(".coupon_click").click(function() {
@@ -1222,26 +1222,26 @@ function coupon_details() {
 }
 
 /**
- * ½«ÓÅ»İÈ¯±¾µØ´æ´¢ÎªJSON
+ * å°†ä¼˜æƒ åˆ¸æœ¬åœ°å­˜å‚¨ä¸ºJSON
  */
 function coupon_local(data) {
 	var item = new Array;
 
 	for (var i = 0; i < data.coupon.length; i++) {
 		item[i] = {
-			'coupon_id' : '' + data.coupon[i]['coupon_id'],				// ÓÅ»İÈ¯id
-			'full'		: '' + data.coupon[i]['content']['full'],		// ÓÅ»İ×îµÍ½ğ¶î
-			'info'		: '' + data.coupon[i]['content']['info'],		// ÓÅ»İÄÚÈİ
-			'reduce'	: '' + data.coupon[i]['content']['reduce'],		// Âú¼õ
-			'present'	: '' + data.coupon[i]['content']['present'],		// ÂúËÍ
-			'discount'	: '' + data.coupon[i]['content']['discount']		// ÕÛ¿Û
+			'coupon_id' : '' + data.coupon[i]['coupon_id'],				// ä¼˜æƒ åˆ¸id
+			'full'		: '' + data.coupon[i]['content']['full'],		// ä¼˜æƒ æœ€ä½é‡‘é¢
+			'info'		: '' + data.coupon[i]['content']['info'],		// ä¼˜æƒ å†…å®¹
+			'reduce'	: '' + data.coupon[i]['content']['reduce'],		// æ»¡å‡
+			'present'	: '' + data.coupon[i]['content']['present'],		// æ»¡é€
+			'discount'	: '' + data.coupon[i]['content']['discount']		// æŠ˜æ‰£
 		}
 	};
 	localStorage['coupon'] = JSON.stringify(item);
 }
 
 /**
- * ½«±¾µØ´æ´¢µÄÓÅ»İĞÅÏ¢JSON½âÂë£¬²¢Èİ´í
+ * å°†æœ¬åœ°å­˜å‚¨çš„ä¼˜æƒ ä¿¡æ¯JSONè§£ç ï¼Œå¹¶å®¹é”™
  */
 function coupon_dejson() {
     if (typeof(localStorage['coupon']) != 'undefined') {
@@ -1254,7 +1254,7 @@ function coupon_dejson() {
 }
 
 /**
- * ¶©µ¥ÏêÇéº¯Êı
+ * è®¢å•è¯¦æƒ…å‡½æ•°
  */
 function load_detail() {
 	var order_id = get_param('order_id');
@@ -1270,7 +1270,7 @@ function load_detail() {
 			var html_im = template.render('order_detail', data);
 			$("#scrolling_ordered").html(html_im);
 
-			// ÉèÖÃ¹ö¶¯²ã
+			// è®¾ç½®æ»šåŠ¨å±‚
 			var myScroller = $('#scrolling_ordered').scroller();
 
 			order_cancel();
@@ -1281,7 +1281,7 @@ function load_detail() {
 }
 
 /**
- * ½üÒ»¸öÔÂ¶©µ¥ºÍÒ»¸öÔÂÇ°¶©µ¥µÄÇĞ»»
+ * è¿‘ä¸€ä¸ªæœˆè®¢å•å’Œä¸€ä¸ªæœˆå‰è®¢å•çš„åˆ‡æ¢
  */
 $.ui.ready(function() {
 	$('.order > div').click(function() {
@@ -1291,10 +1291,10 @@ $.ui.ready(function() {
 });
 
 /**
- * ÖØĞÂ´¦Àí¶©µ¥£¨È¡Ïû»òÔÚÏßÖ§¸¶£©
+ * é‡æ–°å¤„ç†è®¢å•ï¼ˆå–æ¶ˆæˆ–åœ¨çº¿æ”¯ä»˜ï¼‰
  */
 function order_cancel() {
-	//ÊÇ·ñÈ¡Ïû¶©µ¥µÄµ¯³ö¿ò
+	//æ˜¯å¦å–æ¶ˆè®¢å•çš„å¼¹å‡ºæ¡†
 	$(".order_status2").unbind('click');
 
 	$(".order_status2").click(function(n) {
@@ -1304,26 +1304,26 @@ function order_cancel() {
 		var order_id = $(this).attr('order_id');
 		var that = this;
 
-		if (text == 'È¡Ïû') {
+		if (text == 'å–æ¶ˆ') {
 			$.ui.popup({
 				title: 'aaa',
-				message: "È·ÈÏÈ¡Ïû¶©µ¥",
-				cancelText: "È¡Ïû",
+				message: "ç¡®è®¤å–æ¶ˆè®¢å•",
+				cancelText: "å–æ¶ˆ",
 				cancelCallback: function () {
 					// console.log("cancelled");
 				},
-				doneText: "È·ÈÏ",
+				doneText: "ç¡®è®¤",
 				doneCallback: function () {
 					var get = {
 						'order_id' : order_id,
 					};
 					$.getJSON(url('/user/order/cancel?callback=?'), get, function(data) {
-						// todo ĞèÒª¸Ä±ä×´Ì¬µÄÎÄ±¾Öµ
+						// todo éœ€è¦æ”¹å˜çŠ¶æ€çš„æ–‡æœ¬å€¼
 					});
 				},
 				cancelOnly: false
 			});
-		} else if (text == 'ÔÚÏßÖ§¸¶') {
+		} else if (text == 'åœ¨çº¿æ”¯ä»˜') {
 			var get = {
 				'order_id' : order_id
 			};
@@ -1359,7 +1359,7 @@ function order_cancel() {
 }
 
 /**
- * »ñÈ¡ÓÃ»§¶©µ¥ÁĞ±í
+ * è·å–ç”¨æˆ·è®¢å•åˆ—è¡¨
  */
 function load_myorder() {
 	load_mask();
@@ -1379,7 +1379,7 @@ function load_myorder() {
 			order_cancel();
 			orders_scrolling();
 
-			// ¸üĞÂstart²ÎÊı
+			// æ›´æ–°startå‚æ•°
 			if(data.orders.length) {
 				start = data.orders[data.orders.length - 1]['order_id'];
 			}
@@ -1405,7 +1405,7 @@ function load_myorder() {
 }
 
 /**
- * ¶©µ¥ÉÏÀ­Ë¢ĞÂº¯Êı
+ * è®¢å•ä¸Šæ‹‰åˆ·æ–°å‡½æ•°
  */
 function orders_scrolling() {
 	var p = 1;
@@ -1413,7 +1413,7 @@ function orders_scrolling() {
 	var myScroller;
 	bind_scrolling();
 
-	// °ó¶¨Ïà¹Ø»¬¶¯ÊÂ¼ş
+	// ç»‘å®šç›¸å…³æ»‘åŠ¨äº‹ä»¶
     function bind_scrolling() {
     	myScroller = $('#scrolling_order').scroller();
     	myScroller.addInfinite();
@@ -1429,7 +1429,7 @@ function orders_scrolling() {
 
         var self = this;
 
-        $('#scrolling_order').append('<div id="infinite" style="height:90px;line-height:60px;text-align:center;font-weight:bold">ÕıÔÚ¼ÓÔØ...</div>');
+        $('#scrolling_order').append('<div id="infinite" style="height:90px;line-height:60px;text-align:center;font-weight:bold">æ­£åœ¨åŠ è½½...</div>');
         this.scrollToBottom();
 
         $.bind(myScroller, "infinite-scroll-end", function () {
@@ -1440,18 +1440,18 @@ function orders_scrolling() {
             	self.clearInfinite();
 
             	var get = {
-        			'type'	 : 1,					// »ñÈ¡Á´½ÓÖĞµÄ·ÖÀàidºÅ
+        			'type'	 : 1,					// è·å–é“¾æ¥ä¸­çš„åˆ†ç±»idå·
         			'update' : 0,
         			'start'  : start,
             	};
 
-            	// µ÷ÓÃ¿ØÖÆÆ÷»ñÈ¡Êı¾İ
+            	// è°ƒç”¨æ§åˆ¶å™¨è·å–æ•°æ®
             	$.getJSON( url('/user/order/?callback=?'), get, function(data) {
             		var html = template.render('my_order_list', data);
 
             		$($(".order_list > div")[0]).append(html);
 
-            		// ¸üĞÂstart²ÎÊı
+            		// æ›´æ–°startå‚æ•°
             		if(data.orders.length) {
             			start = data.orders[data.orders.length - 1]['order_id'];
             		}
@@ -1475,58 +1475,58 @@ function orders_scrolling() {
 }
 
 /**
- * ¹ºÎï³µ×ó»¬É¾³ı
+ * è´­ç‰©è½¦å·¦æ»‘åˆ é™¤
  */
 $.ui.ready(function() {
-	// Ïò×ó»¬¶¯
+	// å‘å·¦æ»‘åŠ¨
 	$("#account_cart").delegate('.cart_goods', 'swipeLeft', function(data) {
 		$(this).css('margin-left','-146px');
 		$('.swipe_left', $(this)).show();
 	});
 
-	// ÏòÓÒ»¬¶¯
+	// å‘å³æ»‘åŠ¨
 	$("#account_cart").delegate('.cart_goods', 'swipeRight', function(data) {
 		$('.swipe_left', $(this)).hide();
 		$(this).css('margin-left', '0');
 	});
 
-	// ÏÂ´Î¹ºÂò
+	// ä¸‹æ¬¡è´­ä¹°
 	$("#account_cart").delegate('.swipe_left1', 'click', function(data) {
 		var goods_id = $(this).attr('goods_id');
 		cart_unset_settle(goods_id);
 
-		// ¼ÓÉÏÒõÓ°²ã
+		// åŠ ä¸Šé˜´å½±å±‚
 		var index = $('.swipe_left1').index($(this));
 		$('.swipe_left').eq(index).hide();
 		$('.cart_goods').eq(index).css('margin-left', '0');
 		unsettle_set_mask(index);
 
-		// ¸üĞÂ¹ºÎï³µ
+		// æ›´æ–°è´­ç‰©è½¦
 		cart_badge();
 	});
 
 	$("#account_cart").delegate('.swipe_left2', 'click', function(data) {
 		var goods_id = $(this).attr('goods_id');
 		cart_delete(goods_id);
-		// É¾³ı½Úµã
+		// åˆ é™¤èŠ‚ç‚¹
 		var index = $('.swipe_left2').index($(this));
 		$('#cartgoods_all a').eq(index).remove();
-		// ¸üĞÂ¹ºÎï³µ
+		// æ›´æ–°è´­ç‰©è½¦
 		cart_badge();
 	});
 });
 
 /**
- * ¼ÓÉÏÏÂ´Î¹ºÂòÒõÓ°²ã
+ * åŠ ä¸Šä¸‹æ¬¡è´­ä¹°é˜´å½±å±‚
  */
 function unsettle_set_mask(index) {
 	var shortage_pos = $('#cartgoods_all .goods_image').eq(index);
 	$('.shortage2', shortage_pos).remove();
-	shortage_pos.append('<div class="shortage2">ÏÂ´Î<br />¹ºÂò</div>');
+	shortage_pos.append('<div class="shortage2">ä¸‹æ¬¡<br />è´­ä¹°</div>');
 }
 
 /**
- * È¥µôÏÂ´Î¹ºÂòÒõÓ°²ã
+ * å»æ‰ä¸‹æ¬¡è´­ä¹°é˜´å½±å±‚
  */
 function unsettle_hide_mask(index) {
 	var shortage_pos = $('#cartgoods_all .goods_image').eq(index);
