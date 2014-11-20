@@ -423,3 +423,8 @@ body {
 .form_1 {
 	margin-left:20%;
 }
+
+.Wdate {
+	width:100px !important;
+	height:18px !important;
+}

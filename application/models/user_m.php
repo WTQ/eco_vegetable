@@ -142,7 +142,13 @@ class User_m extends MY_Model
 		$user = $this->get_by('user_id', $id);
 		return $user->username;
 	}
-	
+	/**
+	 * 统计用户数量
+	 */
+	public function count()
+	{
+		return $this->db->count_all_results('yf_users');
+	}
 	/**
 	 * 数据库密码生成函数
 	 *

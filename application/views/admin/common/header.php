@@ -8,6 +8,7 @@
 <script src="<?php echo base_url('/static/admin/js/jquery.js'); ?>"></script>
 <script src="<?php echo base_url('/static/admin/js/manager.js'); ?>"></script>
 <script src="<?php echo base_url('/static/admin/js/config.js'); ?>"></script>
+<script src="<?php echo base_url('/static/admin/js/calendar/WdatePicker.js'); ?>"></script>
 </head>
 
 <body>
