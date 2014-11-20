@@ -54,10 +54,10 @@ function shop_info() {
 			localStorage['shop_address'] = data.shop['address'];
 			//$("#low_price").text("订单满 " + low_price + " 元免费送货上门");
 			$("#low_price").text("果蔬类60天满300元送精品暖宝");
-
+			
 			// 显示小区名+店铺名
-			$('#shop_name').text( data.community['name'] + ' - ' + data.shop['name'] );
-
+			$('#shop_name').text(data.shop['name'] );
+			
 			// 判断是否在营业时间
 			if (data.time) {
 				$("#shop_open").attr("class", "open");
@@ -66,7 +66,7 @@ function shop_info() {
 				$("#shop_open").attr("class", "close");
 				$('#shop_open').text('已打烊');
 			}
-
+			
 			// 显示店铺营业时间
 			$('#shop_time').text( data.shop_hours['start_time'] + ' - ' + data.shop_hours['close_time']);
 
@@ -74,12 +74,139 @@ function shop_info() {
 			$('#body1_image').html(data.shop['shop_ad']);
 
 			// 调用是刷新代码
-//			shop_scrolling();
+			shop_scrolling();
 		} else {
 			redirect('#position');
 		}
 		hide_mask();
 	});
+}
+
+/**
+ * 密码找回相关功能
+ */
+$.ui.ready(function() {
+	// 验证码倒计时
+	var cnt = 180;
+	var curcnt;
+	var timeobj;
+	function set_Time1() {
+		// 计数
+		curcnt--;
+		$(".get-code").text('重发(' + curcnt + 's)');
+		if (curcnt < 1 ) {
+			clearInterval(timeobj); // 停止计时器
+			$(".get-code").text('获取确认码');
+			$(".get-code").removeClass('get-code-wait');
+		}
+	}
+
+	$(".get-code").click(function() {
+		if ($(this).hasClass('get-code-wait')) {
+			return ;
+		}
+
+		// 验证手机号码格式
+		var phone	= $('#pw-phone').val();
+		var reg		= /^1[3|4|5|8]\d{9}$/;
+		// 验证手机号格式
+		if (!reg.test(phone)) {
+			$('#pw-error').text("您输入的号码格式有误");
+			return;
+		}
+
+
+		var get = {
+			'phone'	: phone
+		};
+
+		$(".get-code").text('发送中...');
+		$('.get-code').addClass('get-code-wait');
+		$.getJSON(url('/user/password/code?callback=?'), get, function(data) {
+			if (data.error != 0) {
+				$.ui.popup({
+					message: data.msg,
+	                cancelText: "确认",
+	                cancelOnly: true
+				});
+				$(".get-code").text('获取验证码');
+				$(".get-code").removeClass('get-code-wait');
+			} else {
+				// 触发计时器
+				curcnt = cnt;
+				timeobj = setInterval(set_Time1, 1000);
+			}
+		});
+	});
+
+	$('#pw-edit').click(function() {
+		var pwd1 = $('#pw-pwd').val();
+		var pwd2 = $('#pw-re-pwd').val();
+
+		// 密码为空的判断
+		if (pwd1 == '') {
+			$('#pw-error').text('新密码不能为空');
+			return;
+		}
+
+		// 两次密码不相同判断
+		if (pwd1 != pwd2) {
+			$('#pw-error').text('两次密码输入不同');
+			return ;
+		}
+
+		// 密码长度为6-15位判断
+		if (pwd1.length < 6 || pwd1.length > 15) {
+			$('#pw-error').text('密码长度为6-15位');
+			return ;
+		}
+
+		var get = {
+			'phone'		: $('#pw-phone').val(),
+			'password'	: $('#pw-pwd').val(),
+			'code'		: $('#pw-code').val()
+		};
+
+		// 停止计时器
+		clearInterval(timeobj);
+
+		load_mask();
+		$.getJSON(url('/user/password/find?callback=?'), get, function(data) {
+			hide_mask();
+
+			if (data.error != 0) {
+				$(".get-code").text('获取验证码');
+				$(".get-code").removeClass('get-code-wait');
+				$.ui.popup({
+					message: data.msg,
+	                cancelText: '确认',
+	                cancelOnly: true
+				});
+			} else {
+				$.ui.popup({
+					message: '修改密码成功',
+	                cancelText: '确认',
+	                cancelOnly: true,
+	                cancelCallback: function () {
+	    				redirect('#sign');
+                    }
+				});
+			}
+		});
+	});
+});
+
+/**
+ * unload找回密码页面
+ */
+function unload_re_regeister() {
+	$('#pw-error').text('');
+	$('#pw-phone').val('');
+	$('#pw-code').val('');
+	$('#pw-pwd').val('');
+	$('#pw-re-pwd').val('');
+	$(".get-code").text('获取验证码');
+	$(".get-code").removeClass('get-code-wait');
 }
 
 /**
@@ -168,7 +295,7 @@ function sort_change() {
 /**
  * 下拉刷新函数
  */
-/*function shop_scrolling() {
+function shop_scrolling() {
 	var trigger = false;			// 作为判断是否请求服务器数据的标志
 	var myScroller;
 	bind_scrolling();
@@ -252,7 +379,7 @@ function sort_change() {
     function refresh_finish() {
         console.log("refresh-finish");
     }
-}*/
+}
 
 /**
  * 上拉刷新函数
