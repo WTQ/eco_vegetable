@@ -148,7 +148,7 @@ img {
 #body1_image {
 	width:100%;
 	position:absolute;
-	top:92px;
+	top:79px;
 	bottom:0;
 	padding-bottom: 10px;
 }
@@ -2005,5 +2005,7 @@ img {
 }
 .unit_listgoods {
 	position:absolute;
-	left:250px;
+	left:200px;
+	width:200px;
+	overflow:hidden;
 }
