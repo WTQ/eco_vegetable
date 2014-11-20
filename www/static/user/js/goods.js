@@ -54,10 +54,10 @@ function shop_info() {
 			localStorage['shop_address'] = data.shop['address'];
 			//$("#low_price").text("订单满 " + low_price + " 元免费送货上门");
 			$("#low_price").text("果蔬类60天满300元送精品暖宝");
-
+			
 			// 显示小区名+店铺名
-			$('#shop_name').text( data.community['name'] + ' - ' + data.shop['name'] );
-
+			$('#shop_name').text(data.shop['name'] );
+			
 			// 判断是否在营业时间
 			if (data.time) {
 				$("#shop_open").attr("class", "open");
@@ -66,7 +66,7 @@ function shop_info() {
 				$("#shop_open").attr("class", "close");
 				$('#shop_open').text('已打烊');
 			}
-
+			
 			// 显示店铺营业时间
 			$('#shop_time').text( data.shop_hours['start_time'] + ' - ' + data.shop_hours['close_time']);
 
@@ -74,7 +74,7 @@ function shop_info() {
 			$('#body1_image').html(data.shop['shop_ad']);
 
 			// 调用是刷新代码
-//			shop_scrolling();
+			shop_scrolling();
 		} else {
 			redirect('#position');
 		}
@@ -168,7 +168,7 @@ function sort_change() {
 /**
  * 下拉刷新函数
  */
-/*function shop_scrolling() {
+function shop_scrolling() {
 	var trigger = false;			// 作为判断是否请求服务器数据的标志
 	var myScroller;
 	bind_scrolling();
@@ -252,7 +252,7 @@ function sort_change() {
     function refresh_finish() {
         console.log("refresh-finish");
     }
-}*/
+}
 
 /**
  * 上拉刷新函数

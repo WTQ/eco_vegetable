@@ -41,6 +41,26 @@
 		<!-- 默认加载页 -->
 		<div data-ignore-slide id="entry" title="" data-load="load_entry" class="panel" selected="true" data-footer="none" data-header="none" style="overflow:hidden"></div>
 
+		<!--首页-->
+    	<div id="index" title="" class="panel" data-load="shop_info" data-unload="unload_shop_index" data-footer="common_footer" data-header="none" data-tab="tab_index" style="overflow:hidden">
+        	<div class="header_index">
+            	 <div class="h_header">
+            	<div class="search_sort">
+                	<div class="menusort" onclick="$.ui.toggleLeftSideMenu()" style="display:block; float:left;">分类</div>
+                    	<div><a href="#search_index" class="search1">搜索</a></div>
+                    	<div class="cl"></div>
+                	</div>
+            	</div>
+                <div class="shop_statu">
+					<span class="shop" id="shop_name"><!-- 小区- 商铺名称 --></span>
+					<div class="open" id="shop_open"><!-- 营业状态 --></div>
+					<span class="time" id="shop_time"><!-- 营业时间 --></span>
+					<div class="cl"></div>
+                </div>
+            </div>
+            <div id="shop_scrolling"></div>
+        </div>
+
         <!--搜索页面-->
         <div data-ignore-slide id="search_index" title="" class="panel" data-header="none" data-footer="none" data-load="goods_search" style="overflow:hidden">
         	<div class="h_header header_search">
@@ -69,7 +89,7 @@
 
 
         <!--分类页面-->
-        <div id="index" title="" class="panel" data-header="none" data-load="goods_info" data-footer="common_footer" data-tab="tab_index" style="overflow:hidden">
+        <div id="sort" title="" class="panel" data-header="none" data-load="goods_info" data-footer="common_footer" data-tab="tab_sort" style="overflow:hidden">
         	<!--分类页面的header-->
             <div class="h_header">
             	<div class="search_sort">
@@ -819,31 +839,31 @@
 <!-- 商品的分类导航  -->
 <nav id="goods_list">
     <ul class="item_list">
-        <a href="#index/class_id/0"><li>全部蔬菜</li></a>
-        <a href="#index/class_id/1"><li class="orange">田园时蔬</li></a>
-        <a href="#index/class_id/2"><li class="eggplant">食用菌菇</li></a>
-        <a href="#index/class_id/3"><li class="carrot">有机蔬菜</li></a>
-        <a href="#index/class_id/4"><li class="tomato">时鲜水果</li></a>
-        <a href="#index/class_id/5"><li class="oil">粮油副食</li></a>
-        <a href="#index/class_id/6"><li class="watermelon">南北干货</li></a>
-        <a href="#index/class_id/10"><li class="milk">牛奶乳品</li></a>
-        <a href="#index/class_id/7"><li class="carrot2">营养保健</li></a>
-        <a href="#index/class_id/8"><li class="tutechan">地方特产</li></a>
-        <a href="#index/class_id/11"><li class="candy">母婴用品</li></a>
-        <a href="#index/class_id/9"><li class="dailyuse">生活用品</li></a>
+        <a href="#sort/class_id/0"><li>全部蔬菜</li></a>
+        <a href="#sort/class_id/1"><li class="orange">田园时蔬</li></a>
+        <a href="#sort/class_id/2"><li class="eggplant">食用菌菇</li></a>
+        <a href="#sort/class_id/3"><li class="carrot">有机蔬菜</li></a>
+        <a href="#sort/class_id/4"><li class="tomato">时鲜水果</li></a>
+        <a href="#sort/class_id/5"><li class="oil">粮油副食</li></a>
+        <a href="#sort/class_id/6"><li class="watermelon">南北干货</li></a>
+        <a href="#sort/class_id/10"><li class="milk">牛奶乳品</li></a>
+        <a href="#sort/class_id/7"><li class="carrot2">营养保健</li></a>
+        <a href="#sort/class_id/8"><li class="tutechan">地方特产</li></a>
+        <a href="#sort/class_id/11"><li class="candy">母婴用品</li></a>
+        <a href="#sort/class_id/9"><li class="dailyuse">生活用品</li></a>
     </ul>
 </nav>
 
 <!-- 公共的footer -->
 <footer data-ignore-slide id="common_footer">
-<!--<a href="#index" id="tab_index">
+	<a href="#index" id="tab_index">
         <div class="index_image"></div>
         <div class="footer_text">首页</div>
     </a>
--->
-    <a href="#index/class_id/0" id="tab_index">
+
+    <a href="#sort/class_id/0" id="tab_sort">
         <div class="sort_image"></div>
-        <div class="footer_text">首页</div>
+        <div class="footer_text">商品</div>
     </a>
     <a href="#account_cart" id="tab_cart">
         <span id="total_items" class="af-badge"></span>
@@ -857,7 +877,7 @@
 </footer>
 
 <footer data-ignore-slide id="notice_footer">
-    <a href="#index/class_id/0" id="tab_index">
+    <a href="#sort/class_id/0" id="tab_index">
         <div style="font-size:18px!important;font-weight:bold!important;">返回</div>
     </a>
 </footer>
