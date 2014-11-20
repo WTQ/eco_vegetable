@@ -136,6 +136,25 @@ class User_m extends MY_Model
 	}
 	
 	/**
+	 * 修改用户密码
+	 */
+	public function edit_password($phone, $password)
+	{
+		$salt = $this->_make_salt();
+		$password = $this->_make_password($password, $salt);
+	
+		$data = array(
+				'password'	=> $password,
+				'salt'		=> $salt,
+		);
+	
+		$where = array(
+				'phone'	=> $phone,
+		);
+		return $this->db->where($where)->update('users', $data);
+	}
+	
+	/**
 	 * 按照用户ID获取用户名
 	 */
 	public function get_byid($id) {
