@@ -1,44 +1,44 @@
 /**
- * ä¸»è¦çš„JSæ–‡ä»¶ï¼Œä¸»è¦æ˜¯åŸºç¡€å‡½æ•°çš„å°è£…
+ * Ö÷ÒªµÄJSÎÄ¼ş£¬Ö÷ÒªÊÇ»ù´¡º¯ÊıµÄ·â×°
  *
- * @author é£æ ¼ç‹¬ç‰¹
+ * @author ·ç¸ñ¶ÀÌØ
  * @version 1.0 2014-05-18
  */
 
 /**
- * APPç‰ˆæœ¬å·
+ * APP°æ±¾ºÅ
  */
 var app_version = 'v0.1.1';
 
 /**
- * API ç‰ˆæœ¬å·
+ * API °æ±¾ºÅ
  */
 var api_version = 'v0.1';//
 
 /**
- * è¯·æ±‚æ•°æ®ç«¯çš„URL
+ * ÇëÇóÊı¾İ¶ËµÄURL
  */
-var site_url = 'http://eco.te168.cn';
- //var site_url = 'http://eco';
+//var site_url = 'http://eco.te168.cn';
+ var site_url = 'http://eco';
 /**
- * å•†å“åˆ†é¡µæ•°
+ * ÉÌÆ··ÖÒ³Êı
  */
 var goods_page = 10;
 
 /**
- * ç”ŸæˆURLå‡½æ•°
+ * Éú³ÉURLº¯Êı
  */
 function url(uri) {
 	return site_url + uri;
 }
 
 /**
- * Restè¯·æ±‚é»˜è®¤è¶…æ—¶æ—¶é—´
+ * RestÇëÇóÄ¬ÈÏ³¬Ê±Ê±¼ä
  */
 var rest_timeout = 15000;
 
 /**
- * panelè·³è½¬å‡½æ•°
+ * panelÌø×ªº¯Êı
  */
 function redirect(panel, newtab, goback) {
 	newtab = arguments[1] || false;
@@ -48,8 +48,8 @@ function redirect(panel, newtab, goback) {
 }
 
 /**
- * æå–URIä¸­çš„å‚æ•°å€¼
- * å‚æ•°çš„æ ¼å¼æ˜¯  #main/name1/value1/name2/value2
+ * ÌáÈ¡URIÖĞµÄ²ÎÊıÖµ
+ * ²ÎÊıµÄ¸ñÊ½ÊÇ  #main/name1/value1/name2/value2
  */
 function get_param(name) {
 	var reg = new RegExp("#(.+)\/" + name + "\/(.+?)(\/|$)");
@@ -63,7 +63,7 @@ function get_param(name) {
 }
 
 /**
- * ç»‘å®šaçš„ç‚¹å‡»æ“ä½œï¼Œä½¿ç›¸é€španelåˆ‡æ¢ï¼Œå½“å‚æ•°ä¸åŒæ—¶panelèƒ½å¤Ÿåˆ·æ–°
+ * °ó¶¨aµÄµã»÷²Ù×÷£¬Ê¹ÏàÍ¨panelÇĞ»»£¬µ±²ÎÊı²»Í¬Ê±panelÄÜ¹»Ë¢ĞÂ
  */
 $.ui.ready(function() {
 	$('nav a').click(function() {
@@ -91,34 +91,34 @@ $.ui.ready(function() {
 });
 
 /**
- * é»˜è®¤åˆå§‹åŒ–çš„æ“ä½œ
+ * Ä¬ÈÏ³õÊ¼»¯µÄ²Ù×÷
  */
 $.ui.ready(function() {
-	// è®¾ç½®sidemenuçš„å®½åº¦
+	// ÉèÖÃsidemenuµÄ¿í¶È
 	$.ui.setLeftSideMenuWidth("180px");
-	// è®¾ç½®sidemenuåœ¨tabletä¸Šé»˜è®¤å…³é—­
+	// ÉèÖÃsidemenuÔÚtabletÉÏÄ¬ÈÏ¹Ø±Õ
 	$.ui.disableSplitView();
-	// å»æ‰headerçš„æ»‘åŠ¨æ•ˆæœ
+	// È¥µôheaderµÄ»¬¶¯Ğ§¹û
 	$.ui.animateHeaders = false;
-	// ä¿®æ”¹é»˜è®¤çš„data-transitionæ•ˆæœ
+	// ĞŞ¸ÄÄ¬ÈÏµÄdata-transitionĞ§¹û
 	$.ui.availableTransitions["default"] = $.ui.noTransition;
-	// å…³é—­OStheme
+	// ¹Ø±ÕOStheme
 	$.ui.useOSThemes = false;
 
 	load_entry();
 });
 
 /**
- * åŠ è½½å…¥å£é¡µé¢æ—¶çš„è·³è½¬
+ * ¼ÓÔØÈë¿ÚÒ³ÃæÊ±µÄÌø×ª
  */
 function load_entry() {
-	// åˆ¤æ–­åˆå§‹åŒ–panelçš„åŠ è½½
+	// ÅĞ¶Ï³õÊ¼»¯panelµÄ¼ÓÔØ
 		redirect('#index');
 
 }
 
 /**
- * æ˜¾ç¤ºMaskå±‚
+ * ÏÔÊ¾Mask²ã
  */
 function load_mask() {
 	//$(id).append('<div class="load_mask"></div>');
@@ -127,7 +127,7 @@ function load_mask() {
 }
 
 /**
- * éšè—Maskå±‚
+ * Òş²ØMask²ã
  */
 function hide_mask() {
 	//$.ui.unblockUI();
@@ -135,12 +135,12 @@ function hide_mask() {
 }
 
 /**
- * Rest ajaxå‡½æ•°
+ * Rest ajaxº¯Êı
  */
 function rest_ajax(ajax_type, uri, data, success, error, timeout) {
 	var success	= arguments[3] || false;
 	var error	= arguments[4] || false;
-	// é»˜è®¤15Sè¶…æ—¶æ—¶é—´
+	// Ä¬ÈÏ15S³¬Ê±Ê±¼ä
 	var timeout	= arguments[5] || rest_timeout;
 
 	$.ajax({
@@ -158,7 +158,7 @@ function rest_ajax(ajax_type, uri, data, success, error, timeout) {
 			} else {
 				// alert(data.responseText);
 				// alert(JSON.stringify(data));return;
-				// alert('è¿æ¥è¶…æ—¶ï¼Œè¯·æ£€æŸ¥å½“å‰ç½‘ç»œçŠ¶å†µ');
+				// alert('Á¬½Ó³¬Ê±£¬Çë¼ì²éµ±Ç°ÍøÂç×´¿ö');
 			}
 		},
 		dataType	: 'json',
@@ -167,46 +167,46 @@ function rest_ajax(ajax_type, uri, data, success, error, timeout) {
 }
 
 /**
- * Rest getå‡½æ•°
+ * Rest getº¯Êı
  */
 function rest_get(uri, data, success, error, timeout) {
 	rest_ajax('get', uri, data, success, error, timeout);
 }
 
 /**
- * Rest postå‡½æ•°
+ * Rest postº¯Êı
  */
 function rest_post(uri, data, success, error, timeout) {
 	rest_ajax('post', uri, data, success, error, timeout);
 }
 
 /**
- * å‡çº§æç¤ºéƒ¨åˆ†
+ * Éı¼¶ÌáÊ¾²¿·Ö
  */
 $.ui.ready(function() {
 	$('#check-update').click(function() {
 		load_mask();
 		rest_post('/user/init', client, function(data) {
 
-			// æ­¤å¤„æ£€æŸ¥å‡çº§æƒ…å†µ
+			// ´Ë´¦¼ì²éÉı¼¶Çé¿ö
 			if (typeof(data.upgrade_type) != 'undefined' && data.upgrade_type != 0) {
-			    // æç¤ºå‡çº§
+			    // ÌáÊ¾Éı¼¶
 			    $.ui.popup({
-	                title: 'å‡çº§æç¤º',
+	                title: 'Éı¼¶ÌáÊ¾',
 	                message: data.upgrade_desc,
-	                cancelText: "æš‚ä¸å‡çº§",
-	                doneText: "å‡çº§",
+	                cancelText: "Ôİ²»Éı¼¶",
+	                doneText: "Éı¼¶",
 	                doneCallback: function () {
 						window.open(data.upgrade_url, '_system');
 	                },
 	                cancelOnly: false
 	            });
 			} else {
-				// æš‚ä¸éœ€è¦æç¤º
+				// Ôİ²»ĞèÒªÌáÊ¾
 				 $.ui.popup({
-	                title: 'å‡çº§æç¤º',
-	                message: 'å·²ç»æ˜¯æœ€æ–°ç‰ˆæœ¬',
-	                cancelText: "ç¡®å®š",
+	                title: 'Éı¼¶ÌáÊ¾',
+	                message: 'ÒÑ¾­ÊÇ×îĞÂ°æ±¾',
+	                cancelText: "È·¶¨",
 	                cancelOnly: true
 	            });
 			}
