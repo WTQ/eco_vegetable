@@ -83,6 +83,133 @@ function shop_info() {
 }
 
 /**
+ * 密码找回相关功能
+ */
+$.ui.ready(function() {
+	// 验证码倒计时
+	var cnt = 180;
+	var curcnt;
+	var timeobj;
+	function set_Time1() {
+		// 计数
+		curcnt--;
+		$(".get-code").text('重发(' + curcnt + 's)');
+		if (curcnt < 1 ) {
+			clearInterval(timeobj); // 停止计时器
+			$(".get-code").text('获取确认码');
+			$(".get-code").removeClass('get-code-wait');
+		}
+	}
+
+	$(".get-code").click(function() {
+		if ($(this).hasClass('get-code-wait')) {
+			return ;
+		}
+
+		// 验证手机号码格式
+		var phone	= $('#pw-phone').val();
+		var reg		= /^1[3|4|5|8]\d{9}$/;
+		// 验证手机号格式
+		if (!reg.test(phone)) {
+			$('#pw-error').text("您输入的号码格式有误");
+			return;
+		}
+
+
+		var get = {
+			'phone'	: phone
+		};
+
+		$(".get-code").text('发送中...');
+		$('.get-code').addClass('get-code-wait');
+		$.getJSON(url('/user/password/code?callback=?'), get, function(data) {
+			if (data.error != 0) {
+				$.ui.popup({
+					message: data.msg,
+	                cancelText: "确认",
+	                cancelOnly: true
+				});
+				$(".get-code").text('获取验证码');
+				$(".get-code").removeClass('get-code-wait');
+			} else {
+				// 触发计时器
+				curcnt = cnt;
+				timeobj = setInterval(set_Time1, 1000);
+			}
+		});
+	});
+
+	$('#pw-edit').click(function() {
+		var pwd1 = $('#pw-pwd').val();
+		var pwd2 = $('#pw-re-pwd').val();
+
+		// 密码为空的判断
+		if (pwd1 == '') {
+			$('#pw-error').text('新密码不能为空');
+			return;
+		}
+
+		// 两次密码不相同判断
+		if (pwd1 != pwd2) {
+			$('#pw-error').text('两次密码输入不同');
+			return ;
+		}
+
+		// 密码长度为6-15位判断
+		if (pwd1.length < 6 || pwd1.length > 15) {
+			$('#pw-error').text('密码长度为6-15位');
+			return ;
+		}
+
+		var get = {
+			'phone'		: $('#pw-phone').val(),
+			'password'	: $('#pw-pwd').val(),
+			'code'		: $('#pw-code').val()
+		};
+
+		// 停止计时器
+		clearInterval(timeobj);
+
+		load_mask();
+		$.getJSON(url('/user/password/find?callback=?'), get, function(data) {
+			hide_mask();
+
+			if (data.error != 0) {
+				$(".get-code").text('获取验证码');
+				$(".get-code").removeClass('get-code-wait');
+				$.ui.popup({
+					message: data.msg,
+	                cancelText: '确认',
+	                cancelOnly: true
+				});
+			} else {
+				$.ui.popup({
+					message: '修改密码成功',
+	                cancelText: '确认',
+	                cancelOnly: true,
+	                cancelCallback: function () {
+	    				redirect('#sign');
+                    }
+				});
+			}
+		});
+	});
+});
+
+/**
+ * unload找回密码页面
+ */
+function unload_re_regeister() {
+	$('#pw-error').text('');
+	$('#pw-phone').val('');
+	$('#pw-code').val('');
+	$('#pw-pwd').val('');
+	$('#pw-re-pwd').val('');
+	$(".get-code").text('获取验证码');
+	$(".get-code").removeClass('get-code-wait');
+}
+
+/**
  * 获取商品列表函数
  */
 function goods_info() {
