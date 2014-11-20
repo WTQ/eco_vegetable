@@ -2003,3 +2003,7 @@ img {
 	float:right;
 	padding-right:5%;
 }
+.unit_listgoods {
+	position:absolute;
+	left:250px;
+}
