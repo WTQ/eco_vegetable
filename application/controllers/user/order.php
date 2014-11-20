@@ -28,7 +28,6 @@ class Order extends U_Controller
 				'status'	=> 1,
 				'msg'		=> '用户未登录'
 			);
-
 			$this->json_out($data);
 		} else {
 			// type变量表示想要获取订单的类型，近一个月的订单与一个月之前的订单，分别用1与2表示
