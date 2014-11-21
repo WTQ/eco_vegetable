@@ -8,7 +8,7 @@
 /**
  * APP版本号
  */
-var app_version = 'v0.2.1';
+var app_version = 'v0.1.1';
 
 /**
  * API 版本号
