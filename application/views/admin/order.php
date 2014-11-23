@@ -34,6 +34,17 @@
 										<option value="0" <?php if($date_type == 0) echo 'selected'?> >0:00~24：00</option>
 										<option value="1" <?php if($date_type == 1) echo 'selected'?> >11:00~23:00</option>
 										<option value="2" <?php if($date_type == 2) echo 'selected'?> >昨23：00~今11:00</option>
+										<option value="8" <?php if($date_type == 8) echo 'selected'?> >8:00~9:00</option>
+										<option value="9" <?php if($date_type == 9) echo 'selected'?> >9:00~10:00</option>
+										<option value="10" <?php if($date_type == 10) echo 'selected'?> >10：00~11:00</option>
+										<option value="11" <?php if($date_type == 11) echo 'selected'?> >11：00~12:00</option>
+										<option value="12" <?php if($date_type == 12) echo 'selected'?> >12：00~13:00</option>
+										<option value="13" <?php if($date_type == 13) echo 'selected'?> >13：00~14:00</option>
+										<option value="14" <?php if($date_type == 14) echo 'selected'?> >14：00~15:00</option>
+										<option value="15" <?php if($date_type == 15) echo 'selected'?> >15：00~16:00</option>
+										<option value="16" <?php if($date_type == 16) echo 'selected'?> >16：00~17:00</option>
+										<option value="17" <?php if($date_type == 17) echo 'selected'?> >17：00~19:00</option>
+										<option value="19" <?php if($date_type == 19) echo 'selected'?> >19：00~23:00</option>
 									</select>
 									<input class="Wdate" name="date" placeholder="选择日期" value="<?php echo $date; ?>" onClick="WdatePicker()">
 									<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
