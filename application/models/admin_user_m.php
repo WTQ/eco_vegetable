@@ -46,6 +46,7 @@ class Admin_user_m extends MY_Model
 		$data = array(
 				'uid'		=> $user->uid,
 				'username'	=> $user->username,
+				'power'     => $user->power,
 		);
 		
 		$this->session->set_userdata($data);
@@ -61,6 +62,7 @@ class Admin_user_m extends MY_Model
 		$data = array(
 				'uid'		=> '',
 				'username'	=> '',
+				'power'     => '',
 		);
 		$this->session->unset_userdata($data);
 	}

@@ -3,6 +3,7 @@
         	<div class="word1">生态蔬菜</div>
             <div class="word2">Manager</div>
         </div>
+        <?php if ($power == 0) {?>
         <div class="menu">
         	<div class="menu1"><a href="<?php echo base_url('admin/');?>">
             	<div id="image1"></div>
@@ -52,5 +53,17 @@
                 <div class="cl"></div></a>
             </div>-->
         </div>
+         <?php } else {?>
+        <div class="menu">
+        	<div class="menu1"><a href="<?php echo base_url('admin/');?>">
+            	<div id="image1"></div>
+                <div class="word">系统首页</div></a>
+            </div>
+            <div class="menu1"><a href="<?php echo base_url('admin/order');?>">
+            	<div id="image3"></div>
+                <div class="word">订单管理</div></a>
+            </div>
+        </div>
+        <?php }?>
     </div>
     

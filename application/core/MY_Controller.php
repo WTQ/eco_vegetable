@@ -194,6 +194,7 @@ class A_Controller extends MY_Controller
 		$user 			= $this->admin_user_m->get($uid);
 		$this->uid 		= $data['uid']		= $user->uid;
 		$this->username = $data['username'] = $user->username;
+		$this->power    = $data['power'] = $user->power;
 		
 		// 往view中传递参数
 		load_vars($data);
