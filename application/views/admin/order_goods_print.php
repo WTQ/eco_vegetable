@@ -16,8 +16,9 @@
 					<table width="100%" class="print_table1">
 						<tr>
 							<th width="30%">订单商品</th>
-							<th width="30%">商品数量</th>
+							<th width="15%">商品数量</th>
 							<th width="30%">商品分类</th>
+							<th width="15%">总金额（元）</th>
 						</tr>
 						<?php foreach ($orders as $order): ?>
 						<tr>							
@@ -29,6 +30,9 @@
 							</td>
 							<td>
 								<?php echo $order['class_name']?>
+							</td>
+							<td>
+								<?php echo $order['quantity']*$order['price'];?>
 							</td>
 						</tr>
 						<?php endforeach;?>

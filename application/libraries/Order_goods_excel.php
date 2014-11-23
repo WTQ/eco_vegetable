@@ -69,6 +69,7 @@ class Order_goods_excel extends PHPExcel {
      	$this->getActiveSheet()->getColumnDimension('A')->setWidth($this->ReaderPHPExcel->getSheet(0)->getColumnDimension('A')->getWidth()+50);
     	$this->getActiveSheet()->getColumnDimension('B')->setWidth($this->ReaderPHPExcel->getSheet(0)->getColumnDimension('B')->getWidth());
     	$this->getActiveSheet()->getColumnDimension('C')->setWidth($this->ReaderPHPExcel->getSheet(0)->getColumnDimension('C')->getWidth()+10);
+    	$this->getActiveSheet()->getColumnDimension('D')->setWidth($this->ReaderPHPExcel->getSheet(0)->getColumnDimension('D')->getWidth());
     	
     	 
     	// 设置行高度
@@ -84,7 +85,7 @@ class Order_goods_excel extends PHPExcel {
 //    	$this->getActiveSheet()->getStyle('A2')->getFont()->setSize(12)->setName('宋体');
     	//设置标题字体
 //    	$this->getActiveSheet()->getStyle('A3:M3')->getFont()->setSize(11)->setName('宋体')->setBold(true);
-    	$this->getActiveSheet()->getStyle('A2:C2')->getFont()->setSize(11)->setName('宋体')->setBold(true);
+    	$this->getActiveSheet()->getStyle('A2:D2')->getFont()->setSize(11)->setName('宋体')->setBold(true);
     	//设置水平居中
 //    	$this->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
     }
@@ -93,17 +94,18 @@ class Order_goods_excel extends PHPExcel {
     {
  //   	$shopinfo = $shop['manager']."\r\n".$shop['address']."\r\n".$shop['shop_hours']."\r\n".$shop['distribution'];
     	//合并cell
-    	$this->getActiveSheet()->mergeCells('A1:C1');
+    	$this->getActiveSheet()->mergeCells('A1:D1');
     	    	
     	$this->setActiveSheetIndex(0)
     	->setCellValue('A1', '生态蔬菜'. date("Y-m-d"). '订单商品统计表')
     	->setCellValue('A2', "订单商品")
     	->setCellValue('B2', '商品数量')
-    	->setCellValue('C2', '商品分类');
-    	$this->getActiveSheet()->getStyle('A2:C2')->getAlignment()->setWrapText(true)->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-    	$this->getActiveSheet()->getStyle('A2:C2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-    	$this->getActiveSheet()->getStyle('A1:C1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-    	$this->getActiveSheet()->getStyle('A1:C1')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+    	->setCellValue('C2', '商品分类')
+    	->setCellValue('D2', '总金额（元）');
+    	$this->getActiveSheet()->getStyle('A2:D2')->getAlignment()->setWrapText(true)->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+    	$this->getActiveSheet()->getStyle('A2:D2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+    	$this->getActiveSheet()->getStyle('A1:D1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+    	$this->getActiveSheet()->getStyle('A1:D1')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
 //    	$this->getActiveSheet()->getStyle('A2:C2')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 //    	$this->getActiveSheet()->getStyle('A2:C2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
     }
@@ -116,8 +118,9 @@ class Order_goods_excel extends PHPExcel {
     		$this->getActiveSheet(0)->setCellValue('A'.($row), $order['name']);
      		$this->getActiveSheet(0)->setCellValue('B'.($row), $order['quantity']);
     		$this->getActiveSheet(0)->setCellValue('C'.($row), $order['class_name']);
-    		$this->getActiveSheet()->getStyle('A'.($row).':C'.($row))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-    		$this->getActiveSheet()->getStyle('A'.($row).':C'.($row))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+    		$this->getActiveSheet(0)->setCellValue('D'.($row), $order['quantity']*$order['price']);
+    		$this->getActiveSheet()->getStyle('A'.($row).':D'.($row))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+    		$this->getActiveSheet()->getStyle('A'.($row).':D'.($row))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
     		$this->getActiveSheet()->getRowDimension($row)->setRowHeight(20);
     		$row++;
     	}
