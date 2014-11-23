@@ -219,7 +219,7 @@ function goods_info() {
 	}
 
 	goods_sort_change();
-	$.ui.toggleSideMenu();
+//	$.ui.toggleSideMenu();
 }
 
 /**

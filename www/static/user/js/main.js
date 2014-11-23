@@ -20,7 +20,6 @@ var api_version = 'v0.1';//
  */
 //var site_url = 'http://eco.te168.cn';
 var site_url = 'http://121.41.50.149';
-//var site_url = 'http://eco';
 /**
  * 商品分页数
  */

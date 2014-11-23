@@ -29,7 +29,9 @@
                         <td><?php if ($row->on_business == 1)
                         	{echo '是';} else {echo '否';}?>
                         </td>
-                        <td><a href="<?php echo base_url('/admin/shop/edit_shop?shop_id=' .$row->shop_id); ?>">编辑</a>
+                        <td>
+                        	<a href="<?php echo base_url('admin/shop/edit_ad?shop_id=' .$row->shop_id);?>">首页</a>
+                        	<a href="<?php echo base_url('/admin/shop/edit_shop?shop_id=' .$row->shop_id); ?>">编辑</a>
                         </td>
                       </tr>
                       <?php endforeach;?>
