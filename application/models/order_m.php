@@ -410,22 +410,55 @@ class Order_m extends MY_Model
 	{
 		$date_type = (int)$date_type;
 		$time00 = strtotime($date."00:00:00");
-		$time24 = strtotime($date."23:59:59");
+		$time24 = strtotime($date."24:00:00");
 		$time11 = strtotime($date."11:00:00");
 		$time23 = strtotime($date."23:00:00");
 		$time_y23 = $time00-60*60*1;     //前一天23:00的时间戳
 		switch ($date_type)
 		{
-			case 0: $this->db->where('add_time >=',$time00);
-					$this->db->where('add_time <=',$time24);
-					break;
-			case 1: $this->db->where('add_time >=',$time11);
-					$this->db->where('add_time <=',$time23);
-					break;
-			case 2: $this->db->where('add_time >=',$time_y23);
-					$this->db->where('add_time <=',$time11);
-					break;
-			default:break;
+			case 0:  $this->db->where('add_time >=',$time00);
+					 $this->db->where('add_time <',$time24);
+					 break;
+			case 1:  $this->db->where('add_time >=',$time11);
+					 $this->db->where('add_time <',$time23);
+					 break;
+			case 2:  $this->db->where('add_time >=',$time_y23);
+					 $this->db->where('add_time <',$time11);
+					 break;
+			case 8:  $this->db->where('add_time >=',strtotime($date."8:00:00"));
+					 $this->db->where('add_time <',strtotime($date."9:00:00"));
+					 break;
+			case 9:  $this->db->where('add_time >=',strtotime($date."9:00:00"));
+					 $this->db->where('add_time <',strtotime($date."10:00:00"));
+					 break;
+			case 10: $this->db->where('add_time >=',strtotime($date."10:00:00"));
+					 $this->db->where('add_time <',strtotime($date."11:00:00"));
+					 break;
+			case 11: $this->db->where('add_time >=',strtotime($date."11:00:00"));
+					 $this->db->where('add_time <',strtotime($date."12:00:00"));
+					 break;
+			case 12: $this->db->where('add_time >=',strtotime($date."12:00:00"));
+					 $this->db->where('add_time <',strtotime($date."13:00:00"));
+					 break;
+			case 13: $this->db->where('add_time >=',strtotime($date."13:00:00"));
+					 $this->db->where('add_time <',strtotime($date."14:00:00"));
+					 break;
+			case 14: $this->db->where('add_time >=',strtotime($date."14:00:00"));
+					 $this->db->where('add_time <',strtotime($date."15:00:00"));
+					 break;
+			case 15: $this->db->where('add_time >=',strtotime($date."15:00:00"));
+					 $this->db->where('add_time <',strtotime($date."16:00:00"));
+					 break;
+			case 16: $this->db->where('add_time >=',strtotime($date."16:00:00"));
+					 $this->db->where('add_time <',strtotime($date."17:00:00"));
+					 break;
+			case 17: $this->db->where('add_time >=',strtotime($date."17:00:00"));
+					 $this->db->where('add_time <',strtotime($date."19:00:00"));
+					 break;
+			case 19: $this->db->where('add_time >=',strtotime($date."19:00:00"));
+					 $this->db->where('add_time <',strtotime($date."13:00:00"));
+					 break;					
+			default: break;
 					
 		}
 	}
@@ -541,7 +574,7 @@ class Order_m extends MY_Model
 			$time1 = mktime(0,0,0,$month,1,$y);
 			$time2 = mktime(0,0,0,$month+1,1,$y);
 			$this->db->where("add_time >=",$time1);
-			$this->db->where("add_time <=",$time2);
+			$this->db->where("add_time <",$time2);
 		} else {
 			if (!empty($date)) {
 				$this->make_date($date_type, $date);
@@ -610,17 +643,39 @@ class Order_m extends MY_Model
 	{
 		$date_type = (int)$date_type;
 		$time00 = strtotime($date."00:00:00");
-		$time24 = strtotime($date."23:59:59");
+		$time24 = strtotime($date."24:00:00");
 		$time11 = strtotime($date."11:00:00");
 		$time23 = strtotime($date."23:00:00");
 		$time_y23 = $time00-60*60*1;     //前一天23:00的时间戳
 		switch ($date_type)
 		{
-			case 0: $sql_order = $sql_order.' AND b.add_time >= '.$time00.' AND b.add_time <= '.$time24 ;
+			case 0: $sql_order = $sql_order.' AND b.add_time >= '.$time00.' AND b.add_time < '.$time24 ;
 					break;
-			case 1: $sql_order = $sql_order.' AND b.add_time >= '.$time11.' AND b.add_time <= '.$time23 ;
+			case 1: $sql_order = $sql_order.' AND b.add_time >= '.$time11.' AND b.add_time < '.$time23 ;
 					break;
-			case 2: $sql_order = $sql_order.' AND b.add_time >= '.$time_y23.' AND b.add_time <= '.$time11 ;
+			case 2: $sql_order = $sql_order.' AND b.add_time >= '.$time_y23.' AND b.add_time < '.$time11 ;
+					break;
+			case 8: $sql_order = $sql_order.' AND b.add_time >= '.strtotime($date."8:00:00").' AND b.add_time < '.strtotime($date."9:00:00") ;
+					break;
+			case 9: $sql_order = $sql_order.' AND b.add_time >= '.strtotime($date."9:00:00").' AND b.add_time < '.strtotime($date."10:00:00") ;
+					break;
+			case 10: $sql_order = $sql_order.' AND b.add_time >= '.strtotime($date."10:00:00").' AND b.add_time < '.strtotime($date."11:00:00") ;
+					break;
+			case 11: $sql_order = $sql_order.' AND b.add_time >= '.strtotime($date."11:00:00").' AND b.add_time < '.strtotime($date."12:00:00") ;
+					break;
+			case 12: $sql_order = $sql_order.' AND b.add_time >= '.strtotime($date."12:00:00").' AND b.add_time < '.strtotime($date."13:00:00") ;
+					break;
+			case 13: $sql_order = $sql_order.' AND b.add_time >= '.strtotime($date."13:00:00").' AND b.add_time < '.strtotime($date."14:00:00") ;
+					break;
+			case 14: $sql_order = $sql_order.' AND b.add_time >= '.strtotime($date."14:00:00").' AND b.add_time < '.strtotime($date."15:00:00") ;
+					break;
+			case 15: $sql_order = $sql_order.' AND b.add_time >= '.strtotime($date."15:00:00").' AND b.add_time < '.strtotime($date."16:00:00") ;
+					break;
+			case 16: $sql_order = $sql_order.' AND b.add_time >= '.strtotime($date."16:00:00").' AND b.add_time < '.strtotime($date."17:00:00") ;
+					break;
+			case 17: $sql_order = $sql_order.' AND b.add_time >= '.strtotime($date."17:00:00").' AND b.add_time < '.strtotime($date."19:00:00") ;
+					break;
+			case 19: $sql_order = $sql_order.' AND b.add_time >= '.strtotime($date."19:00:00").' AND b.add_time < '.strtotime($date."23:00:00") ;
 					break;
 			default:break;
 				
@@ -638,7 +693,7 @@ class Order_m extends MY_Model
 			$y     = date("Y",time());
 			$time1 = mktime(0,0,0,$month,1,$y);
 			$time2 = mktime(0,0,0,$month+1,1,$y);
-			$sql_order = $sql_order.' AND b.add_time >= '.$time1.' AND b.add_time <= '.$time2 ;
+			$sql_order = $sql_order.' AND b.add_time >= '.$time1.' AND b.add_time < '.$time2 ;
 		} else {
 			if (!empty($date)) {
 				$sql_order = $this->make_date_sql($date_type, $date,$sql_order);

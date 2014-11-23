@@ -202,8 +202,10 @@ class Order extends A_Controller
 		$shop_id = 1;
 		$stage = $this->input->get('stage', TRUE);
 		$keywords = $this->input->get('search_input', TRUE);
+		$date_type = $this->input->get('date_type',TRUE);
+		$date = $this->input->get('date',TRUE);
 		$this->load->library('excel');
-		$Orders = $this->order_m->to_excel($stage, $keywords);//$this->shops_m->shop_id2char($shop_id)
+		$Orders = $this->order_m->to_excel($stage, $keywords,$date_type,$date);//$this->shops_m->shop_id2char($shop_id)
 		if($shop_id == FALSE) {
 			$shop['shop_name'] = '全部店铺';
 		} else {
@@ -230,22 +232,30 @@ class Order extends A_Controller
 		} else {
 			$shop = $this->shops_m->get($shop_id);
 		}
-		$stage = $this->input->get('stage', TRUE);
+/*		$stage = $this->input->get('stage', TRUE);
 		if (empty($stage)) {
 			$stage = 0;
-		}
-		
+		}*/
 		$sort_stage = $this->input->get('sort_stage', TRUE);
+		$keywords = $this->input->get('search');
+		$date_type = $this->input->get('date_type',TRUE);
+		$date = $this->input->get('date',TRUE);
+		$month      = (int)get ('month');
+		$type       = $this->input->get('type');     //判断按地址搜索还是按商品名搜索
 		if (empty($sort_stage)) {
 			$sort_stage = 0;
 		}
-		
-		$keywords = $this->input->get('search');
 		if (empty($keywords)) {
 			$keywords = 0;
 		}
-		$Orders = $this->order_m->goods_list($stage, $sort_stage, $keywords);
-// 		var_dump($Orders);
+		if (empty($month)) {
+			$month = 0;
+		}
+		if($type == '0') {
+			$Orders = $this->order_m->goods_list($sort_stage, $month,$date_type,$date, $keywords);
+		} else {
+			$Orders = $this->order_m->goods_list_address($sort_stage, $month,$date_type,$date,$keywords);
+		}
 		$this->load->library('order_goods_excel');
 		$this->order_goods_excel->index($Orders, $shop);
 	}
