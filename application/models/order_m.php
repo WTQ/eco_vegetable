@@ -566,12 +566,11 @@ class Order_m extends MY_Model
 			$order_id = $order_id . ")";
 			// 相同商品合并数量
 			if($keywords) {
-				$query2 = $this->db->query("SELECT goods_id,name,SUM(quantity) as quantity FROM `yf_order_items` WHERE order_id IN " . $order_id . " and `name` LIKE '%".$keywords."%' GROUP BY goods_id");
+				$query2 = $this->db->query("SELECT goods_id,name,price,SUM(quantity) as quantity FROM `yf_order_items` WHERE order_id IN " . $order_id . " and `name` LIKE '%".$keywords."%' GROUP BY goods_id");
 			} else {
-				$query2 = $this->db->query("SELECT goods_id,name,SUM(quantity) as quantity FROM `yf_order_items` WHERE order_id IN " . $order_id . " GROUP BY goods_id");
+				$query2 = $this->db->query("SELECT goods_id,name,price,SUM(quantity) as quantity FROM `yf_order_items` WHERE order_id IN " . $order_id . " GROUP BY goods_id");
 			}
 			$return = $query2->result_array();
-			
 			// 获取分类、分类名称
 			foreach ($return as $key => $row) {
 				$query_tempid = $this->db->query("SELECT class_id FROM `yf_goods` WHERE goods_id=" . $row['goods_id'])->result_array();
@@ -660,7 +659,7 @@ class Order_m extends MY_Model
 			}
 			$sql_order = $sql_order."b.address LIKE '%".$address."%'";
 		}
-		$sql = "SELECT a.goods_id as goods_id,a.name as name,SUM(quantity) as quantity,class_name FROM yf_order_items AS a 
+		$sql = "SELECT a.goods_id as goods_id,a.name as name,a.price as price,SUM(quantity) as quantity,class_name FROM yf_order_items AS a 
 				INNER JOIN yf_order AS b ON a.order_id = b.order_id 
 				INNER JOIN yf_goods AS c ON a.goods_id = c.goods_id 
 				INNER JOIN yf_category AS d ON c.class_id = d.class_id 
@@ -672,6 +671,7 @@ class Order_m extends MY_Model
 				$return[$i]['goods_id']   = $row['goods_id'];
 				$return[$i]['name']       = $row['name'];
 				$return[$i]['quantity']   = $row['quantity'];
+				$return[$i]['price']      = $row['price'];
 				$return[$i]['class_name'] = $row['class_name'];
 				$i++;
 			}

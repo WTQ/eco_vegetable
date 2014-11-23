@@ -84,8 +84,9 @@
 					<table width="100%">
 						<tr>
 							<th width="30%">订单商品</th>
-							<th width="30%">商品数量</th>
+							<th width="15%">商品数量</th>
 							<th width="30%">商品分类</th>
+							<th width="15%">总金额（元）</th>
 							<th width="10%">操作</th>
 						</tr>
 						<?php if(!empty($orders)):?>
@@ -99,6 +100,9 @@
 							</td>
 							<td>
 								<?php echo $order['class_name']?>
+							</td>
+							<td>
+								<?php echo $order['quantity']*$order['price'];?>
 							</td>
 							<td>
 								<a onclick="return del_alert()" href="<?php echo base_url('/admin/order/del_all?&name='.$order['name'])?>">删除</a>
