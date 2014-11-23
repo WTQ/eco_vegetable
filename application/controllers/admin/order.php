@@ -202,8 +202,10 @@ class Order extends A_Controller
 		$shop_id = 1;
 		$stage = $this->input->get('stage', TRUE);
 		$keywords = $this->input->get('search_input', TRUE);
+		$date_type = $this->input->get('date_type',TRUE);
+		$date = $this->input->get('date',TRUE);
 		$this->load->library('excel');
-		$Orders = $this->order_m->to_excel($stage, $keywords);//$this->shops_m->shop_id2char($shop_id)
+		$Orders = $this->order_m->to_excel($stage, $keywords,$date_type,$date);//$this->shops_m->shop_id2char($shop_id)
 		if($shop_id == FALSE) {
 			$shop['shop_name'] = '全部店铺';
 		} else {
@@ -244,7 +246,10 @@ class Order extends A_Controller
 		if (empty($keywords)) {
 			$keywords = 0;
 		}
-		$Orders = $this->order_m->goods_list($stage, $sort_stage, $keywords);
+		$date_type = $this->input->get('date_type',TRUE);
+		$date = $this->input->get('date',TRUE);
+		
+		$Orders = $this->order_m->goods_list($stage, $sort_stage,$date_type,$date, $keywords);
 // 		var_dump($Orders);
 		$this->load->library('order_goods_excel');
 		$this->order_goods_excel->index($Orders, $shop);
