@@ -302,7 +302,7 @@ img {
 #goods_all {
     position:absolute;
 	width:100%;
-	top:84px;
+	top:48px;
 	padding-top:5px;
 	bottom:32px;
 	height: auto;
@@ -733,7 +733,7 @@ img {
 
 .more_word {
 	position:absolute;
-	top:302px;
+	top:300px;
 	bottom:0;
 	width:100%;
 	background-color:#3e454d;
