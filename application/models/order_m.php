@@ -752,4 +752,33 @@ class Order_m extends MY_Model
 		$this->db->where('name',$name);
 		$this->db->delete('yf_order_items');
 	}
+	/*
+	 * 查询活动订单内容
+	 */
+	public function order_active_query()
+	{
+		$sql = "SELECT DISTINCT a.phone as phone,a.address as address,b.goods_id as goods_id,b.name as name,b.price as price,d.class_id as class_id,d.class_name as class
+				FROM yf_order AS a 
+				INNER JOIN yf_order_items AS b ON a.order_id = b.order_id 
+				INNER JOIN yf_goods AS c ON b.goods_id = c.goods_id 
+				INNER JOIN yf_category AS d ON c.class_id = d.class_id 
+				ORDER BY a.user_id,c.class_id";
+		$query = $this->db->query($sql);
+		$return = $query->result_array();
+		// 获取分类、分类名称
+		foreach ($return as $key => $row) {
+			$sql1 = "SELECT SUM(a.quantity) as quantity FROM yf_order_items as a 
+					INNER JOIN yf_order AS b ON a.order_id = b.order_id 
+					WHERE a.goods_id=".$row['goods_id']." AND b.phone=".$row['phone'];
+			$quantity_array = $this->db->query($sql1)->result_array();
+			$return[$key]['quantity'] = $quantity_array[0]['quantity'];
+			$sql2 = "SELECT SUM(a.total_prices) as total_prices FROM yf_order_items as a 
+					INNER JOIN yf_order AS b ON a.order_id = b.order_id 
+					INNER JOIN yf_goods AS c ON a.goods_id = c.goods_id 
+					WHERE b.phone=".$row['phone']." AND c.class_id=".$row['class_id']." GROUP BY c.class_id";
+			$total_prices_array = $this->db->query($sql2)->result_array();
+			$return[$key]['total_prices'] = number_format($total_prices_array[0]['total_prices'], 2, '.', '');;
+		}
+		return $return;
+	}
 }

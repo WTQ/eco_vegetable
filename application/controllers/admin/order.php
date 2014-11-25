@@ -150,6 +150,25 @@ class Order extends A_Controller
 			load_view('admin/order_goods', $data);
 		}
 	}
+	/**
+	 * 活动页面
+	 */
+	public function order_active()
+	{	
+		$month      = (int)get ('month');
+		$month_type  = $this->input->get('date_type', TRUE);
+		$date       = $this->input->get('date',TRUE);
+		if (empty($month_type)) {
+			$month_type = 0;
+		}
+		if (empty($month)) {
+			$month = 0;
+		}
+		$data['orders'] = $this->order_m->order_active_query();
+		$data['month_type'] = $month_type;
+		$data['month'] = $month;
+		$this->load->view('admin/order_active',$data);
+	}
 	
 	/**
 	 * 订单商品统计打印
