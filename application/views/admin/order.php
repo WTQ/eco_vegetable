@@ -5,6 +5,9 @@
 				<div class="left content1_print">
 					<a href="<?php echo base_url('/admin/order/order_goods'); ?>">订单商品统计</a>
 				</div>
+				<div class="left content1_print">
+					<a href="<?php echo base_url('/admin/order/order_active'); ?>">活动页面</a>
+				</div>
 				<div class="cl"></div>
         	</div>	
         	<!--<div class="content11">

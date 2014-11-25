@@ -116,10 +116,15 @@ $.ui.ready(function() {
 	});
 	// “确认地址”按钮事件
 	$(".verify_address1").click(function() {
-		if ($("#address_verify").hasClass("verify_address2")) {
+		if($("#address_input").val()!='' && $("#address_input").val().replace(/(^\s*)|(\s*$)/g, "")!='') {
+			if ($("#address_verify").hasClass("verify_address2")) {
 			// 提交用户配送地址
-			confirm_address();
+				confirm_address();
+			}
+		} else {
+			alert("配送地址不得为空！");
 		}
+		
 	});
 });
 
