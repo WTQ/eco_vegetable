@@ -53,7 +53,7 @@ function shop_info() {
 			localStorage['low_price'] = low_price;
 			localStorage['shop_address'] = data.shop['address'];
 			//$("#low_price").text("订单满 " + low_price + " 元免费送货上门");
-			$("#low_price").text("果蔬类60天满300元送精品暖宝");
+			//$("#low_price").text("果蔬类60天满300元送精品暖宝");
 			
 			// 显示小区名+店铺名
 			$('#shop_name').text(data.shop['name'] );
@@ -253,7 +253,7 @@ function goods_sort_change() {
         // 将起送价本地存储
         localStorage['low_price'] = data.low_price;
         //$("#low_price").text("订单满 " + data.low_price + " 元免费送货上门");
-        $("#low_price").text("果蔬类60天满300元送精品暖宝");
+        //$("#low_price").text("果蔬类60天满300元送精品暖宝");
 		goods_scrolling();
 		
 		firstLoadGoods = false;
