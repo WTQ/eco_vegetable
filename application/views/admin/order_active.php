@@ -1,14 +1,27 @@
 <!-- 订单管理页面 -->
 <?php load_view('admin/common/header'); ?>
 		<div class="content">
-			<div class="content1" style="width:100%!important;height:50px!important;">
-				<div class="left content1_print">
-					<a href="<?php echo base_url('/admin/order/order_goods'); ?>">订单商品统计</a>
-				</div>
-				<div class="cl"></div>
-        	</div>	
-			<div class="content2">
-				<form action="<?php echo base_url('admin/order/order_goods/'); ?>" method="get">
+			<form action="<?php echo base_url('admin/order/order_active/'); ?>" method="get">
+				<div class="content1" style="width:100%!important;height:50px!important;">
+					<div class="left content1_print">
+	            		<a href="<?php echo base_url('/admin/order/'); ?>">订单统计</a>
+	            	</div>
+					<div class="left content1_print">
+						<a href="<?php echo base_url('/admin/order/order_goods'); ?>">订单商品统计</a>
+					</div>
+					<div class="left" style="margin-left:150px;">
+		        		<select name="type" class="left list_select">
+	            			<option value="0" <?php if($type=='0'): echo 'selected'; endif;?>>用户名名搜索</option>
+	            			<option value="1" <?php if($type=='1'): echo 'selected'; endif;?>>地址搜索</option>
+	            		</select>
+	            		<div class="left"><input class="search_input2" size="30" type="text" name="search" value="<?php if($keywords): echo $keywords; endif;?>" onmouseover=this.focus(); onclick="value=''; this.style.color='#000'"   onBlur="if(!value){value=defaultValue; this.style.color='#999'}"style="color:#999" /></div>
+	            		<div class="left"><input class="search_sub2" type="submit" name="submit" value=""/></div>
+	            		<div class="cl"></div>
+            		</div>	
+            		<div class="cl"></div>
+	        	</div>
+	        	
+				<div class="content2">
 					<table width="100%">
 						<tr>
 							<td width="80%">订单状态：
@@ -33,13 +46,12 @@
 									<option value="2" <?php if($month_type == 2) echo 'selected'?> >后半个月</option>
 								</select>
 								&nbsp;&nbsp;&nbsp;&nbsp;
-								<input class="Wdate" name="date" placeholder="选择日期" onClick="WdatePicker()">
+								<input class="Wdate" name="date" placeholder="选择日期" value="<?php if($date!=0):echo $date;endif;?>" onClick="WdatePicker()">
 								<input type="submit" value="搜索" style="font-size: 14px; border: 1px solid #A6B4FF; height:26px; width: 60px;" />
 							</td>
 						</tr>
 					</table>
-				</form>
-			</div>
+				</div>
 				<div class="content2">
 					<table width="100%" id="order_list">
 						<tr>
@@ -51,7 +63,7 @@
 							<th width="5%">金额（元）</th>
 							<th width="5%">总金额</th>
 						</tr>
-						<?php $phone = '';$class = '';$total_prices = '';?>
+						<?php $phone = '';$class = '';$username = '';?>
 						<?php foreach ($orders as $order): ?>
 						<tr>
 							<td><?php if($phone != $order['phone']):
@@ -64,17 +76,19 @@
 							<td><?php echo $order['name'];?></td>
 							<td><?php echo $order['quantity'];?></td>
 							<td><?php echo $order['quantity']*$order['price'];?></td>
-							<td><?php if($class != $order['class']||$total_prices != $order['total_prices']):
+							<td><?php if($class != $order['class']||$username != $order['phone']):
 							 			echo $order['total_prices'];
 										$class = $order['class'];
-										$total_prices = $order['total_prices'];
+										$username = $order['phone'];
 									  else: echo ''; endif; ?></td>
 						</tr>
 						<?php endforeach;?>
 					</table>
 				</div>
 			<!--endprint-->
+			</form>
 		</div>
+		
 	</div>
 
 <?php load_view('admin/common/footer'); ?>
