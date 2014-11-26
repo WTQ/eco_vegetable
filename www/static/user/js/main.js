@@ -8,7 +8,7 @@
 /**
  * APP版本号
  */
-var app_version = 'v0.2.1';
+var app_version = 'v0.2.3';
 
 /**
  * API 版本号
@@ -19,8 +19,8 @@ var api_version = 'v0.1';//
  * 请求数据端的URL
  */
 //var site_url = 'http://eco.te168.cn';
-//var site_url = 'http://121.41.50.149';
-var site_url = 'http://eco';
+var site_url = 'http://121.41.50.149';
+//var site_url = 'http://eco';
 /**
  * 商品分页数
  */
