@@ -758,6 +758,7 @@ class Order_m extends MY_Model
 	public function order_active_query($month,$month_type,$date,$type,$keywords)
 	{
 		$sql_order = "";
+		$sql_user = "";
 		$y = date("Y",time());
 		if($month != 0) {
 			if($month_type == 0) {//整个月
@@ -778,34 +779,37 @@ class Order_m extends MY_Model
 		}
 		if(!empty($keywords)) {
 			if($type == 0) {
-				$sql_order = $sql_order." AND b.phone LIKE '%$keywords%' ";
+				$sql_user = " AND phone LIKE '%$keywords%' ";
 			} else if($type == 1) {
 				$sql_order = $sql_order." AND b.address LIKE '%$keywords%' ";
 			}
 		}
-		$sql = "SELECT DISTINCT b.phone as phone,b.address as address,a.goods_id as goods_id,a.name as name,a.price as price,d.class_id as class_id,d.class_name as class
-				FROM yf_order_items AS a 
-				INNER JOIN yf_order AS b ON a.order_id = b.order_id 
-				INNER JOIN yf_goods AS c ON a.goods_id = c.goods_id 
-				INNER JOIN yf_category AS d ON c.class_id = d.class_id 
-				WHERE b.stage = 8 $sql_order
-				 ORDER BY b.user_id,c.class_id";
-		$query = $this->db->query($sql);
-		$return = $query->result_array();
-		// 获取总金额与数量
-		foreach ($return as $key => $row) {
-			$sql1 = "SELECT SUM(a.quantity) as quantity FROM yf_order_items as a 
-					INNER JOIN yf_order AS b ON a.order_id = b.order_id 
-					WHERE b.stage=8 AND a.goods_id=".$row['goods_id']." AND b.phone=".$row['phone'].$sql_order;
-			$quantity_array = $this->db->query($sql1)->result_array();
-			$return[$key]['quantity'] = $quantity_array[0]['quantity'];
-			$sql2 = "SELECT SUM(a.total_prices) as total_prices FROM yf_order_items as a 
-					INNER JOIN yf_order AS b ON a.order_id = b.order_id 
-					INNER JOIN yf_goods AS c ON a.goods_id = c.goods_id 
-					WHERE b.stage=8 AND b.phone=".$row['phone']." AND c.class_id=".$row['class_id'].$sql_order." GROUP BY c.class_id";
-			$total_prices_array = $this->db->query($sql2)->result_array();
-			$return[$key]['total_prices'] = number_format($total_prices_array[0]['total_prices'], 2, '.', '');;
+		$query_max = $this->db->query("SELECT phone,SUM(total_prices) as max_prices FROM yf_order WHERE stage=8 $sql_user GROUP BY user_id ORDER BY max_prices DESC");
+		$result = $query_max->result_array();
+		foreach ($result as $key=>$row) {
+			$sql = "SELECT DISTINCT b.phone as phone,b.address as address,a.goods_id as goods_id,a.name as name,a.price as price,d.class_id as class_id,d.class_name as class
+			FROM yf_order_items AS a
+			INNER JOIN yf_order AS b ON a.order_id = b.order_id
+			INNER JOIN yf_goods AS c ON a.goods_id = c.goods_id
+			INNER JOIN yf_category AS d ON c.class_id = d.class_id
+			WHERE b.stage = 8 AND b.phone =".$row['phone']. $sql_order.
+			" ORDER BY c.class_id";
+			$query = $this->db->query($sql);
+			$result[$key] = $query->result_array();
+			foreach ($result[$key] as $key2 => $row2) {
+				$sql1 = "SELECT SUM(a.quantity) as quantity FROM yf_order_items as a
+					INNER JOIN yf_order AS b ON a.order_id = b.order_id
+					WHERE b.stage=8 AND a.goods_id=".$row2['goods_id']." AND b.phone=".$row2['phone'].$sql_order;
+				$quantity_array = $this->db->query($sql1)->result_array();
+				$result[$key][$key2]['quantity'] = $quantity_array[0]['quantity'];
+				$sql2 = "SELECT SUM(a.total_prices) as total_prices FROM yf_order_items as a
+					INNER JOIN yf_order AS b ON a.order_id = b.order_id
+					INNER JOIN yf_goods AS c ON a.goods_id = c.goods_id
+					WHERE b.stage=8 AND b.phone=".$row2['phone']." AND c.class_id=".$row2['class_id'].$sql_order." GROUP BY c.class_id";
+				$total_prices_array = $this->db->query($sql2)->result_array();
+				$result[$key][$key2]['total_prices'] = number_format($total_prices_array[0]['total_prices'], 2, '.', '');
+			}
 		}
-		return $return;
+		return $result;
 	}
 }

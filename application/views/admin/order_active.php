@@ -64,24 +64,26 @@
 							<th width="5%">总金额</th>
 						</tr>
 						<?php $phone = '';$class = '';$username = '';?>
-						<?php foreach ($orders as $order): ?>
-						<tr>
-							<td><?php if($phone != $order['phone']):
-							 			echo $order['phone'];
-										$phone = $order['phone'];
-										else: echo '';endif;?>
-							</td>
-							<td><?php echo $order['address'];?></td>
-							<td><?php echo $order['class']; ?></td>
-							<td><?php echo $order['name'];?></td>
-							<td><?php echo $order['quantity'];?></td>
-							<td><?php echo $order['quantity']*$order['price'];?></td>
-							<td><?php if($class != $order['class']||$username != $order['phone']):
-							 			echo $order['total_prices'];
-										$class = $order['class'];
-										$username = $order['phone'];
-									  else: echo ''; endif; ?></td>
-						</tr>
+						<?php foreach ($orders as $row): ?>
+							<?php foreach ($row as $order): ?>
+							<tr>
+								<td><?php if($phone != $order['phone']):
+								 			echo $order['phone'];
+											$phone = $order['phone'];
+											else: echo '';endif;?>
+								</td>
+								<td><?php echo $order['address'];?></td>
+								<td><?php echo $order['class']; ?></td>
+								<td><?php echo $order['name'];?></td>
+								<td><?php echo $order['quantity'];?></td>
+								<td><?php echo $order['quantity']*$order['price'];?></td>
+								<td><?php if($class != $order['class']||$username != $order['phone']):
+								 			echo $order['total_prices'];
+											$class = $order['class'];
+											$username = $order['phone'];
+										  else: echo ''; endif; ?></td>
+							</tr>
+							<?php endforeach;?>
 						<?php endforeach;?>
 					</table>
 				</div>
