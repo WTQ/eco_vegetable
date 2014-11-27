@@ -101,12 +101,10 @@ class Zone extends U_Controller
 
 	public function search_shop()
 	{
-		$community_id = (int) get('community_id');
-		$shop_id      = $this->zone_community_m->get_shops($community_id);
+		$shop_id      = 1;
 		$data         = array();
 
 		if($shop_id) {
-			set_cookie('community_id', $community_id, 3600 * 24 * 365);
 			set_cookie('shop_id', $shop_id, 3600 * 24 * 365);
 			$data['shop_id'] = $shop_id;
 		} else {
@@ -144,15 +142,11 @@ class Zone extends U_Controller
 		
 		$address_id   = (int) get('address_id');
 		$result       = $this->address_m->get($address_id);
-
 		$shop_id      = 1;
-		$data         = array();
-
 		set_cookie('address_id', $address_id, 3600 * 24 * 365);
 		set_cookie('shop_id',1, 3600 * 24 * 365);
 
 		$this->_change_default_address($address_id);
-
 		$data = array(
 			'shop_id'        => $shop_id,
 			'user_address'   => $result->name,
@@ -187,7 +181,6 @@ class Zone extends U_Controller
 		
 			return $this->json_out($data);
 		}
-		
 		$address_id = get('address_id');
 		$this->db->where('address_id', $address_id);
 		if($this->db->delete('address')) {
