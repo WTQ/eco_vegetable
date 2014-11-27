@@ -145,21 +145,18 @@ class Zone extends U_Controller
 		$address_id   = (int) get('address_id');
 		$result       = $this->address_m->get($address_id);
 
-		$community_id = $result->community_id;
-		$shop_id      = $this->zone_community_m->get_shops($community_id);
+		//$community_id = $result->community_id;
+		$shop_id      = 1;
 		$data         = array();
 
 		if ($shop_id > 0) {
 			set_cookie('address_id', $address_id, 3600 * 24 * 365);
-			set_cookie('community_id', $community_id, 3600 * 24 * 365);
-			set_cookie('shop_id', $community_id, 3600 * 24 * 365);
+			set_cookie('shop_id', $shop_id, 3600 * 24 * 365);
 
 			$this->_change_default_address($address_id);
 
 			$data = array(
 				'shop_id'        => $shop_id,
-				'community_id'   => $community_id,
-				'community_name' => $result->community_name,
 				'user_address'   => $result->name,
 				'error'          => 0,
 			);

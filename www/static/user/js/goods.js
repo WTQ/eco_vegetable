@@ -25,6 +25,7 @@ function shop_info() {
 		shop_id      = localStorage['shop_id'];
 	}
 	localStorage['shop_id']      = shop_id;
+	localStorage['shop_open']    = 0;
 
 	// 清除历史panel记录
 	$.ui.clearHistory();
@@ -59,9 +60,11 @@ function shop_info() {
 			if (data.time) {
 				$("#shop_open").attr("class", "open");
 				$('#shop_open').text('营业中');
+				localStorage['shop_open'] = 1;
 			} else {
 				$("#shop_open").attr("class", "close");
 				$('#shop_open').text('已打烊');
+				localStorage['shop_open'] = 0;
 			}
 			
 			// 显示店铺营业时间
@@ -743,19 +746,25 @@ function load_cart() {
  */
 $.ui.ready(function() {
 	$('#settle_goods').click(function() {
-	// 判断是否登录状态
-	if (typeof(localStorage['phone']) == 'undefined') {
-		localStorage['back2cart'] = 1;
-		// 没检测到本地存储的Phone，跳转到注册页面
-		redirect("#register");
-	} else if ((typeof(localStorage['phone']) != 'undefined') && (typeof(localStorage['user_address']) == 'undefined')) {
-		localStorage['back2cart'] = 1;
-		// 检测到用户已注册但尚未填写配送地址，跳转到地址填写页
-		redirect("#position_input");
+	//判断店铺是否打烊，若打烊则不能下单
+	if(localStorage['shop_open'] == 1) {
+		// 判断是否登录状态
+		if (typeof(localStorage['phone']) == 'undefined') {
+			localStorage['back2cart'] = 1;
+			// 没检测到本地存储的Phone，跳转到注册页面
+			redirect("#register");
+		} else if ((typeof(localStorage['phone']) != 'undefined') && (typeof(localStorage['user_address']) == 'undefined')) {
+			localStorage['back2cart'] = 1;
+			// 检测到用户已注册但尚未填写配送地址，跳转到地址填写页
+			redirect("#position_input");
+		} else {
+			// 用户已登录
+			redirect("#cart");
+		}
 	} else {
-		// 用户已登录
-		redirect("#cart");
+		alert("抱歉！店铺已打烊，不能下单。");
 	}
+		
 	});
 });
 
