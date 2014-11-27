@@ -155,18 +155,26 @@ class Order extends A_Controller
 	 */
 	public function order_active()
 	{	
-		$month      = (int)get ('month');
-		$month_type  = $this->input->get('date_type', TRUE);
+		$month      = $this->input->get('month',TRUE);
+		$month_type = $this->input->get('month_type', TRUE);//前半月，后半月
 		$date       = $this->input->get('date',TRUE);
+		$type       = $this->input->get('type',TRUE);//用户名、地址
+		$keywords   = $this->input->get('search',TRUE);
 		if (empty($month_type)) {
 			$month_type = 0;
 		}
 		if (empty($month)) {
 			$month = 0;
 		}
-		$data['orders'] = $this->order_m->order_active_query();
+		if (empty($date)) {
+			$date = 0;
+		}
+		$data['orders'] = $this->order_m->order_active_query($month,$month_type,$date,$type,$keywords);
 		$data['month_type'] = $month_type;
 		$data['month'] = $month;
+		$data['date'] = $date;
+		$data['type'] = $type;
+		$data['keywords'] = $keywords;
 		$this->load->view('admin/order_active',$data);
 	}
 	

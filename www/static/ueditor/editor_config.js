@@ -26,7 +26,8 @@
      */
     var tmp = window.location.pathname;
         URL = '/static/ueditor/';
-        URL_UPLOAD = "/";
+		//URL = 'http://121.41.50.149/';
+        URL_UPLOAD = "http://121.41.50.149/";
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
      */
