@@ -30,11 +30,11 @@ function load_community() {
 function confirm_address() {
 	// 注意区别 shop_address
 	var user_address = $("#address_input").val();
-	var community_id = localStorage['community_id'];
 	var user_id      = localStorage['user_id'];
+	var address_id   = localStorage['address_id'];
 	var get          = {
 		'user_address' : user_address,
-		'community_id' : community_id,
+		'address_id'   : address_id,
 		'user_id'      : user_id,
 	};
 

@@ -1238,22 +1238,20 @@ $.ui.ready(function() {
 	$(".confirm_code").click(function() {
 		var pwd_1 = $("#pwd_1").val();			// 获取首次输入的密码
 		var pwd_2 = $("#pwd_2").val();			// 获取重复输入的密码
-		alert($(".phonenumber").text());
 		if (pwd_1 === pwd_2) {
 			// 密码输入一致时，请求服务器
 			var get = {
 				'phone'		   : $(".phonenumber").text(),
 				'password'	   : pwd_1,
-				//'community_id' : localStorage['community_id']
 			};
 			$.getJSON(url('/user/user/add_user?callback=?'), get, function(data) {
 				// 登录成功，跳转到首页
 				if (data.error == 1) {
 					$("#pwd_error").text("该手机用户已注册");
 				} else {
-					// 本地存储用户手机号和用户所在小区名
+					// 本地存储用户手机号和用户的id号
 					localStorage['phone']          = data.phone;
-					//localStorage['community_name'] = data.community_name;
+					localStorage['user_id']          = data.user_id;
 					// 设address_id是为了方便之后单独添加用户地址
 					localStorage['address_id']     = data.address_id;
 					// 新注册用户继续完成地址填写

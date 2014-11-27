@@ -57,7 +57,6 @@ class User extends U_Controller {
 		$phone          = get('phone');
 		$pwd            = get('password');
 		$user           = $this->user_m->get_byph($phone);
-		var_dump($user);
 		// 需要检查手机号码是否重复注册
 		if (isset($user->user_id)) {
 			// 该手机已注册
@@ -66,6 +65,7 @@ class User extends U_Controller {
 			$user_id            = $this->user_m->add($phone, $pwd);
 			// TODO 注意，此时用户尚未填写配送地址，address字段为空
 			$address_id         = $this->address_m->add_address($user_id);
+			//var_dump($address_id);
 			$data = array(
 				'user_id'        => $user_id,
 				'phone'          => $phone,
@@ -81,7 +81,7 @@ class User extends U_Controller {
 			$data['error']      = 0;*/
 		}
 
-		//$this->json_out($data);
+		$this->json_out($data);
 	}
 
 	/**

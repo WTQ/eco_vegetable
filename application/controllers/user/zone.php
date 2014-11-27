@@ -118,13 +118,11 @@ class Zone extends U_Controller
 
 	public function save_community()
 	{
-		$community_id 	= (int) get('community_id');
 		$address_id   	= (int) get('address_id');
 		$address      	= get('user_address');
 		$user_id		= get('user_id');
-		$community_name = '';
 		$data         = array();
-		if ( ($this->address_m->add_address($user_id, $community_id, $community_name, $address)) != FALSE) {
+		if ( ($this->address_m->add_address($user_id,$address,$address_id)) != FALSE) {
 			$data['error'] = 0;
 		} else {
 			$data['error'] = 1;
