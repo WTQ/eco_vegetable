@@ -21,8 +21,7 @@ class Logout extends U_Controller {
 	public function index()
 	{
 		set_cookie('shop_id', '', -1);
-		set_cookie('address','',-1);
-		set_cookie('community_id','',-1);
+		//set_cookie('address','',-1);
 		set_cookie('phone','',-1);
 		$data['login'] = 0;
 		$this->json_out($data);

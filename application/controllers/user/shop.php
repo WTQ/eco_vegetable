@@ -37,7 +37,6 @@ class Shop extends U_Controller
 				'time'			=> $this->shop_m->is_run($shop_id),			// TRUE/FALSE，判断是否营业
 				'shop_hours'	=> $this->shop_m->time_decode($shop_id),	// 营业时间JSON解码
 				'low_price'		=> $shop->low_price,						// 获取商家起送价
-				'community'		=> $this->shop_m->get_community($shop_id),
 				'goods'			=> $this->goods_m->get_byid($shop_id),		// 获取该商家全部商品信息
 				'error'			=> 0,
 			);

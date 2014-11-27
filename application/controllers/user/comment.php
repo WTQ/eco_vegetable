@@ -68,8 +68,7 @@ class Comment extends U_Controller
 	
 	public function save()
 	{
-		$community_id = $this->input->cookie("community_id");
-		$shop_id = $this->zone_community_m->get_shops($community_id);	
+		$shop_id = 1;	
 		$user_id = $this->input->cookie("user_id");
 		$content = get("content");
 		$type = get("type");
