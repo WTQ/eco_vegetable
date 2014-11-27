@@ -7,4 +7,5 @@ application/logs/
 www/static/newuser/*
 www/goods_img/*
 www/uploads/goods_img
+www/upload/
 .DS_Store
