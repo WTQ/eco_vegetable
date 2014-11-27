@@ -25,7 +25,7 @@ function shop_info() {
 		shop_id      = localStorage['shop_id'];
 	}
 	localStorage['shop_id']      = shop_id;
-	localStorage['shop_open']    = 0;
+	localStorage['shop_open']    = 1;
 
 	// 清除历史panel记录
 	$.ui.clearHistory();
