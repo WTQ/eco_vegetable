@@ -57,9 +57,7 @@ class User extends U_Controller {
 		$phone          = get('phone');
 		$pwd            = get('password');
 		$user           = $this->user_m->get_byph($phone);
-		$community_id   = get('community_id');
-		$community_name = $this->zone_community_m->get($community_id)->name;	// 获取小区名称
-
+		var_dump($user);
 		// 需要检查手机号码是否重复注册
 		if (isset($user->user_id)) {
 			// 该手机已注册
@@ -67,12 +65,12 @@ class User extends U_Controller {
 		} else {
 			$user_id            = $this->user_m->add($phone, $pwd);
 			// TODO 注意，此时用户尚未填写配送地址，address字段为空
-			$address_id         = $this->address_m->add_address($user_id, $community_id, $community_name);
+			$address_id         = $this->address_m->add_address($user_id);
 			$data = array(
 				'user_id'        => $user_id,
 				'phone'          => $phone,
-				'community_id'   => $community_id,
-				'community_name' => $community_name,
+				//'community_id'   => $community_id,
+				//'community_name' => $community_name,
 				'address_id'     => $address_id,
 				'user'           => $this->user_m->get($user_id),
 				'error'          => 0
@@ -83,7 +81,7 @@ class User extends U_Controller {
 			$data['error']      = 0;*/
 		}
 
-		$this->json_out($data);
+		//$this->json_out($data);
 	}
 
 	/**

@@ -39,18 +39,18 @@ class Address_m extends MY_Model
 	/**
 	 * 添加用户地址
 	 */
-	public function add_address($user_id, $community_id, $community_name, $address='', $default=1)
+	public function add_address($user_id, $address='', $default=1)
 	{
 		$user_id      = (int) $user_id;
-		$community_id = (int) $community_id;
+		//$community_id = (int) $community_id;
 		// 先将其它的默认标志default置0
 		$this->update_by(array('user_id' => $user_id), array('default' => 0));
 		
 		$data         = array(
 			'user_id'        => $user_id,
 			'name'           => $address,
-			'community_id'   => $community_id,
-			'community_name' => $community_name,
+			//'community_id'   => $community_id,
+			//'community_name' => $community_name,
 			'default'        => $default,
 		);
 
