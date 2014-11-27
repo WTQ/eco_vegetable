@@ -20,6 +20,10 @@ function position_search() {
  * 用户地址填写页面
  */
 function load_community() {
+	if ( get_param('isChangeAddress') == 1 || storage.get('isChangeAddress') == 1 ) {
+		// 作为小区定位和地址切换的辨别标识
+		storage.set('isChangeAddress', 1);
+	}
 	// 标题栏填充当前选择小区店铺
 	$('#zone_title').text(localStorage['shop_address']);
 }
@@ -30,11 +34,9 @@ function load_community() {
 function confirm_address() {
 	// 注意区别 shop_address
 	var user_address = $("#address_input").val();
-	var community_id = localStorage['community_id'];
 	var user_id      = localStorage['user_id'];
 	var get          = {
 		'user_address' : user_address,
-		'community_id' : community_id,
 		'user_id'      : user_id,
 	};
 
@@ -42,7 +44,11 @@ function confirm_address() {
 		if (data['error'] === 0) {
 			// 地址提交成功，则把该地址本地存储
 			localStorage['user_address'] = user_address;
-			redirect('#cart');
+			if (storage.get('isChangeAddress') == 1) {
+				redirect('#myaccount');
+			} else {
+				redirect('#cart');
+			}
 		} else {
 			redirect("#position_input");
 		}
@@ -54,6 +60,7 @@ function confirm_address() {
  * 我的账户panel加载时调用
  */
 function my_account() {
+	storage.remove('isChangeAddress');
 	$('#wrap_address').html('<div id="scroller_address" class="accountall"></div>');
 	load_mask();
 	$.getJSON(url('/user/user/user_info?callback=?'), function(data) {
@@ -86,8 +93,6 @@ $.ui.ready(function() {
 			if (data.error == 0) {
 				// 切换用地址后重写相关localStorage
 				window.localStorage['shop_id'] = data.shop_id;
-				window.localStorage['community_id'] = data.community_id;
-				window.localStorage['community_name'] = data.community_name;
 				window.localStorage['user_address'] = data.user_address;
                 redirect('#myaccount');
 				

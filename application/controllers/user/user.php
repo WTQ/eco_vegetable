@@ -57,8 +57,6 @@ class User extends U_Controller {
 		$phone          = get('phone');
 		$pwd            = get('password');
 		$user           = $this->user_m->get_byph($phone);
-		$community_id   = get('community_id');
-		$community_name = $this->zone_community_m->get($community_id)->name;	// 获取小区名称
 
 		// 需要检查手机号码是否重复注册
 		if (isset($user->user_id)) {
@@ -67,12 +65,10 @@ class User extends U_Controller {
 		} else {
 			$user_id            = $this->user_m->add($phone, $pwd);
 			// TODO 注意，此时用户尚未填写配送地址，address字段为空
-			$address_id         = $this->address_m->add_address($user_id, $community_id, $community_name);
+			$address_id         = $this->address_m->add_address($user_id);
 			$data = array(
 				'user_id'        => $user_id,
 				'phone'          => $phone,
-				'community_id'   => $community_id,
-				'community_name' => $community_name,
 				'address_id'     => $address_id,
 				'user'           => $this->user_m->get($user_id),
 				'error'          => 0
@@ -98,7 +94,6 @@ class User extends U_Controller {
 				'username'	=>	post('username'),
 				'phone'		=>	post('phone'),
 				'address'	=>	post('address'),
-				'community'	=>	post('community'),
 			);
 			$this->user_m->modify($this->check_login()->phone, $data);
 		} else {
@@ -121,14 +116,6 @@ class User extends U_Controller {
  			$this->json_out($result);
 		} else {
 			$result['login'] = 0;
-			$community_id = $this->input->cookie('community_id');
-
-			if ($community_id !== FALSE) {
-				$community = $this->zone_community_m->get($community_id);
-				$result['community_name'] = $community->name;
-			$result['address'] = $this->input->cookie('address');
-			}
-
 			$this->json_out($result);
 		}
 	}

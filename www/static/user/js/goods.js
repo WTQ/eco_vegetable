@@ -20,14 +20,11 @@ var start = 0;
 
 function shop_info() {
 	cart_badge();
-	var community_id = 1;
 	var shop_id      = 1;
 	if (shop_id === null) {
-		community_id = localStorage['community_id'];
 		shop_id      = localStorage['shop_id'];
 	}
 	localStorage['shop_id']      = shop_id;
-	localStorage['community_id'] = community_id;
 
 	// 清除历史panel记录
 	$.ui.clearHistory();
@@ -229,7 +226,6 @@ function goods_sort_change() {
     // shop_info();
     cart_badge();
     localStorage['shop_id']      = 1;
-    localStorage['community_id'] = 1;
     // 清除历史panel记录
 //    $.ui.clearHistory();
 	var class_id = get_param("class_id");							// 取得分类id
@@ -1244,7 +1240,6 @@ $.ui.ready(function() {
 			var get = {
 				'phone'		   : $(".phone_left").val(),
 				'password'	   : pwd_1,
-				'community_id' : localStorage['community_id']
 			};
 			$.getJSON(url('/user/user/add_user?callback=?'), get, function(data) {
 				// 登录成功，跳转到首页
@@ -1252,8 +1247,7 @@ $.ui.ready(function() {
 					$("#pwd_error").text("该手机用户已注册");
 				} else {
 					// 本地存储用户手机号和用户所在小区名
-					localStorage['phone']          = data.phone;
-					localStorage['community_name'] = data.community_name;
+					localStorage['phone']          = data.phone;s
 					// 设address_id是为了方便之后单独添加用户地址
 					localStorage['address_id']     = data.address_id;
 					// 新注册用户继续完成地址填写
@@ -1299,16 +1293,12 @@ $.ui.ready(function() {
 				if (localStorage['back2cart'] == 1) {
 					localStorage['back2cart']    = 0;
 					localStorage['shop_id']      = data.shop_id;
-					localStorage['community_id'] = data.community_id;
-					localStorage['user_address'] = data.address;		// 区别商家地址shop_address
 					localStorage['phone']        = data.phone;
 					localStorage['user_id']      = data.user_id;
 					redirect('#verify_suc');
 				} else {
 					// 如果是从“我的账户”页面登录
 					localStorage['shop_id']      = data.shop_id;
-					localStorage['community_id'] = data.community_id;
-					localStorage['user_address'] = data.address;		// 区别商家地址shop_address
 					localStorage['phone']        = data.phone;
 					localStorage['user_id']      = data.user_id;
 					// 跳转到用户验证成功页面
